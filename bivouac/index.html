@@ -1,11 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-
-    <head>
-        
-    </head>
     <title>Cylindre 3D Bivouac</title>
     <style>
         * {
@@ -25,32 +22,24 @@
             padding: 0;
             height: 100%;
             width: 100%;
-            background-color: #222;
-            /*background: linear-gradient(180deg, #060041,#164a75,#5aa9c9, #d3be90);
-    */
             background: linear-gradient(180deg, #000a41, #053c83, #000000);
-
         }
 
         #container {
             border: none;
             border-radius: 50px;
-            background-color: #eee;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
             height: 70%;
             width: 75%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0px 20px 0 20px;
-            background: rgba(255, 255, 255, 0.15);
-            /* Couche transparente */
-            backdrop-filter: blur(10px);
-            /* Effet de flou derrière */
-            -webkit-backdrop-filter: blur(10px);
-            /* Safari */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            /* Bord clair */
-            color: white;
+            padding: 0px 20px;
+            perspective: 1500px;
         }
 
         p,
@@ -65,8 +54,6 @@
             font-size: 60px;
             font-weight: 600;
             letter-spacing: 3px;
-            position: relative;
-            top: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -84,7 +71,6 @@
             border: 2px solid #ffffff;
             color: #ffffff;
             text-decoration: none;
-            font-family: sans-serif;
             border-radius: 7px;
             transition: all 0.2s ease;
         }
@@ -99,7 +85,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
             padding: 40px;
         }
 
@@ -120,7 +105,6 @@
             border-radius: 20px;
         }
 
-        /* Placement des 6 images sur un cylindre */
         #caroussel img:nth-child(1) {
             transform: rotateY(0deg) translateZ(300px);
         }
@@ -145,23 +129,6 @@
             transform: rotateY(300deg) translateZ(300px);
         }
 
-
-
-        /* Perspective appliquée au conteneur parent */
-        #container {
-            perspective: 1500px;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotateY(0deg);
-            }
-
-            to {
-                transform: rotateY(-360deg);
-            }
-        }
-
         #boutons {
             height: 15%;
             width: 100%;
@@ -183,7 +150,7 @@
 <body>
     <div id="container">
         <div id="titre">
-            <p>&nbsp&nbsp&nbsp&nbsp&nbsp Toi, moi <br> et un Bivouac ?</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toi, moi <br> et un Bivouac ?</p>
         </div>
         <div id="cont">
             <div id="caroussel">
@@ -201,74 +168,64 @@
         </div>
     </div>
 
-<script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-<script type="text/javascript">
-  // ====== ROTATION CYLINDRE ======
-  let angle = 0;
-  let autoRotate = true;
-  let startX = 0;
-  let currentX = 0;
-  const rotationSpeed = 0.2; // vitesse constante
-  let inactivityTimer;
+    <!-- SCRIPT ROTATION + EMAILJS -->
+    <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // ===== ROTATION CYLINDRE =====
+            let angle = 0;
+            let autoRotate = true;
+            let startX = 0;
+            let currentX = 0;
+            const rotationSpeed = 0.2;
+            let inactivityTimer;
+            const caroussel = document.getElementById("caroussel");
 
-  const caroussel = document.getElementById("caroussel");
+            function rotateAuto() {
+                if (autoRotate) {
+                    angle -= rotationSpeed;
+                    caroussel.style.transform = `rotateY(${angle}deg)`;
+                }
+                requestAnimationFrame(rotateAuto);
+            }
+            rotateAuto();
 
-  function rotateAuto() {
-    if (autoRotate) {
-      angle -= rotationSpeed;
-      caroussel.style.transform = `rotateY(${angle}deg)`;
-    }
-    requestAnimationFrame(rotateAuto);
-  }
-  rotateAuto();
+            caroussel.addEventListener("touchstart", e => {
+                autoRotate = false;
+                startX = e.touches[0].clientX;
+                clearTimeout(inactivityTimer);
+            }, { passive: true });
 
-  caroussel.addEventListener("touchstart", e => {
-    autoRotate = false;
-    startX = e.touches[0].clientX;
-    clearTimeout(inactivityTimer);
-  }, { passive: true });
+            caroussel.addEventListener("touchmove", e => {
+                currentX = e.touches[0].clientX;
+                let delta = currentX - startX;
+                startX = currentX;
+                angle += delta * 0.5;
+                caroussel.style.transform = `rotateY(${angle}deg)`;
+            }, { passive: true });
 
-  caroussel.addEventListener("touchmove", e => {
-    currentX = e.touches[0].clientX;
-    let delta = currentX - startX;
-    startX = currentX;
-    angle += delta * 0.5;
-    caroussel.style.transform = `rotateY(${angle}deg)`;
-  }, { passive: true });
+            caroussel.addEventListener("touchend", () => {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = setTimeout(() => autoRotate = true, 3000);
+            });
 
-  caroussel.addEventListener("touchend", () => {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-      autoRotate = true;
-    }, 3000);
-  });
+            // ===== EMAILJS =====
+            emailjs.init("YcldIq4KsFpNrKbXr");
 
-  // ====== EMAILJS ======
-  (function(){
-      emailjs.init("YcldIq4KsFpNrKbXr"); // Ta clé publique
-   })();
+            document.getElementById('yesbtn').addEventListener('click', function (e) {
+                e.preventDefault();
+                emailjs.send('service_hlha7xh', 'template_wtlslhf')
+                    .then(r => console.log('Mail YES envoyé !', r.status, r.text))
+                    .catch(err => console.error('Erreur YES :', err));
+            });
 
-   document.getElementById('yesbtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      emailjs.send('service_hlha7xh', 'template_wtlslhf')
-         .then(function(response) {
-            console.log('Mail envoyé !', response.status, response.text);
-         }, function(error) {
-            console.error('Erreur :', error);
-         });
-   });
-
-   document.getElementById('nobtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      emailjs.send('service_hlha7xh', 'template_nsy3vvt')
-         .then(function(response) {
-            console.log('Mail envoyé !', response.status, response.text);
-         }, function(error) {
-            console.error('Erreur :', error);
-         });
-   });
-</script>
-
+            document.getElementById('nobtn').addEventListener('click', function (e) {
+                e.preventDefault();
+                emailjs.send('service_hlha7xh', 'template_nsy3vvt')
+                    .then(r => console.log('Mail NO envoyé !', r.status, r.text))
+                    .catch(err => console.error('Erreur NO :', err));
+            });
+        });
+    </script>
 </body>
-
 </html>
