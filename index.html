@@ -50,7 +50,7 @@
             color: white;
         }
 
-        p,
+        #typewriter,
         #titre,
         #caroussel,
         #bouton {
@@ -58,21 +58,18 @@
             padding: 0;
         }
 
-        span{
+        span {
             font-size: 60px;
             font-weight: 600;
             letter-spacing: 3px;
-            position: absolute;
-            top: 40px;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
         }
-        p{
-            display: flex;
-            flex-direction: row;
-        }
+
+        
+
         #content {
             display: flex;
             flex-direction: column;
@@ -179,42 +176,51 @@
             align-items: center;
         }
 
+
+
+        #typewriter #text {
+            display: inline;
+            font-size: 60px;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
         #typewriter {
-    font-family: monospace;
-    white-space: pre;
-    display: inline-block;
-}
+            font-family: monospace;
+            white-space: pre;
+            display: inline-flex;
+            align-items: center;
+            font-size: 60px;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
 
-#typewriter #text {
-    display: inline;
-    font-size: 60px;
-    font-weight: 600;
-    letter-spacing: 3px;
-}
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            border-radius: 1px;
+            background-color: white;
+            animation: blink 0.7s steps(1) infinite;
+            vertical-align: middle;
+        }
 
-.cursor {
-    display: inline-block;
-    width: 10px;
-    border-radius: 1px;
-    background-color: white;
-    animation: blink 0.7s steps(1) infinite;
-    vertical-align: middle; /* <-- aligne avec le texte */
-}
 
-@keyframes blink {
-    50% { background-color: transparent; }
-}
+        @keyframes blink {
+            50% {
+                background-color: transparent;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="container">
         <div id="titre">
-            <p>
+
             <div id="typewriter">
                 <span id="text"></span><span class="cursor">|</span>
             </div>
-            </p>
+
         </div>
         <div id="cont">
             <div id="caroussel">
@@ -303,6 +309,7 @@
         ];
 
         const textEl = document.getElementById("text");
+        const cursorEl = document.querySelector(".cursor");
         let phraseIndex = 0;
         let charIndex = 0;
 
@@ -327,19 +334,12 @@
             }
         }
 
-        typeWriter();        
+        // Assurer que le curseur ne disparaisse jamais
+        cursorEl.style.display = "inline-block";
+
+        typeWriter();
+
     </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
