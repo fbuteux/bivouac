@@ -196,75 +196,79 @@
             </div>
         </div>
         <div id="boutons">
-            <a id="yesBtn" href="">YESSS !</a>
-            <a id="noBtn" href="">NON !</a>
+            <a id="yesbtn" href="#">YESSS !</a>
+            <a id="nobtn" href="#">NON !</a>
         </div>
     </div>
 
-    <script>
-        let angle = 0;
-        let autoRotate = true;
-        let startX = 0;
-        let currentX = 0;
-        const rotationSpeed = 0.2; // vitesse constante
-        let inactivityTimer;
+<script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+<script type="text/javascript">
+  // ====== ROTATION CYLINDRE ======
+  let angle = 0;
+  let autoRotate = true;
+  let startX = 0;
+  let currentX = 0;
+  const rotationSpeed = 0.2; // vitesse constante
+  let inactivityTimer;
 
-        const caroussel = document.getElementById("caroussel");
+  const caroussel = document.getElementById("caroussel");
 
-        // Rotation automatique à vitesse constante
-        function rotateAuto() {
-            if (autoRotate) {
-                angle -= rotationSpeed;
-                caroussel.style.transform = `rotateY(${angle}deg)`;
-            }
-            requestAnimationFrame(rotateAuto);
-        }
-        rotateAuto(); // Démarrage immédiat
+  function rotateAuto() {
+    if (autoRotate) {
+      angle -= rotationSpeed;
+      caroussel.style.transform = `rotateY(${angle}deg)`;
+    }
+    requestAnimationFrame(rotateAuto);
+  }
+  rotateAuto();
 
-        // Interaction tactile
-        caroussel.addEventListener("touchstart", e => {
-            autoRotate = false;
-            startX = e.touches[0].clientX;
-            clearTimeout(inactivityTimer);
-        }, { passive: true });
+  caroussel.addEventListener("touchstart", e => {
+    autoRotate = false;
+    startX = e.touches[0].clientX;
+    clearTimeout(inactivityTimer);
+  }, { passive: true });
 
-        caroussel.addEventListener("touchmove", e => {
-            currentX = e.touches[0].clientX;
-            let delta = currentX - startX;
-            startX = currentX;
-            angle += delta * 0.5;
-            caroussel.style.transform = `rotateY(${angle}deg)`;
-        }, { passive: true });
+  caroussel.addEventListener("touchmove", e => {
+    currentX = e.touches[0].clientX;
+    let delta = currentX - startX;
+    startX = currentX;
+    angle += delta * 0.5;
+    caroussel.style.transform = `rotateY(${angle}deg)`;
+  }, { passive: true });
 
-        caroussel.addEventListener("touchend", () => {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(() => {
-                autoRotate = true; // Reprise à la vitesse initiale
-            }, 0);
-        });
-        function sendMail(to, subject, body) {
-            window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
+  caroussel.addEventListener("touchend", () => {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      autoRotate = true;
+    }, 3000);
+  });
 
-        document.getElementById('yesBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            sendMail(
-                'florent.buteux.fb@gmail.com',
-                'Oui pour le bivouac',
-                'Hello Florent,\nJe suis partant(e) pour le bivouac !'
-            );
-        });
+  // ====== EMAILJS ======
+  (function(){
+      emailjs.init("YcldIq4KsFpNrKbXr"); // Ta clé publique
+   })();
 
-        document.getElementById('noBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            sendMail(
-                'florent.buteux.fb@gmail.com',
-                'Non pour le bivouac',
-                'Salut Florent,\nJe ne pourrai malheureusement pas venir au bivouac.'
-            );
-        });
-    </script>
+   document.getElementById('yesbtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      emailjs.send('service_hlha7xh', 'template_wtlslhf')
+         .then(function(response) {
+            console.log('Mail envoyé !', response.status, response.text);
+         }, function(error) {
+            console.error('Erreur :', error);
+         });
+   });
+
+   document.getElementById('nobtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      emailjs.send('service_hlha7xh', 'template_nsy3vvt')
+         .then(function(response) {
+            console.log('Mail envoyé !', response.status, response.text);
+         }, function(error) {
+            console.error('Erreur :', error);
+         });
+   });
+</script>
+
 </body>
-
 
 </html>
