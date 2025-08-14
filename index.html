@@ -207,7 +207,7 @@
             let autoRotate = true;
             let startX = 0;
             let currentX = 0;
-            const rotationSpeed = 0.2;
+            const rotationSpeed = 0.5;
             let inactivityTimer;
             const caroussel = document.getElementById("caroussel");
 
@@ -236,7 +236,7 @@
 
             caroussel.addEventListener("touchend", () => {
                 clearTimeout(inactivityTimer);
-                inactivityTimer = setTimeout(() => autoRotate = true, 3000);
+                inactivityTimer = setTimeout(() => autoRotate = true, 0);
             });
 
             // ===== EMAILJS =====
@@ -266,3 +266,4 @@
 </body>
 
 </html>
+
