@@ -180,26 +180,30 @@
         }
 
         #typewriter {
-            font-family: monospace;
-            white-space: pre;
-            display: inline-block;
-        }
+    font-family: monospace;
+    white-space: pre;
+    display: inline-block;
+}
 
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            border-radius: 1px;
-            color: transparent;
-            background-color: white;
-            animation: blink 0.7s steps(1) infinite;
-            vertical-align: bottom;
-        }
+#typewriter #text {
+    display: inline;
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
 
-        @keyframes blink {
-            50% {
-                background-color: transparent;
-            }
-        }
+.cursor {
+    display: inline-block;
+    width: 10px;
+    border-radius: 1px;
+    background-color: white;
+    animation: blink 0.7s steps(1) infinite;
+    vertical-align: middle; /* <-- aligne avec le texte */
+}
+
+@keyframes blink {
+    50% { background-color: transparent; }
+}
     </style>
 </head>
 
@@ -208,7 +212,7 @@
         <div id="titre">
             <p>
             <div id="typewriter">
-                <span id="text"></span><span class="cursor">.</span>
+                <span id="text"></span><span class="cursor">|</span>
             </div>
             </p>
         </div>
@@ -328,6 +332,7 @@
 </body>
 
 </html>
+
 
 
 
