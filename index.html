@@ -59,11 +59,11 @@
         }
 
         p {
-            font-size: 70px;
+            font-size: 60px;
             font-weight: 600;
             letter-spacing: 3px;
             position: relative;
-            top: 60px;
+            top: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -174,13 +174,39 @@
             justify-content: center;
             align-items: center;
         }
+
+        #typewriter {
+            font-family: monospace;
+            white-space: pre;
+            display: inline-block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            border-radius: 1px;
+            color: transparent;
+            background-color: white;
+            animation: blink 0.7s steps(1) infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            50% {
+                background-color: transparent;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="container">
         <div id="titre">
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toi, moi <br> et un Bivouac ?</p>
+            <p>
+            <div id="typewriter">
+                <span id="text"></span><span class="cursor">.</span>
+            </div>
+            </p>
         </div>
         <div id="cont">
             <div id="caroussel">
@@ -207,7 +233,7 @@
             let autoRotate = true;
             let startX = 0;
             let currentX = 0;
-            const rotationSpeed = 0.5;
+            const rotationSpeed = 0.2;
             let inactivityTimer;
             const caroussel = document.getElementById("caroussel");
 
@@ -236,7 +262,7 @@
 
             caroussel.addEventListener("touchend", () => {
                 clearTimeout(inactivityTimer);
-                inactivityTimer = setTimeout(() => autoRotate = true, 0);
+                inactivityTimer = setTimeout(() => autoRotate = true, 3000);
             });
 
             // ===== EMAILJS =====
@@ -246,7 +272,7 @@
                 e.preventDefault();
                 emailjs.send('service_hlha7xh', 'template_wtlslhf')
                     .then(function (response) {
-                        alert('Haha, Hate de repartir avec toi ma belle ;)');
+                        alert('Hate de repartir avec toi ma belle ;)');
                     }, function (error) {
                         alert('Erreur : ' + error);
                     });
@@ -256,16 +282,45 @@
                 e.preventDefault();
                 emailjs.send('service_hlha7xh', 'template_nsy3vvt')
                     .then(function (response) {
-                        alert('hahaha ti a mangé du clown Camtar :)');
+                        alert('hahaha ti a mangé du clown Camtar ! ✔');
                     }, function (error) {
                         alert('Erreur : ' + error);
                     });
             });
         });
+        const phrases = [
+            "Bonjour ! Bienvenue sur mon site.",
+            "Découvrez nos projets personnels.",
+            "Amusez-vous à coder comme un pro !"
+        ];
+
+        const textEl = document.getElementById("text");
+        let phraseIndex = 0;
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < phrases[phraseIndex].length) {
+                textEl.textContent += phrases[phraseIndex][charIndex];
+                charIndex++;
+                setTimeout(typeWriter, 100 + Math.random() * 100);
+            } else {
+                setTimeout(deleteWriter, 1500);
+            }
+        }
+
+        function deleteWriter() {
+            if (charIndex > 0) {
+                textEl.textContent = textEl.textContent.slice(0, -1);
+                charIndex--;
+                setTimeout(deleteWriter, 50 + Math.random() * 50);
+            } else {
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(typeWriter, 500);
+            }
+        }
+
+        typeWriter();        
     </script>
 </body>
 
 </html>
-
-
-
