@@ -26,8 +26,8 @@
             background-color: #222;
             /*background: linear-gradient(180deg, #060041,#164a75,#5aa9c9, #d3be90);
     */
-            background: linear-gradient(180deg, #002741, #054a83, #000000);
-            overflow : hidden;
+            background: linear-gradient(180deg, #410036, #830559, #000000);
+            overflow: hidden;
         }
 
         #container {
@@ -62,7 +62,7 @@
         #text {
             font-size: 5px;
             font-weight: 200;
-            font-family: 'Roboto Flex',monospace;
+            font-family: 'Roboto Flex', monospace;
             letter-spacing: 3px;
             display: flex;
             flex-direction: row;
@@ -70,7 +70,7 @@
             justify-content: center;
         }
 
-        
+
 
         #content {
             display: flex;
@@ -119,48 +119,6 @@
             height: 500px;
             object-fit: cover;
             border-radius: 20px;
-        }
-
-        /* Placement des 6 images sur un cylindre */
-        #caroussel img:nth-child(1) {
-            transform: rotateY(0deg) translateZ(300px);
-        }
-
-        #caroussel img:nth-child(2) {
-            transform: rotateY(60deg) translateZ(300px);
-        }
-
-        #caroussel img:nth-child(3) {
-            transform: rotateY(120deg) translateZ(300px);
-        }
-
-        #caroussel img:nth-child(4) {
-            transform: rotateY(180deg) translateZ(300px);
-        }
-
-        #caroussel img:nth-child(5) {
-            transform: rotateY(240deg) translateZ(300px);
-        }
-
-        #caroussel img:nth-child(6) {
-            transform: rotateY(300deg) translateZ(300px);
-        }
-
-
-
-        /* Perspective appliquée au conteneur parent */
-        #container {
-            perspective: 1500px;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotateY(0deg);
-            }
-
-            to {
-                transform: rotateY(-360deg);
-            }
         }
 
         #boutons {
@@ -213,6 +171,49 @@
                 background-color: transparent;
             }
         }
+
+        #cont {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 40px auto;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        #caroussel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transition: transform 4s ease-out;
+        }
+
+        #caroussel img {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            transform-origin: 50% 200px;
+            /* point autour duquel ça tourne */
+            left: 50%;
+            top: 50%;
+            margin: -50px;
+            border-radius: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #fleche {
+    position: absolute;
+    top: 350px; /* juste au-dessus de la roue */
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #eee; /* couleur de la flèche */
+    z-index: 10;
+    rotate: 180deg;
+}
+
     </style>
 </head>
 
@@ -225,90 +226,34 @@
             </div>
 
         </div>
+        <div id="fleche">
+                a
+            </div>
         <div id="cont">
+            
             <div id="caroussel">
-                <img src="1.jpg" alt="">
-                <img src="2.jpg" alt="">
-                <img src="3.jpg" alt="">
-                <img src="4.jpg" alt="">
-                <img src="5.jpg" alt="">
-                <img src="6.jpg" alt="">
+                <img id="ia" src="06.png" alt="">
+                <img id="ib" src="07.png" alt="">
+                <img id="ic" src="08.png" alt="">
+                <img id="id" src="09.png" alt="">
+                <img id="ie" src="10.png" alt="">
+                <img id="if" src="11.png" alt="">
             </div>
         </div>
         <div id="boutons">
-            <a id="yesbtn" href="#">YESSS !</a>
-            <a id="nobtn" href="#">NON !</a>
+            <a id="Lancer" href="#">Jouer</a>
         </div>
     </div>
 
     <!-- SCRIPT ROTATION + EMAILJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // ===== ROTATION CYLINDRE =====
-            let angle = 0;
-            let autoRotate = true;
-            let startX = 0;
-            let currentX = 0;
-            const rotationSpeed = 0.5;
-            let inactivityTimer;
-            const caroussel = document.getElementById("caroussel");
 
-            function rotateAuto() {
-                if (autoRotate) {
-                    angle -= rotationSpeed;
-                    caroussel.style.transform = `rotateY(${angle}deg)`;
-                }
-                requestAnimationFrame(rotateAuto);
-            }
-            rotateAuto();
+        // ===== ROTATION CYLINDRE =====
 
-            caroussel.addEventListener("touchstart", e => {
-                autoRotate = false;
-                startX = e.touches[0].clientX;
-                clearTimeout(inactivityTimer);
-            }, { passive: true });
-
-            caroussel.addEventListener("touchmove", e => {
-                currentX = e.touches[0].clientX;
-                let delta = currentX - startX;
-                startX = currentX;
-                angle += delta * 0.5;
-                caroussel.style.transform = `rotateY(${angle}deg)`;
-            }, { passive: true });
-
-            caroussel.addEventListener("touchend", () => {
-                clearTimeout(inactivityTimer);
-                inactivityTimer = setTimeout(() => autoRotate = true, 0);
-            });
-
-            // ===== EMAILJS =====
-            emailjs.init("YcldIq4KsFpNrKbXr");
-
-            document.getElementById('yesbtn').addEventListener('click', function (e) {
-                e.preventDefault();
-                emailjs.send('service_hlha7xh', 'template_wtlslhf')
-                    .then(function (response) {
-                        alert('Hate de repartir avec toi ma belle ;)');
-                    }, function (error) {
-                        alert('Erreur : ' + error);
-                    });
-            });
-
-            document.getElementById('nobtn').addEventListener('click', function (e) {
-                e.preventDefault();
-                emailjs.send('service_hlha7xh', 'template_nsy3vvt')
-                    .then(function (response) {
-                        alert('hahaha ti a mangé du clown Camtar ! 😂');
-                    }, function (error) {
-                        alert('Erreur : ' + error);
-                    });
-            });
-        });
         const phrases = [
-            "Toi",
-            "Moi",
-            "Un bivouac ? :)"
+            "Tu veux jouer ?",
+            "Saura tu assumer ?"
         ];
 
         const textEl = document.getElementById("text");
@@ -341,12 +286,32 @@
         cursorEl.style.display = "inline-block";
 
         typeWriter();
+        const images = document.querySelectorAll("#caroussel img");
+        const caroussel = document.getElementById("caroussel");
+        const bouton = document.getElementById("Lancer");
+
+        const total = images.length;
+        const angleParImage = 360 / total;
+
+        // Placer chaque image en cercle
+images.forEach((img, i) => {
+    const angle = i * angleParImage;
+    img.style.transform = `rotate(${angle}deg) translateY(-150px) rotate(-${angle}deg)`;
+});
+
+
+        let rotation = 0;
+
+        bouton.addEventListener("click", (e) => {
+            e.preventDefault();
+            // On ajoute un tour complet + un angle aléatoire
+            const tours = 3; // nombre de tours avant de s'arrêter
+            const randomAngle = Math.floor(Math.random() * 360);
+            rotation += tours * 360 + randomAngle;
+            caroussel.style.transform = `rotate(${rotation}deg)`;
+        });
 
     </script>
 </body>
 
 </html>
-
-
-
-
