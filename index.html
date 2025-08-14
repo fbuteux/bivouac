@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Cylindre 3D Bivouac</title>
     <style>
         * {
@@ -26,7 +27,6 @@
             /*background: linear-gradient(180deg, #060041,#164a75,#5aa9c9, #d3be90);
     */
             background: linear-gradient(180deg, #000a41, #053c83, #000000);
-            overflow: hidden;
 
         }
 
@@ -59,9 +59,10 @@
             padding: 0;
         }
 
-        span {
-            font-size: 80px;
-            font-weight: 600;
+        #text {
+            font-size: 5px;
+            font-weight: 200;
+            font-family: 'Roboto Flex',monospace;
             letter-spacing: 3px;
             display: flex;
             flex-direction: row;
@@ -80,18 +81,24 @@
         a {
             display: inline-block;
             padding: 15px 60px;
+            border: 2px solid #ffffff;
             color: #ffffff;
             text-decoration: none;
             font-family: sans-serif;
             border-radius: 7px;
             transition: all 0.2s ease;
             background: transparent;
+            /* Couche transparente */
+            backdrop-filter: blur(10px);
+            /* Effet de flou derrière */
+            -webkit-backdrop-filter: blur(10px);
+            /* Safari */
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            color: black;
+            background-color: #ffffff;
+            color: transparent;
         }
 
         #titre {
@@ -298,7 +305,7 @@
                 e.preventDefault();
                 emailjs.send('service_hlha7xh', 'template_nsy3vvt')
                     .then(function (response) {
-                        alert('hahaha ti a mangé du clown Camtar ! 😂');
+                        alert('hahaha ti a mangé du clown Camtar ! ✔');
                     }, function (error) {
                         alert('Erreur : ' + error);
                     });
@@ -345,7 +352,3 @@
 </body>
 
 </html>
-
-
-
-
