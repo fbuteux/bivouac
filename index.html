@@ -23,7 +23,7 @@
             padding: 0;
             height: 100vh;
             width: 100%;
-            background-color: #222;
+            background-color: #242424;
             /*background: linear-gradient(180deg, #060041,#164a75,#5aa9c9, #d3be90);
     */
             background: linear-gradient(180deg, #410036, #830559, #000000);
@@ -211,103 +211,11 @@
 </head>
 
 <body>
-    <div id="container">
-        <div id="titre">
 
-            <div id="typewriter">
-                <span id="text"></span><span class="cursor">|</span>
-            </div>
-
-        </div>
-        <div id="fleche">
-                &#128315;
-            </div>
-        <div id="cont">
-            
-            <div id="caroussel">
-                <img id="ia" src="06.png" alt="">
-                <img id="ib" src="07.png" alt="">
-                <img id="ic" src="08.png" alt="">
-                <img id="id" src="09.png" alt="">
-                <img id="ie" src="10.png" alt="">
-                <img id="if" src="11.png" alt="">
-            </div>
-        </div>
-        <div id="boutons">
-            <a id="Lancer" href="#">Jouer</a>
-        </div>
-    </div>
-
-    <!-- SCRIPT ROTATION + EMAILJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>
-
-        // ===== ROTATION CYLINDRE =====
-
-        const phrases = [
-            "Tu veux jouer ?",
-            "Sauras tu assumer ?"
-        ];
-
-        const textEl = document.getElementById("text");
-        const cursorEl = document.querySelector(".cursor");
-        let phraseIndex = 0;
-        let charIndex = 0;
-
-        function typeWriter() {
-            if (charIndex < phrases[phraseIndex].length) {
-                textEl.textContent += phrases[phraseIndex][charIndex];
-                charIndex++;
-                setTimeout(typeWriter, 100 + Math.random() * 100);
-            } else {
-                setTimeout(deleteWriter, 1500);
-            }
-        }
-
-        function deleteWriter() {
-            if (charIndex > 0) {
-                textEl.textContent = textEl.textContent.slice(0, -1);
-                charIndex--;
-                setTimeout(deleteWriter, 50 + Math.random() * 50);
-            } else {
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(typeWriter, 500);
-            }
-        }
-
-        // Assurer que le curseur ne disparaisse jamais
-        cursorEl.style.display = "inline-block";
-
-        typeWriter();
-        const images = document.querySelectorAll("#caroussel img");
-        const caroussel = document.getElementById("caroussel");
-        const bouton = document.getElementById("Lancer");
-
-        const total = images.length;
-        const angleParImage = 360 / total;
-
-        // Placer chaque image en cercle
-images.forEach((img, i) => {
-    const angle = i * angleParImage;
-    img.style.transform = `rotate(${angle}deg) translateY(-150px) rotate(-${angle}deg)`;
-});
-
-
-        let rotation = 0;
-
-        bouton.addEventListener("click", (e) => {
-            e.preventDefault();
-            // On ajoute un tour complet + un angle aléatoire
-            const tours = 3; // nombre de tours avant de s'arrêter
-            const randomAngle = Math.floor(Math.random() * 360);
-            rotation += tours * 360 + randomAngle;
-            caroussel.style.transform = `rotate(${rotation}deg)`;
-        });
-
-    </script>
 </body>
 
 </html>
+
 
 
 
