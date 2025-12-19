@@ -5,158 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadeau Surprise</title>
   <style>
+    /* ... (Gardez tout votre CSS précédent ici) ... */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      width: 100%; height: 100%; overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       background: radial-gradient(circle at top, #1a0033, #000);
     }
-
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    /* --- CADEAU RESPONSIVE --- */
-    .gift {
-      width: 220px;
-      height: 220px;
-      position: relative;
-      cursor: pointer;
-      z-index: 5;
-    }
-
-    @media (max-width: 480px) {
-      .gift { width: 180px; height: 180px; }
-    }
-
-    .box {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 80%;
-      background: linear-gradient(135deg, #ff3d7f, #ff0055);
-      border-radius: 0 0 16px 16px;
-      box-shadow: 0 20px 50px rgba(255, 0, 100, 0.5);
-      z-index: 1;
-    }
-
-    .lid {
-      position: absolute;
-      top: 5%;
-      width: 110%;
-      left: -5%;
-      height: 25%;
-      background: linear-gradient(135deg, #ff77aa, #ff2f6d);
-      border-radius: 12px;
-      z-index: 2;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
+    .container { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; }
+    .gift { width: 220px; height: 220px; position: relative; cursor: pointer; z-index: 5; }
+    @media (max-width: 480px) { .gift { width: 180px; height: 180px; } }
+    .box { position: absolute; bottom: 0; width: 100%; height: 80%; background: linear-gradient(135deg, #ff3d7f, #ff0055); border-radius: 0 0 16px 16px; box-shadow: 0 20px 50px rgba(255, 0, 100, 0.5); z-index: 1; }
+    .lid { position: absolute; top: 5%; width: 110%; left: -5%; height: 25%; background: linear-gradient(135deg, #ff77aa, #ff2f6d); border-radius: 12px; z-index: 2; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
     .ribbon { position: absolute; background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
     .ribbon.vertical { width: 12%; height: 100%; left: 50%; transform: translateX(-50%); z-index: 3; }
     .ribbon.horizontal { height: 12%; width: 100%; top: 45%; z-index: 3; }
-
-    .bow {
-      position: absolute;
-      top: -15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 45%;
-      height: 25%;
-      z-index: 10;
-    }
-    .bow-left, .bow-right {
-      position: absolute;
-      width: 60%;
-      height: 100%;
-      background: #fff;
-      border-radius: 50% 50% 0 50%;
-      transform: rotate(10deg);
-    }
+    .bow { position: absolute; top: -15%; left: 50%; transform: translateX(-50%); width: 45%; height: 25%; z-index: 10; }
+    .bow-left, .bow-right { position: absolute; width: 60%; height: 100%; background: #fff; border-radius: 50% 50% 0 50%; transform: rotate(10deg); }
     .bow-right { right: 0; border-radius: 50% 50% 50% 0; transform: rotate(-10deg); }
-    .bow-center {
-      position: absolute;
-      left: 50%;
-      top: 40%;
-      transform: translateX(-50%);
-      width: 30%;
-      height: 40%;
-      background: #eee;
-      border-radius: 4px;
-      z-index: 11;
-    }
-
-    .gift.opened .lid, .gift.opened .bow {
-      transform: translate(-50%, -200px) rotate(20deg) scale(0);
-      opacity: 0;
-      transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    }
+    .bow-center { position: absolute; left: 50%; top: 40%; transform: translateX(-50%); width: 30%; height: 40%; background: #eee; border-radius: 4px; z-index: 11; }
+    .gift.opened .lid, .gift.opened .bow { transform: translate(-50%, -200px) rotate(20deg) scale(0); opacity: 0; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
     .gift.opened .box { transform: scale(0); opacity: 0; transition: all 0.6s ease-in; }
-
-    /* --- COEURS --- */
-    .heart {
-      position: absolute;
-      background: #ff0055;
-      transform: rotate(45deg);
-      z-index: 1000;
-      pointer-events: none;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8), 5px 5px 20px rgba(0, 0, 0, 0.5);
-      filter: brightness(1.2);
-    }
-    .heart::before, .heart::after {
-      content: '';
-      width: 100%; height: 100%;
-      background: inherit;
-      border-radius: 50%;
-      position: absolute;
-    }
+    .heart { position: absolute; background: #ff0055; transform: rotate(45deg); z-index: 1000; pointer-events: none; box-shadow: 0 0 15px rgba(255, 0, 85, 0.8), 5px 5px 20px rgba(0, 0, 0, 0.5); filter: brightness(1.2); }
+    .heart::before, .heart::after { content: ''; width: 100%; height: 100%; background: inherit; border-radius: 50%; position: absolute; }
     .heart::before { top: -50%; left: 0; }
     .heart::after { left: -50%; top: 0; }
-
-    @keyframes flood {
-      0% { transform: translate(-50%, -50%) rotate(45deg) scale(0); opacity: 0; filter: blur(5px); }
-      30% { opacity: 1; filter: blur(0px); }
-      100% { transform: translate(var(--tx), var(--ty)) rotate(45deg) scale(var(--s)); opacity: 1; }
-    }
-
-    /* --- VIDÉO LARGEUR ÉCRAN + RATIO --- */
-    #video-wrapper {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1.5s ease;
-      background: black;
-    }
+    @keyframes flood { 0% { transform: translate(-50%, -50%) rotate(45deg) scale(0); opacity: 0; filter: blur(5px); } 30% { opacity: 1; filter: blur(0px); } 100% { transform: translate(var(--tx), var(--ty)) rotate(45deg) scale(var(--s)); opacity: 1; } }
+    #video-wrapper { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 1.5s ease; background: black; }
     #video-wrapper.show { opacity: 1; pointer-events: all; }
-    
-    video { 
-      width: 100%;       /* Prend toute la largeur de l'écran */
-      height: auto;      /* Ajuste la hauteur automatiquement selon le ratio */
-      max-height: 100vh; /* Ne dépasse jamais la hauteur de l'écran */
-      display: block;
-    }
-
-    .hint {
-      position: absolute;
-      bottom: 50px;
-      color: white;
-      font-size: 1.1rem;
-      text-align: center;
-      animation: pulse 2s infinite;
-      z-index: 1;
-    }
+    video { width: 100%; height: auto; max-height: 100vh; display: block; }
+    .hint { position: absolute; bottom: 50px; color: white; font-size: 1.1rem; text-align: center; animation: pulse 2s infinite; z-index: 1; }
     @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
   </style>
 </head>
@@ -179,7 +57,7 @@
   </div>
 
   <div id="video-wrapper">
-    <video id="video" src="1.mp4" playsinline controls></video>
+    <video id="video" src="1.mp4" playsinline muted controls></video>
   </div>
 
   <script>
@@ -200,12 +78,18 @@
 
       setTimeout(() => {
         wrapper.classList.add('show');
-        video.play();
+        
+        // Sur certains iOS, on doit appeler play() suite à une interaction.
+        // Comme le "click" sur le cadeau est une interaction humaine,
+        // cela devrait débloquer la vidéo.
+        video.play().catch(error => {
+          console.log("L'autoplay a été bloqué par le navigateur : ", error);
+        });
       }, 2500);
     });
 
     function floodWithHearts() {
-      const totalHearts = 160;
+      const totalHearts = 150;
       for (let i = 0; i < totalHearts; i++) {
         setTimeout(() => {
           const heart = document.createElement('div');
@@ -215,22 +99,14 @@
           heart.style.height = size + 'px';
           heart.style.left = '50%';
           heart.style.top = '50%';
-          
           const tx = (Math.random() - 0.5) * 180;
           const ty = (Math.random() - 0.5) * 180;
           const scale = Math.random() * 8 + 4;
-          
           heart.style.setProperty('--tx', `${tx}vw`);
           heart.style.setProperty('--ty', `${ty}vh`);
           heart.style.setProperty('--s', scale);
-
-          const duration = 1.2 + Math.random() * 1.8;
+          const duration = 1.2 + Math.random() * 1.5;
           heart.style.animation = `flood ${duration}s cubic-bezier(0.1, 0.4, 0.4, 1) forwards`;
-          
-          if(Math.random() > 0.8) {
-            heart.style.filter = "blur(2px) brightness(0.8)";
-          }
-
           document.body.appendChild(heart);
           setTimeout(() => heart.remove(), duration * 1000 + 500);
         }, i * 12); 
