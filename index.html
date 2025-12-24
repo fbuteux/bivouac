@@ -28,14 +28,20 @@
     .gift.opened .lid, .gift.opened .bow { transform: translate(-50%, -200px) rotate(20deg) scale(0); opacity: 0; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
     .gift.opened .box { transform: scale(0); opacity: 0; transition: all 0.6s ease-in; }
 
-    /* --- Cœurs --- */
-    .heart { position: absolute; background: #ff0055; transform: rotate(45deg); z-index: 1000; pointer-events: none; }
-    .heart::before, .heart::after { content: ''; width: 100%; height: 100%; background: inherit; border-radius: 50%; position: absolute; }
-    .heart::before { top: -50%; left: 0; }
-    .heart::after { left: -50%; top: 0; }
-    @keyframes flood { 
-        0% { transform: translate(-50%, -50%) rotate(45deg) scale(0); opacity: 0; } 
-        100% { transform: translate(var(--tx), var(--ty)) rotate(45deg) scale(var(--s)); opacity: 1; } 
+    /* --- Étoiles --- */
+    .star {
+      position: absolute;
+      background: #fff;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      z-index: 1000;
+      pointer-events: none;
+      box-shadow: 0 0 10px #fff;
+    }
+
+    @keyframes star-burst {
+      0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r)); opacity: 0; }
     }
 
     /* --- Galerie de Photos --- */
@@ -49,7 +55,7 @@
     
     .photo-container img { 
         max-width: 100%; max-height: 100%; object-fit: contain; 
-        display: none; /* Caché par défaut */
+        display: none;
     }
     .photo-container img.active { display: block; animation: fadeIn 0.5s ease; }
 
@@ -82,7 +88,7 @@
   </div>
 
   <div id="gallery-wrapper">
-    <div class="counter" id="counter">1 / 10</div>
+    <div class="counter" id="counter">1 / 11</div>
     <div class="photo-container" id="photo-container">
       <img src="01.png" class="active" alt="Photo 1">
       <img src="02.png" alt="Photo 2">
@@ -117,13 +123,16 @@
       opened = true;
       gift.classList.add('opened');
       document.querySelector('.hint').style.display = 'none';
-      floodWithHearts();
+      
+      // On déclenche les étoiles
+      createStarExplosion();
+      
       setTimeout(() => {
         wrapper.classList.add('show');
-      }, 2500);
+      }, 2000); // Transition vers la galerie
     });
 
-    // Navigation dans les photos
+    // Navigation
     function updateGallery(index) {
       photos.forEach(img => img.classList.remove('active'));
       photos[index].classList.add('active');
@@ -144,29 +153,43 @@
       }
     });
 
-    // Effet de cœurs
-    function floodWithHearts() {
-      const totalHearts = 30;
-      for (let i = 0; i < totalHearts; i++) {
-        setTimeout(() => {
-          const heart = document.createElement('div');
-          heart.className = 'heart';
-          const size = Math.random() * 30 + 15;
-          heart.style.width = size + 'px';
-          heart.style.height = size + 'px';
-          heart.style.left = '50%';
-          heart.style.top = '50%';
-          const tx = (Math.random() - 0.5) * 180;
-          const ty = (Math.random() - 0.5) * 180;
-          const scale = Math.random() * 6 + 3;
-          heart.style.setProperty('--tx', `${tx}vw`);
-          heart.style.setProperty('--ty', `${ty}vh`);
-          heart.style.setProperty('--s', scale);
-          const duration = 1.2 + Math.random() * 1.5;
-          heart.style.animation = `flood ${duration}s cubic-bezier(0.1, 0.4, 0.4, 1) forwards`;
-          document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), duration * 1000 + 500);
-        }, i * 15); 
+    // Fonction pour les étoiles
+    function createStarExplosion() {
+      const colors = ['#FFD700', '#FFF', '#FFAC33', '#FFE4B5']; // Or et blanc
+      const starCount = 60;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Taille et couleur aléatoire
+        const size = Math.random() * 15 + 10;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Position initiale au centre
+        star.style.left = '50%';
+        star.style.top = '50%';
+        
+        // Variables pour l'animation (trajectoire aléatoire)
+        const tx = (Math.random() - 0.5) * 200; // vers la gauche ou droite
+        const ty = (Math.random() - 0.5) * 200; // vers le haut ou bas
+        const rotate = Math.random() * 360;
+        const scale = Math.random() * 1.5 + 0.5;
+        
+        star.style.setProperty('--tx', `${tx}vw`);
+        star.style.setProperty('--ty', `${ty}vh`);
+        star.style.setProperty('--r', `${rotate}deg`);
+        star.style.setProperty('--s', scale);
+
+        const duration = 1.5 + Math.random() * 1;
+        star.style.animation = `star-burst ${duration}s ease-out forwards`;
+
+        document.body.appendChild(star);
+        
+        // Nettoyage
+        setTimeout(() => star.remove(), duration * 1000);
       }
     }
   </script>
