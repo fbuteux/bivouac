@@ -1,200 +1,221 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadeau Surprise</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%; height: 100%; overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #1a0033, #000);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bench Master - Focus</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --card: #1c1c1e;
+            --accent: #30d158; /* iOS Green */
+            --blue: #0a84ff; /* iOS Blue */
+            --red: #ff453a;
+            --text-dim: #8e8e93;
+        }
 
-    /* --- Styles du Cadeau --- */
-    .container { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; }
-    .gift { width: 180px; height: 180px; position: relative; cursor: pointer; z-index: 5; }
-    .box { position: absolute; bottom: 0; width: 100%; height: 80%; background: linear-gradient(135deg, #ff3d7f, #ff0055); border-radius: 0 0 16px 16px; box-shadow: 0 20px 50px rgba(255, 0, 100, 0.5); z-index: 1; }
-    .lid { position: absolute; top: 5%; width: 110%; left: -5%; height: 25%; background: linear-gradient(135deg, #ff77aa, #ff2f6d); border-radius: 12px; z-index: 2; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-    .ribbon { position: absolute; background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
-    .ribbon.vertical { width: 12%; height: 100%; left: 50%; transform: translateX(-50%); z-index: 3; }
-    .ribbon.horizontal { height: 12%; width: 100%; top: 45%; z-index: 3; }
-    .bow { position: absolute; top: -15%; left: 50%; transform: translateX(-50%); width: 45%; height: 25%; z-index: 10; }
-    .bow-left, .bow-right { position: absolute; width: 60%; height: 100%; background: #fff; border-radius: 50% 50% 0 50%; transform: rotate(10deg); }
-    .bow-right { right: 0; border-radius: 50% 50% 50% 0; transform: rotate(-10deg); }
-    .bow-center { position: absolute; left: 50%; top: 40%; transform: translateX(-50%); width: 30%; height: 40%; background: #eee; border-radius: 4px; z-index: 11; }
-    
-    .gift.opened .lid, .gift.opened .bow { transform: translate(-50%, -200px) rotate(20deg) scale(0); opacity: 0; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-    .gift.opened .box { transform: scale(0); opacity: 0; transition: all 0.6s ease-in; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            background-color: var(--bg);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    /* --- Étoiles --- */
-    .star {
-      position: absolute;
-      background: #fff;
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      z-index: 1000;
-      pointer-events: none;
-      box-shadow: 0 0 10px #fff;
-    }
+        /* En-tête Date */
+        .header-date {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    @keyframes star-burst {
-      0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r)); opacity: 0; }
-    }
+        .today-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
 
-    /* --- Galerie de Photos --- */
-    #gallery-wrapper { 
-        position: fixed; inset: 0; z-index: 2000; opacity: 0; pointer-events: none; 
-        transition: opacity 1.5s ease; background: black; display: flex; align-items: center; justify-content: center;
-    }
-    #gallery-wrapper.show { opacity: 1; pointer-events: all; }
-    
-    .photo-container { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
-    
-    .photo-container img { 
-        max-width: 100%; max-height: 100%; object-fit: contain; 
-        display: none;
-    }
-    .photo-container img.active { display: block; animation: fadeIn 0.5s ease; }
+        .current-date {
+            font-size: 32px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Carte de Séance */
+        .session-card {
+            background: var(--card);
+            width: 100%;
+            max-width: 350px;
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
 
-    /* Zones de clic */
-    .nav-zone { position: absolute; top: 0; height: 100%; width: 50%; z-index: 2010; }
-    .nav-left { left: 0; }
-    .nav-right { right: 0; }
+        .goal-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3a3a3c;
+        }
 
-    /* Compteur */
-    .counter { 
-        position: absolute; top: 20px; width: 100%; text-align: center; 
-        color: white; font-size: 14px; z-index: 2020; opacity: 0.6; letter-spacing: 2px;
-    }
+        .goal-text { font-size: 14px; color: var(--text-dim); font-weight: 500; }
+        .goal-val { font-size: 20px; font-weight: 700; color: var(--blue); }
 
-    .hint { position: absolute; bottom: 50px; color: white; font-size: 1.1rem; text-align: center; animation: pulse 2s infinite; z-index: 1; }
-    @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-  </style>
+        /* Contenu Séance */
+        .workout-list { display: flex; flex-direction: column; gap: 20px; }
+
+        .ex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ex-info { display: flex; flex-direction: column; }
+        .ex-name { font-size: 17px; font-weight: 600; }
+        .ex-reps { font-size: 14px; color: var(--text-dim); margin-top: 2px; }
+
+        .ex-weight {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 15px;
+            border-radius: 12px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* État Repos */
+        .rest-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .rest-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .next-session {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="gift" id="gift">
-      <div class="bow"><div class="bow-left"></div><div class="bow-right"></div><div class="bow-center"></div></div>
-      <div class="lid"></div>
-      <div class="box"><div class="ribbon vertical"></div><div class="ribbon horizontal"></div></div>
+    <div class="header-date">
+        <div class="today-label" id="day-label">Aujourd'hui</div>
+        <div class="current-date" id="display-date">--/--</div>
     </div>
-    <div class="hint">Clique sur le cadeau 🎁</div>
-  </div>
 
-  <div id="gallery-wrapper">
-    <div class="counter" id="counter">1 / 11</div>
-    <div class="photo-container" id="photo-container">
-      <img src="01.png" class="active" alt="Photo 1">
-      <img src="02.png" alt="Photo 2">
-      <img src="12.png" alt="Photo 3">
-      <img src="03.png" alt="Photo 3">
-      <img src="04.png" alt="Photo 4">
-      <img src="05.png" alt="Photo 5">
-      <img src="06.png" alt="Photo 6">
-      <img src="07.png" alt="Photo 7">
-      <img src="08.png" alt="Photo 8">
-      <img src="09.png" alt="Photo 9">
-      <img src="10.png" alt="Photo 10">
-      <img src="11.png" alt="Photo 11">
-    </div>
-    <div class="nav-zone nav-left" id="prev"></div>
-    <div class="nav-zone nav-right" id="next"></div>
-  </div>
+    <div id="app" class="session-card">
+        </div>
 
-  <script>
-    const gift = document.getElementById('gift');
-    const wrapper = document.getElementById('gallery-wrapper');
-    const photos = document.querySelectorAll('.photo-container img');
-    const counter = document.getElementById('counter');
-    const btnNext = document.getElementById('next');
-    const btnPrev = document.getElementById('prev');
+<script>
+    const START_DATE = new Date('2026-04-23'); // Date de référence
+    const BASE_GOAL = 120;
+    
+    const program = [
+        { day: "Jeudi", workouts: [{t: "Classique", r: "1x3", p: 80}, {t: "Classique", r: "1x3", p: 82}, {t: "Classique", r: "1x3", p: 84}, {t: "Serrée", r: "1x8", p: 70}] },
+        { day: "Vendredi", workouts: [{t: "2ct Pause", r: "1x5", p: 65}, {t: "2ct Pause", r: "1x5", p: 70}, {t: "2ct Pause", r: "1x5", p: 75}, {t: "Classique", r: "1x7", p: 65}] },
+        { day: "Samedi", workouts: [{t: "Larsen", r: "1x7", p: 60}, {t: "Larsen", r: "2x7", p: 65}, {t: "Larsen", r: "1x7", p: 62}] },
+        { day: "Dimanche", workouts: [{t: "Classique", r: "1x1", p: 80}, {t: "Classique", r: "1x1", p: 85}, {t: "Classique", r: "1x1", p: 89}, {t: "Classique", r: "1x7", p: 65}] }
+    ];
 
-    let currentIndex = 0;
-    let opened = false;
+    function getWorkoutData(targetDate) {
+        const diffTime = targetDate - START_DATE;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays < 0) return null;
 
-    // Ouverture du cadeau
-    gift.addEventListener('click', () => {
-      if (opened) return;
-      opened = true;
-      gift.classList.add('opened');
-      document.querySelector('.hint').style.display = 'none';
-      
-      // On déclenche les étoiles
-      createStarExplosion();
-      
-      setTimeout(() => {
-        wrapper.classList.add('show');
-      }, 2000); // Transition vers la galerie
-    });
-
-    // Navigation
-    function updateGallery(index) {
-      photos.forEach(img => img.classList.remove('active'));
-      photos[index].classList.add('active');
-      counter.innerText = `${index + 1} / ${photos.length}`;
+        const currentWeekIndex = Math.floor(diffDays / 7);
+        const cycleIndex = Math.floor(currentWeekIndex / 5);
+        const weekInCycle = (currentWeekIndex % 5) + 1; // 1 à 5
+        const currentGoal = BASE_GOAL + (cycleIndex * 2.5);
+        
+        const daysFrench = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        const dayName = daysFrench[targetDate.getDay()];
+        
+        // On cherche si le jour actuel est dans le programme
+        const session = program.find(p => p.day === dayName);
+        
+        return {
+            session,
+            week: weekInCycle,
+            goal: currentGoal,
+            dayName
+        };
     }
 
-    btnNext.addEventListener('click', () => {
-      if (currentIndex < photos.length - 1) {
-        currentIndex++;
-        updateGallery(currentIndex);
-      }
-    });
-
-    btnPrev.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateGallery(currentIndex);
-      }
-    });
-
-    // Fonction pour les étoiles
-    function createStarExplosion() {
-      const colors = ['#FFD700', '#FFF', '#FFAC33', '#FFE4B5']; // Or et blanc
-      const starCount = 60;
-
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        
-        // Taille et couleur aléatoire
-        const size = Math.random() * 15 + 10;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        // Position initiale au centre
-        star.style.left = '50%';
-        star.style.top = '50%';
-        
-        // Variables pour l'animation (trajectoire aléatoire)
-        const tx = (Math.random() - 0.5) * 200; // vers la gauche ou droite
-        const ty = (Math.random() - 0.5) * 200; // vers le haut ou bas
-        const rotate = Math.random() * 360;
-        const scale = Math.random() * 1.5 + 0.5;
-        
-        star.style.setProperty('--tx', `${tx}vw`);
-        star.style.setProperty('--ty', `${ty}vh`);
-        star.style.setProperty('--r', `${rotate}deg`);
-        star.style.setProperty('--s', scale);
-
-        const duration = 1.5 + Math.random() * 1;
-        star.style.animation = `star-burst ${duration}s ease-out forwards`;
-
-        document.body.appendChild(star);
-        
-        // Nettoyage
-        setTimeout(() => star.remove(), duration * 1000);
-      }
+    function findNextSession(startDate) {
+        let next = new Date(startDate);
+        for(let i = 1; i <= 7; i++) {
+            next.setDate(next.getDate() + 1);
+            const check = program.find(p => p.day === ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"][next.getDay()]);
+            if (check) return next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
     }
-  </script>
+
+    function render() {
+        const now = new Date(); // Utilise la date réelle du système
+        const data = getWorkoutData(now);
+        const app = document.getElementById('app');
+        
+        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+
+        if (!data || !data.session) {
+            app.innerHTML = `
+                <div class="rest-state">
+                    <span class="rest-icon">🧘‍♂️</span>
+                    <div style="font-size: 24px; font-weight: 700;">Repos</div>
+                    <div class="next-session">Prochaine séance : <br>${findNextSession(now)}</div>
+                </div>
+            `;
+            return;
+        }
+
+        let html = `
+            <div class="goal-info">
+                <div class="goal-text">Semaine ${data.week} • Cycle Objective</div>
+                <div class="goal-val">${data.goal} kg</div>
+            </div>
+            <div class="workout-list">
+        `;
+
+        data.session.workouts.forEach(w => {
+            const weight = Math.ceil((data.goal * w.p / 100) / 2.5) * 2.5;
+            html += `
+                <div class="ex-row">
+                    <div class="ex-info">
+                        <span class="ex-name">${w.t}</span>
+                        <span class="ex-reps">${w.r} à ${w.p}%</span>
+                    </div>
+                    <div class="ex-weight">${weight}</div>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+        app.innerHTML = html;
+    }
+
+    render();
+</script>
+
 </body>
 </html>
-
-
