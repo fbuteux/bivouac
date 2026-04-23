@@ -102,8 +102,39 @@
         }
 
         .goal-text { font-size: 14px; color: var(--text-dim); font-weight: 500; }
-        .goal-val { font-size: 20px; font-weight: 700; color: var(--blue); }
-        .back .goal-val { color: var(--orange); }
+.goal-val {
+    font-size: 24px; /* Un peu plus grand pour mieux voir l'effet */
+    font-weight: 800;
+    
+    /* Dégradé Bleu vers Violet */
+    background: linear-gradient(135deg, #0a84ff, #bf5af2, #5e5ce6, #0a84ff);
+    background-size: 300% 300%;
+    
+    /* Application du dégradé au texte */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    
+    /* Animation du dégradé */
+    animation: glowGradient 4s ease infinite;
+    
+    /* Effet de lueur (glow) subtil */
+    filter: drop-shadow(0 0 8px rgba(191, 90, 242, 0.3));
+}
+
+@keyframes glowGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+        
 
         /* Contenu Séance */
         .workout-list { display: flex; flex-direction: column; gap: 20px; }
