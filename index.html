@@ -3,172 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Bench Master - iPhone 12</title>
+    <title>Bench Master - Focus</title>
     <style>
         :root {
             --bg: #000000;
             --card: #1c1c1e;
-            --accent: #30d158;
-            --blue: #0a84ff;
+            --accent: #30d158; /* iOS Green */
+            --blue: #0a84ff; /* iOS Blue */
+            --red: #ff453a;
             --text-dim: #8e8e93;
-            /* Support pour l'encoche (notch) de l'iPhone 12 */
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
             background-color: var(--bg);
             color: white;
-            margin: 0;
-            padding: calc(var(--safe-top) + 20px) 20px calc(var(--safe-bottom) + 20px) 20px;
+            margin: 20px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            max-height: 100vh;
+            max-width: 100vw;
         }
 
-        /* En-tête Date fixe en haut */
-        header {
-            text-align: left;
+        /* En-tête Date */
+        .header-date {
+            text-align: center;
             margin-bottom: 30px;
-            padding-left: 5px;
         }
 
         .today-label {
             color: var(--accent);
             text-transform: uppercase;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .current-date {
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 800;
-            margin-top: 2px;
-            letter-spacing: -0.5px;
+            margin-top: 5px;
         }
 
-        /* Carte Session - Largeur optimisée pour iPhone 12 */
+        /* Carte de Séance */
         .session-card {
             background: var(--card);
             width: 100%;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 0.5px solid rgba(255,255,255,0.1);
-            animation: cardAppear 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            max-width: 350px;
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
         }
 
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .goal-bar {
+        .goal-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3a3a3c;
         }
 
-        .week-tag {
-            background: rgba(10, 132, 255, 0.15);
-            color: var(--blue);
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+        .goal-text { font-size: 14px; color: var(--text-dim); font-weight: 500; }
+        .goal-val { font-size: 20px; font-weight: 700; color: var(--blue); }
 
-        .goal-val {
-            font-size: 17px;
-            font-weight: 600;
-        }
-
-        /* Liste des exercices - Espacement vertical pour usage tactile */
-        .workout-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* Contenu Séance */
+        .workout-list { display: flex; flex-direction: column; gap: 20px; }
 
         .ex-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.03);
-            padding: 16px;
-            border-radius: 16px;
         }
 
-        .ex-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .ex-name {
-            font-size: 17px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-        .ex-reps {
-            font-size: 14px;
-            color: var(--text-dim);
-        }
+        .ex-info { display: flex; flex-direction: column; }
+        .ex-name { font-size: 17px; font-weight: 600; }
+        .ex-reps { font-size: 14px; color: var(--text-dim); margin-top: 2px; }
 
         .ex-weight {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--blue);
+            color: white;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 15px;
+            border-radius: 12px;
+            min-width: 80px;
+            text-align: center;
         }
 
         /* État Repos */
-        .rest-box {
+        .rest-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 0;
         }
 
         .rest-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(48, 209, 88, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
         }
 
-        .next-info {
-            color: var(--text-dim);
-            font-size: 15px;
-            margin-top: 10px;
-            line-height: 1.4;
+        .next-session {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
         }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="today-label">Séance du jour</div>
-        <div class="current-date" id="display-date">-- --</div>
-    </header>
+    <div class="header-date">
+        <div class="today-label" id="day-label">Aujourd'hui</div>
+        <div class="current-date" id="display-date">--/--</div>
+    </div>
 
-    <main id="app">
-        </main>
+    <div id="app" class="session-card">
+        </div>
 
 <script>
-    // Configuration en dur selon tes critères
-    const START_DATE = new Date('2026-04-23');
+    const START_DATE = new Date('2026-04-23'); // Date de référence
     const BASE_GOAL = 120;
     
     const program = [
@@ -178,70 +138,80 @@
         { day: "Dimanche", workouts: [{t: "Classique", r: "1x1", p: 80}, {t: "Classique", r: "1x1", p: 85}, {t: "Classique", r: "1x1", p: 89}, {t: "Classique", r: "1x7", p: 65}] }
     ];
 
-    function render() {
-        const now = new Date();
-        const displayDate = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
-        document.getElementById('display-date').innerText = displayDate;
+    function getWorkoutData(targetDate) {
+        const diffTime = targetDate - START_DATE;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays < 0) return null;
 
-        const diffDays = Math.floor((now - START_DATE) / (1000 * 60 * 60 * 24));
-        const weekIndex = Math.floor(diffDays / 7);
-        const cycleIndex = Math.floor(weekIndex / 5);
+        const currentWeekIndex = Math.floor(diffDays / 7);
+        const cycleIndex = Math.floor(currentWeekIndex / 5);
+        const weekInCycle = (currentWeekIndex % 5) + 1; // 1 à 5
         const currentGoal = BASE_GOAL + (cycleIndex * 2.5);
-        const weekInCycle = (weekIndex % 5) + 1;
+        
+        const daysFrench = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        const dayName = daysFrench[targetDate.getDay()];
+        
+        // On cherche si le jour actuel est dans le programme
+        const session = program.find(p => p.day === dayName);
+        
+        return {
+            session,
+            week: weekInCycle,
+            goal: currentGoal,
+            dayName
+        };
+    }
 
-        const dayName = now.toLocaleDateString('fr-FR', { weekday: 'long' });
-        const capitalizedDay = dayName.charAt(0).toUpperCase() + dayName.slice(1);
-        const session = program.find(p => p.day === capitalizedDay);
+    function findNextSession(startDate) {
+        let next = new Date(startDate);
+        for(let i = 1; i <= 7; i++) {
+            next.setDate(next.getDate() + 1);
+            const check = program.find(p => p.day === ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"][next.getDay()]);
+            if (check) return next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+    }
 
+    function render() {
+        const now = new Date(); // Utilise la date réelle du système
+        const data = getWorkoutData(now);
         const app = document.getElementById('app');
+        
+        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 
-        if (diffDays < 0 || !session) {
-            // Trouver la prochaine séance
-            let next = new Date(now);
-            let nextStr = "";
-            for(let i=1; i<=7; i++) {
-                next.setDate(next.getDate() + 1);
-                let d = next.toLocaleDateString('fr-FR', { weekday: 'long' });
-                if(program.find(p => p.day === d.charAt(0).toUpperCase() + d.slice(1))) {
-                    nextStr = next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
-                    break;
-                }
-            }
-
+        if (!data || !data.session) {
             app.innerHTML = `
-                <div class="session-card">
-                    <div class="rest-box">
-                        <div class="rest-icon">🧘‍♂️</div>
-                        <div style="font-size: 22px; font-weight: 700;">Repos</div>
-                        <div class="next-info">Prochaine séance prévue le<br><strong>${nextStr}</strong></div>
-                    </div>
-                </div>`;
+                <div class="rest-state">
+                    <span class="rest-icon">🧘‍♂️</span>
+                    <div style="font-size: 24px; font-weight: 700;">Repos</div>
+                    <div class="next-session">Prochaine séance : <br>${findNextSession(now)}</div>
+                </div>
+            `;
             return;
         }
 
         let html = `
-            <div class="session-card">
-                <div class="goal-bar">
-                    <span class="week-tag">Semaine ${weekInCycle}</span>
-                    <span class="goal-val">${currentGoal} kg</span>
-                </div>
-                <div class="workout-list">
+            <div class="goal-info">
+                <div class="goal-text">Semaine ${data.week} • Cycle Objective</div>
+                <div class="goal-val">${data.goal} kg</div>
+            </div>
+            <div class="workout-list">
         `;
 
-        session.workouts.forEach(w => {
-            const weight = Math.ceil((currentGoal * w.p / 100) / 2.5) * 2.5;
+        data.session.workouts.forEach(w => {
+            const weight = Math.ceil((data.goal * w.p / 100) / 2.5) * 2.5;
             html += `
                 <div class="ex-row">
                     <div class="ex-info">
                         <span class="ex-name">${w.t}</span>
-                        <span class="ex-reps">${w.r} @ ${w.p}%</span>
+                        <span class="ex-reps">${w.r} à ${w.p}%</span>
                     </div>
-                    <div class="ex-weight">${weight}kg</div>
+                    <div class="ex-weight">${weight}</div>
                 </div>
             `;
         });
 
-        html += `</div></div>`;
+        html += `</div>`;
         app.innerHTML = html;
     }
 
