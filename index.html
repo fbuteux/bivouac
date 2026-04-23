@@ -10,6 +10,7 @@
             --card: #1c1c1e;
             --accent: #30d158; /* iOS Green */
             --blue: #0a84ff; /* iOS Blue */
+            --orange: #ff9f0a; /* iOS Orange - pour le verso */
             --red: #ff453a;
             --text-dim: #8e8e93;
         }
@@ -48,16 +49,47 @@
             margin-top: 5px;
         }
 
+        /* Conteneur Flip */
+        .flip-container {
+            width: 100%;
+            max-width: 350px;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+
+        .flipper {
+            position: relative;
+            width: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-container.flipped .flipper {
+            transform: rotateY(180deg);
+        }
+
         /* Carte de Séance */
         .session-card {
             background: var(--card);
             width: 100%;
-            max-width: 350px;
             border-radius: 30px;
             padding: 25px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            box-sizing: border-box;
+        }
+
+        .front {
+            position: relative;
+        }
+
+        .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg);
         }
 
         .goal-info {
@@ -71,6 +103,7 @@
 
         .goal-text { font-size: 14px; color: var(--text-dim); font-weight: 500; }
         .goal-val { font-size: 20px; font-weight: 700; color: var(--blue); }
+        .back .goal-val { color: var(--orange); }
 
         /* Contenu Séance */
         .workout-list { display: flex; flex-direction: column; gap: 20px; }
@@ -124,47 +157,44 @@
         <div class="current-date" id="display-date">--/--</div>
     </div>
 
-    <div id="app" class="session-card">
+    <div id="flipContainer" class="flip-container">
+        <div class="flipper">
+            <div id="app" class="session-card front"></div>
+            <div id="appBack" class="session-card back"></div>
         </div>
+    </div>
 
 <script>
     const START_DATE = new Date('2026-04-02'); // Date de référence (Jeudi = début S1)
     const BASE_GOAL = 120;
+    const ALT_GOAL = 37.5; // Objectif alternatif (verso)
 
     // Programme sur 5 semaines, chaque semaine a ses propres % et reps
-    // S1-S4 : progression ; S5 : deload (récupération après test max S4)
     const program = {
-        // ========== SEMAINE 1 ==========
         1: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
             "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 80}, {t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",    r: "1x7", p: 65}]
         },
-        // ========== SEMAINE 2 ==========
         2: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
             "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",    r: "1x7", p: 65}]
         },
-        // ========== SEMAINE 3 ==========
         3: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Classique",   r: "1x3", p: 87}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
             "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",    r: "1x7", p: 65}]
         },
-        // ========== SEMAINE 4 (PIC - TEST MAX) ==========
         4: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 75}, {t: "Classique",   r: "1x3", p: 77}, {t: "Classique",   r: "1x3", p: 80}, {t: "Large/Serrée", r: "1x8", p: 67}, {t: "Large/Serrée", r: "1x8", p: 63}],
             "Vendredi": [{t: "2ct Pause",   r: "1x4", p: 65}, {t: "2ct Pause",   r: "1x4", p: 70}, {t: "2ct Pause",   r: "1x4", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
             "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "1x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 90}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",   r: "1x1", p: 100}, {t: "Classique",    r: "1x7", p: 65}]
         },
-        // ========== SEMAINE 5 (DELOAD - RÉCUPÉRATION) ==========
-        // Volume et intensité réduits après le test max de la S4.
-        // Objectif : récupérer, pas progresser. ~60-70% avec moins de séries.
         5: {
             "Jeudi":    [{t: "Classique",   r: "1x5", p: 60}, {t: "Classique",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 70}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 60}, {t: "2ct Pause",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 60}],
@@ -183,12 +213,10 @@
 
         const currentWeekIndex = Math.floor(diffDays / 7);
         const cycleIndex = Math.floor(currentWeekIndex / 5);
-        const weekInCycle = (currentWeekIndex % 5) + 1; // 1 à 5
+        const weekInCycle = (currentWeekIndex % 5) + 1;
         const currentGoal = BASE_GOAL + (cycleIndex * 2.5);
 
         const dayName = DAYS_FR[targetDate.getDay()];
-
-        // On récupère la séance du jour selon la semaine en cours
         const weekProgram = program[weekInCycle];
         const workouts = weekProgram[dayName];
         const session = workouts ? { day: dayName, workouts } : null;
@@ -212,34 +240,35 @@
         }
     }
 
-    function render() {
-        const now = new Date(); // Utilise la date réelle du système
-        const data = getWorkoutData(now);
-        const app = document.getElementById('app');
-        
-        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-
+    // Génère le HTML intérieur d'une carte pour un objectif donné
+    function buildCardHTML(data, goal, isBack) {
         if (!data || !data.session) {
-            app.innerHTML = `
+            return `
                 <div class="rest-state">
                     <span class="rest-icon">🧘‍♂️</span>
                     <div style="font-size: 24px; font-weight: 700;">Repos</div>
-                    <div class="next-session">Prochaine séance : <br>${findNextSession(now)}</div>
+                    <div class="next-session">Prochaine séance : <br>${findNextSession(new Date())}</div>
                 </div>
             `;
-            return;
         }
 
         let html = `
             <div class="goal-info">
-                <div class="goal-text">Semaine ${data.week} • Cycle Objective</div>
-                <div class="goal-val">${data.goal} kg</div>
+                <div class="goal-text">Semaine ${data.week} • ${isBack ? 'Objectif Secondaire' : 'Cycle Objective'}</div>
+                <div class="goal-val">${goal} kg</div>
             </div>
             <div class="workout-list">
         `;
 
         data.session.workouts.forEach(w => {
-            const weight = Math.ceil((data.goal * w.p / 100) / 2.5) * 2.5;
+            // Recto : arrondi au 2.5 supérieur (barre olympique)
+            // Verso : arrondi au 0.5 supérieur (charges légères, plus de granularité)
+            let weight;
+            if (isBack) {
+                weight = Math.ceil((goal * w.p / 100) * 2) / 2;
+            } else {
+                weight = Math.ceil((goal * w.p / 100) / 2.5) * 2.5;
+            }
             html += `
                 <div class="ex-row">
                     <div class="ex-info">
@@ -252,10 +281,30 @@
         });
 
         html += `</div>`;
-        app.innerHTML = html;
+        return html;
+    }
+
+    function render() {
+        const now = new Date();
+        const data = getWorkoutData(now);
+        const app = document.getElementById('app');
+        const appBack = document.getElementById('appBack');
+        
+        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+
+        // Recto : objectif principal (120 kg + progression cycle)
+        app.innerHTML = buildCardHTML(data, data ? data.goal : null, false);
+        // Verso : objectif 37.5 kg
+        appBack.innerHTML = buildCardHTML(data, ALT_GOAL, true);
     }
 
     render();
+
+    // Gestion du flip au clic
+    const flipContainer = document.getElementById('flipContainer');
+    flipContainer.addEventListener('click', () => {
+        flipContainer.classList.toggle('flipped');
+    });
 </script>
 
 </body>
