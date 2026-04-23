@@ -128,33 +128,71 @@
         </div>
 
 <script>
-    const START_DATE = new Date('2026-04-02'); // Date de référence
+    const START_DATE = new Date('2026-04-02'); // Date de référence (Jeudi = début S1)
     const BASE_GOAL = 120;
-    
-    const program = [
-        { day: "Jeudi", workouts: [{t: "Classique", r: "1x3", p: 80}, {t: "Classique", r: "1x3", p: 82}, {t: "Classique", r: "1x3", p: 84}, {t: "Serrée", r: "1x8", p: 70}] },
-        { day: "Vendredi", workouts: [{t: "2ct Pause", r: "1x5", p: 65}, {t: "2ct Pause", r: "1x5", p: 70}, {t: "2ct Pause", r: "1x5", p: 75}, {t: "Classique", r: "1x7", p: 65}] },
-        { day: "Samedi", workouts: [{t: "Larsen", r: "1x7", p: 60}, {t: "Larsen", r: "2x7", p: 65}, {t: "Larsen", r: "1x7", p: 62}] },
-        { day: "Dimanche", workouts: [{t: "Classique", r: "1x1", p: 80}, {t: "Classique", r: "1x1", p: 85}, {t: "Classique", r: "1x1", p: 89}, {t: "Classique", r: "1x7", p: 65}] }
-    ];
+
+    // Programme sur 5 semaines, chaque semaine a ses propres % et reps
+    // S1-S4 : progression ; S5 : deload (récupération après test max S4)
+    const program = {
+        // ========== SEMAINE 1 ==========
+        1: {
+            "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
+            "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
+            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Dimanche": [{t: "Classique",   r: "1x1", p: 80}, {t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",    r: "1x7", p: 65}]
+        },
+        // ========== SEMAINE 2 ==========
+        2: {
+            "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
+            "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
+            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Dimanche": [{t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",    r: "1x7", p: 65}]
+        },
+        // ========== SEMAINE 3 ==========
+        3: {
+            "Jeudi":    [{t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Classique",   r: "1x3", p: 87}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
+            "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
+            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Dimanche": [{t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",    r: "1x7", p: 65}]
+        },
+        // ========== SEMAINE 4 (PIC - TEST MAX) ==========
+        4: {
+            "Jeudi":    [{t: "Classique",   r: "1x3", p: 75}, {t: "Classique",   r: "1x3", p: 77}, {t: "Classique",   r: "1x3", p: 80}, {t: "Large/Serrée", r: "1x8", p: 67}, {t: "Large/Serrée", r: "1x8", p: 63}],
+            "Vendredi": [{t: "2ct Pause",   r: "1x4", p: 65}, {t: "2ct Pause",   r: "1x4", p: 70}, {t: "2ct Pause",   r: "1x4", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
+            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "1x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Dimanche": [{t: "Classique",   r: "1x1", p: 90}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",   r: "1x1", p: 100}, {t: "Classique",    r: "1x7", p: 65}]
+        },
+        // ========== SEMAINE 5 (DELOAD - RÉCUPÉRATION) ==========
+        // Volume et intensité réduits après le test max de la S4.
+        // Objectif : récupérer, pas progresser. ~60-70% avec moins de séries.
+        5: {
+            "Jeudi":    [{t: "Classique",   r: "1x5", p: 60}, {t: "Classique",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 70}],
+            "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 60}, {t: "2ct Pause",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 60}],
+            "Samedi":   [{t: "Larsen Press", r: "1x6", p: 55}, {t: "Larsen Press", r: "1x6", p: 60}],
+            "Dimanche": [{t: "Classique",   r: "1x3", p: 70}, {t: "Classique",   r: "1x3", p: 75}, {t: "Classique",   r: "1x5", p: 60}]
+        }
+    };
+
+    const DAYS_FR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
     function getWorkoutData(targetDate) {
         const diffTime = targetDate - START_DATE;
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        
+
         if (diffDays < 0) return null;
 
         const currentWeekIndex = Math.floor(diffDays / 7);
         const cycleIndex = Math.floor(currentWeekIndex / 5);
         const weekInCycle = (currentWeekIndex % 5) + 1; // 1 à 5
         const currentGoal = BASE_GOAL + (cycleIndex * 2.5);
-        
-        const daysFrench = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-        const dayName = daysFrench[targetDate.getDay()];
-        
-        // On cherche si le jour actuel est dans le programme
-        const session = program.find(p => p.day === dayName);
-        
+
+        const dayName = DAYS_FR[targetDate.getDay()];
+
+        // On récupère la séance du jour selon la semaine en cours
+        const weekProgram = program[weekInCycle];
+        const workouts = weekProgram[dayName];
+        const session = workouts ? { day: dayName, workouts } : null;
+
         return {
             session,
             week: weekInCycle,
@@ -165,10 +203,12 @@
 
     function findNextSession(startDate) {
         let next = new Date(startDate);
-        for(let i = 1; i <= 7; i++) {
+        for (let i = 1; i <= 7; i++) {
             next.setDate(next.getDate() + 1);
-            const check = program.find(p => p.day === ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"][next.getDay()]);
-            if (check) return next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+            const data = getWorkoutData(next);
+            if (data && data.session) {
+                return next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+            }
         }
     }
 
