@@ -292,14 +292,8 @@
         `;
 
         data.session.workouts.forEach(w => {
-            // Recto : arrondi au 2.5 supérieur (barre olympique)
-            // Verso : arrondi au 0.5 supérieur (charges légères, plus de granularité)
-            let weight;
-            if (isBack) {
-                weight = Math.ceil((goal * w.p / 100) * 2) / 2;
-            } else {
-                weight = Math.ceil((goal * w.p / 100) / 2.5) * 2.5;
-            }
+            // Arrondi au 2.5 supérieur (barre olympique) pour recto et verso
+            let weight = Math.ceil((goal * w.p / 100) / 2.5) * 2.5;
             html += `
                 <div class="ex-row">
                     <div class="ex-info">
