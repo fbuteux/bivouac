@@ -8,59 +8,66 @@
         :root {
             --bg: #000000;
             --card: #1c1c1e;
+            --card-soft: #2c2c2e;
             --accent: #30d158; /* iOS Green */
             --blue: #0a84ff; /* iOS Blue */
-            --orange: #ff9f0a; /* iOS Orange - pour le verso */
+            --orange: #ff9f0a; /* iOS Orange */
+            --pink: #ff375f;
+            --purple: #bf5af2;
+            --yellow: #ffd60a;
             --red: #ff453a;
             --text-dim: #8e8e93;
+            --text-soft: #aeaeb2;
+            --divider: #3a3a3c;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
             background-color: var(--bg);
             color: white;
-            margin: 10px;
-            padding: 10px;
+            margin: 0;
+            padding: 20px 12px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            max-height: 100vh;
-            max-width: 100vw;
+            min-height: 100vh;
         }
 
         /* En-tête Date */
         .header-date {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .today-label {
             color: var(--accent);
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
 
         .current-date {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
-            margin-top: 5px;
+            margin-top: 4px;
+            text-transform: capitalize;
         }
 
         /* Conteneur Flip */
         .flip-container {
             width: 100%;
-            max-width: 350px;
-            perspective: 1500px;
+            max-width: 380px;
+            perspective: 1800px;
             cursor: pointer;
         }
 
         .flipper {
             position: relative;
             width: 100%;
-            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: transform 0.75s cubic-bezier(0.4, 0.0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
@@ -72,18 +79,15 @@
         .session-card {
             background: var(--card);
             width: 100%;
-            border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 28px;
+            padding: 22px 20px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.06);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            box-sizing: border-box;
         }
 
-        .front {
-            position: relative;
-        }
+        .front { position: relative; }
 
         .back {
             position: absolute;
@@ -92,93 +96,256 @@
             transform: rotateY(180deg);
         }
 
+        /* Bandeau objectif */
         .goal-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #3a3a3c;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--divider);
         }
 
-        .goal-text { font-size: 14px; color: var(--text-dim); font-weight: 500; }
-.goal-val {
-    font-size: 24px; /* Un peu plus grand pour mieux voir l'effet */
-    font-weight: 800;
-    
-    /* Dégradé Bleu vers Violet */
-    background: linear-gradient(135deg, #0a84ff, #bf5af2, #5e5ce6, #0a84ff);
-    background-size: 300% 300%;
-    
-    /* Application du dégradé au texte */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    
-    /* Animation du dégradé */
-    animation: glowGradient 4s ease infinite;
-    
-    /* Effet de lueur (glow) subtil */
-    filter: drop-shadow(0 0 8px rgba(191, 90, 242, 0.3));
-}
+        .goal-text {
+            font-size: 13px;
+            color: var(--text-dim);
+            font-weight: 500;
+            line-height: 1.35;
+        }
 
-@keyframes glowGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-        
+        .goal-text strong {
+            color: white;
+            font-weight: 700;
+        }
 
-        /* Contenu Séance */
-        .workout-list { display: flex; flex-direction: column; gap: 20px; }
+        .goal-val {
+            font-size: 22px;
+            font-weight: 800;
 
-        .ex-row {
+            background: linear-gradient(135deg, #0a84ff, #bf5af2, #5e5ce6, #0a84ff);
+            background-size: 300% 300%;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+
+            animation: glowGradient 4s ease infinite;
+            filter: drop-shadow(0 0 8px rgba(191, 90, 242, 0.3));
+
+            white-space: nowrap;
+        }
+
+        /* Variante verso : dégradé orange/rose pour Camille */
+        .back .goal-val {
+            background: linear-gradient(135deg, #ff9f0a, #ff375f, #bf5af2, #ff9f0a);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(255, 159, 10, 0.35));
+        }
+
+        @keyframes glowGradient {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Liste des blocs exercices */
+        .workout-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Bloc exercice (regroupe les séries d'un même mouvement) */
+        .ex-block {
+            background: var(--card-soft);
+            border-radius: 16px;
+            padding: 14px 14px 12px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .ex-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ex-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .ex-icon.bench   { background: rgba(10, 132, 255, 0.18); }
+        .ex-icon.squat   { background: rgba(191, 90, 242, 0.18); }
+        .ex-icon.rowing  { background: rgba(48, 209, 88, 0.18); }
+        .ex-icon.trac    { background: rgba(255, 159, 10, 0.18); }
+        .ex-icon.dm      { background: rgba(255, 55, 95, 0.18); }
+        .ex-icon.course  { background: rgba(100, 210, 255, 0.18); }
+        .ex-icon.abdos   { background: rgba(255, 214, 10, 0.18); }
+
+        .ex-title {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .ex-subtitle {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 1px;
+        }
+
+        /* Lignes de séries */
+        .set-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .set-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 4px 6px 6px;
+        }
+
+        .set-row + .set-row {
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .set-info { display: flex; flex-direction: column; min-width: 0; }
+        .set-name { font-size: 14px; font-weight: 600; color: white; }
+        .set-reps { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+
+        .set-weight {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: rgba(255,255,255,0.06);
+            padding: 5px 12px;
+            border-radius: 9px;
+            min-width: 68px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Mise en avant single ligne (course, abdos) */
+        .single-line {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .ex-info { display: flex; flex-direction: column; }
-        .ex-name { font-size: 17px; font-weight: 600; }
-        .ex-reps { font-size: 14px; color: var(--text-dim); margin-top: 2px; }
-
-        .ex-weight {
-            font-size: 22px;
+        .single-line .value {
+            font-size: 18px;
             font-weight: 700;
             color: white;
-            background: rgba(255,255,255,0.05);
-            padding: 8px 15px;
-            border-radius: 12px;
-            min-width: 80px;
-            text-align: center;
+            background: rgba(255,255,255,0.06);
+            padding: 5px 14px;
+            border-radius: 9px;
+            font-variant-numeric: tabular-nums;
         }
+
+        /* Accent coloré par type sur le nombre */
+        .ex-block.type-bench  .set-weight { color: #5eb0ff; }
+        .ex-block.type-squat  .set-weight { color: #d78cff; }
+        .ex-block.type-rowing .set-weight { color: #5ee088; }
+        .ex-block.type-trac   .set-weight { color: #ffb74a; }
+        .ex-block.type-dm     .set-weight { color: #ff6e8c; }
+        .ex-block.type-course .single-line .value { color: #79dcff; }
+        .ex-block.type-abdos  .single-line .value { color: #ffd946; }
 
         /* État Repos */
         .rest-state {
             text-align: center;
-            padding: 40px 0;
+            padding: 50px 0 40px;
         }
 
         .rest-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 52px;
+            margin-bottom: 14px;
             display: block;
         }
 
-        .next-session {
-            margin-top: 20px;
-            font-size: 14px;
-            color: var(--accent);
-            font-weight: 600;
+        .rest-title {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
         }
 
+        .rest-sub {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 6px;
+        }
+
+        .next-session {
+            margin-top: 22px;
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* Hint flip */
+        .flip-hint {
+            margin-top: 14px;
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .flip-hint .arrow {
+            display: inline-block;
+            animation: pulseArrow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseArrow {
+            0%, 100% { opacity: 0.4; transform: translateX(0); }
+            50%      { opacity: 1;   transform: translateX(3px); }
+        }
+
+        /* Badge Camille sur le verso */
+        .persona-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 159, 10, 0.15);
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* Badge deload */
+        .deload-chip {
+            display: inline-block;
+            background: rgba(255, 214, 10, 0.15);
+            color: var(--yellow);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 5px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -195,48 +362,347 @@
         </div>
     </div>
 
-<script>
-    const START_DATE = new Date('2026-04-02'); // Date de référence (Jeudi = début S1)
-    const BASE_GOAL = 120;
-    const ALT_GOAL = 37.5; // Objectif alternatif (verso)
+    <div class="flip-hint">Tape pour retourner <span class="arrow">›</span></div>
 
-    // Programme sur 5 semaines, chaque semaine a ses propres % et reps
-    const program = {
+<script>
+    // ========================================================================
+    //  CONFIGURATION
+    // ========================================================================
+    const START_DATE = new Date('2026-04-02'); // Jeudi = début S1 du cycle
+    const BASE_GOAL = 120;      // Objectif bench principal (recto)
+    const CAMILLE_GOAL = 37.5;  // Objectif bench Camille (verso)
+    const CAMILLE_RATIO = CAMILLE_GOAL / BASE_GOAL; // 0.3125
+
+    // Objectifs de base par exercice (recto)
+    // Ces max servent de référence, les % s'appliquent dessus
+    const MAX_REF = {
+        bench: 120,
+        squat: 125,    // Déduit du CSV : S4 1x1 100% = 125 kg
+        dm:    45      // Déduit du CSV : S4 1x3 95% = 45 kg → 1RM ≈ 47.5 kg. On garde 45 comme charge cible 100% opérationnelle
+    };
+
+    // ========================================================================
+    //  PROGRAMME BENCH (inchangé par rapport à l'existant)
+    // ========================================================================
+    const benchProgram = {
         1: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
-            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Samedi":   [{t: "Larsen Press",r: "1x7", p: 60}, {t: "Larsen Press",r: "2x7", p: 65}, {t: "Larsen Press",r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 80}, {t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",    r: "1x7", p: 65}]
         },
         2: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 80}, {t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
-            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Samedi":   [{t: "Larsen Press",r: "1x7", p: 60}, {t: "Larsen Press",r: "2x7", p: 65}, {t: "Larsen Press",r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 85}, {t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",    r: "1x7", p: 65}]
         },
         3: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 82}, {t: "Classique",   r: "1x3", p: 84}, {t: "Classique",   r: "1x3", p: 87}, {t: "Large/Serrée", r: "1x8", p: 70}, {t: "Large/Serrée", r: "1x8", p: 67}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 65}, {t: "2ct Pause",   r: "1x5", p: 70}, {t: "2ct Pause",   r: "1x5", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
-            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "2x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Samedi":   [{t: "Larsen Press",r: "1x7", p: 60}, {t: "Larsen Press",r: "2x7", p: 65}, {t: "Larsen Press",r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 89}, {t: "Classique",   r: "1x1", p: 92}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",    r: "1x7", p: 65}]
         },
         4: {
             "Jeudi":    [{t: "Classique",   r: "1x3", p: 75}, {t: "Classique",   r: "1x3", p: 77}, {t: "Classique",   r: "1x3", p: 80}, {t: "Large/Serrée", r: "1x8", p: 67}, {t: "Large/Serrée", r: "1x8", p: 63}],
             "Vendredi": [{t: "2ct Pause",   r: "1x4", p: 65}, {t: "2ct Pause",   r: "1x4", p: 70}, {t: "2ct Pause",   r: "1x4", p: 75}, {t: "Classique",    r: "1x7", p: 65}],
-            "Samedi":   [{t: "Larsen Press", r: "1x7", p: 60}, {t: "Larsen Press", r: "1x7", p: 65}, {t: "Larsen Press", r: "1x7", p: 62}],
+            "Samedi":   [{t: "Larsen Press",r: "1x7", p: 60}, {t: "Larsen Press",r: "1x7", p: 65}, {t: "Larsen Press",r: "1x7", p: 62}],
             "Dimanche": [{t: "Classique",   r: "1x1", p: 90}, {t: "Classique",   r: "1x1", p: 95}, {t: "Classique",   r: "1x1", p: 100}, {t: "Classique",    r: "1x7", p: 65}]
         },
         5: {
             "Jeudi":    [{t: "Classique",   r: "1x5", p: 60}, {t: "Classique",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 70}],
             "Vendredi": [{t: "2ct Pause",   r: "1x5", p: 60}, {t: "2ct Pause",   r: "1x5", p: 65}, {t: "Classique",   r: "1x5", p: 60}],
-            "Samedi":   [{t: "Larsen Press", r: "1x6", p: 55}, {t: "Larsen Press", r: "1x6", p: 60}],
+            "Samedi":   [{t: "Larsen Press",r: "1x6", p: 55}, {t: "Larsen Press",r: "1x6", p: 60}],
             "Dimanche": [{t: "Classique",   r: "1x3", p: 70}, {t: "Classique",   r: "1x3", p: 75}, {t: "Classique",   r: "1x5", p: 60}]
         }
     };
 
+    // ========================================================================
+    //  PROGRAMME SQUAT (tiré du CSV — mardi / vendredi / dimanche)
+    //  Charges exprimées en % du 1RM ref (125 kg)
+    //  Multiple de 2,5
+    // ========================================================================
+    const squatProgram = {
+        1: {
+            "Mardi":    [{t: "Squat",       r: "1x3", p: 80}],
+            "Vendredi": [{t: "Squat",       r: "1x3", p: 82}],
+            "Dimanche": [{t: "Squat",       r: "1x3", p: 84}, {t: "Squat",       r: "1x5", p: 75}]
+        },
+        2: {
+            "Mardi":    [{t: "Squat",       r: "1x5", p: 70}],
+            "Vendredi": [{t: "Squat",       r: "1x5", p: 75}],
+            "Dimanche": [{t: "Squat",       r: "1x5", p: 75}, {t: "Squat",       r: "1x5", p: 80}]
+        },
+        3: {
+            "Mardi":    [{t: "Squat",       r: "1x3", p: 82}],
+            "Vendredi": [{t: "Squat",       r: "1x3", p: 84}],
+            "Dimanche": [{t: "Squat",       r: "1x3", p: 87}, {t: "Squat",       r: "1x5", p: 90}]
+        },
+        4: {
+            "Mardi":    [{t: "Squat",       r: "1x3", p: 92}],
+            "Vendredi": [{t: "Squat",       r: "1x3", p: 95}],
+            "Dimanche": [{t: "Squat",       r: "1x3", p: 95}, {t: "Squat",       r: "1x1", p: 100}]
+        },
+        5: {
+            "Mardi":    [{t: "Squat",       r: "3x5", p: 60}],
+            "Vendredi": [{t: "Squat",       r: "3x5", p: 60}],
+            "Dimanche": [{t: "Squat",       r: "3x5", p: 60}]
+        }
+    };
+
+    // ========================================================================
+    //  PROGRAMME ROWING (tiré du CSV — mardi / vendredi / dimanche)
+    //  Charges absolues en kg (pas en %), multiple de 2
+    // ========================================================================
+    const rowingProgram = {
+        1: {
+            "Mardi":    [{t: "Rowing",  r: "3x8", kg: 34}],
+            "Vendredi": [{t: "Rowing",  r: "3x8", kg: 34}],
+            "Dimanche": [{t: "Rowing",  r: "3x8", kg: 34}]
+        },
+        2: {
+            "Mardi":    [{t: "Rowing",  r: "3x8", kg: 34}],
+            "Vendredi": [{t: "Rowing",  r: "3x8", kg: 36}],
+            "Dimanche": [{t: "Rowing",  r: "3x8", kg: 36}]
+        },
+        3: {
+            "Mardi":    [{t: "Rowing",  r: "3x8", kg: 36}],
+            "Vendredi": [{t: "Rowing",  r: "3x8", kg: 36}],
+            "Dimanche": [{t: "Rowing",  r: "3x8", kg: 38}]
+        },
+        4: {
+            "Mardi":    [{t: "Rowing",  r: "3x8", kg: 36}],
+            "Vendredi": [{t: "Rowing",  r: "3x8", kg: 38}],
+            "Dimanche": [{t: "Rowing",  r: "3x8", kg: 38}]
+        },
+        5: {
+            "Mardi":    [{t: "Rowing",  r: "3x8", kg: 28}],
+            "Vendredi": [{t: "Rowing",  r: "3x8", kg: 28}],
+            "Dimanche": [{t: "Rowing",  r: "3x8", kg: 28}]
+        }
+    };
+
+    // ========================================================================
+    //  PROGRAMME TRACTION (tiré du CSV — lundi / jeudi / samedi)
+    //  Lest en kg, multiple de 1,25. Le lest évolue par semaine (pyramide).
+    // ========================================================================
+    const tracProgram = {
+        1: { days: ["Lundi","Jeudi","Samedi"], t: "Tractions", r: "Pyramide 1>7>1", lest: 1.25 },
+        2: { days: ["Lundi","Jeudi","Samedi"], t: "Tractions", r: "Pyramide 1>7>1", lest: 2.5 },
+        3: { days: ["Lundi","Jeudi","Samedi"], t: "Tractions", r: "Pyramide 1>7>1", lest: 3.75 },
+        4: { days: ["Lundi","Jeudi","Samedi"], t: "Tractions", r: "Pyramide 1>7>1", lest: 5 },
+        5: { days: ["Lundi","Jeudi","Samedi"], t: "Tractions", r: "Pyramide 1>5>1", lest: 0 }
+    };
+
+    // ========================================================================
+    //  PROGRAMME DM - Développé Militaire (lundi / jeudi)
+    //  % sur 1RM ref (45 kg) — multiple de 2,5
+    // ========================================================================
+    const dmProgram = {
+        1: {
+            "Lundi": [{t: "Développé Militaire", r: "1x3", p: 80}],
+            "Jeudi": [{t: "Développé Militaire", r: "1x3", p: 82}]
+        },
+        2: {
+            "Lundi": [{t: "Développé Militaire", r: "1x5", p: 70}],
+            "Jeudi": [{t: "Développé Militaire", r: "1x5", p: 75}]
+        },
+        3: {
+            "Lundi": [{t: "Développé Militaire", r: "1x3", p: 82}],
+            "Jeudi": [{t: "Développé Militaire", r: "1x3", p: 84}]
+        },
+        4: {
+            "Lundi": [{t: "Développé Militaire", r: "1x3", p: 92}],
+            "Jeudi": [{t: "Développé Militaire", r: "1x3", p: 95}]
+        },
+        5: {
+            "Lundi": [{t: "Développé Militaire", r: "3x5", p: 60}],
+            "Jeudi": [{t: "Développé Militaire", r: "3x5", p: 60}]
+        }
+    };
+
+    // ========================================================================
+    //  PROGRAMME COURSE (lundi / mardi / jeudi / samedi / dimanche)
+    //  Distances en km. Variante Camille : distances - 1 km sur sortie longue, idem sinon.
+    // ========================================================================
+    const courseProgram = {
+        1: {"Lundi":5, "Mardi":null, "Jeudi":5, "Samedi":10, "Dimanche":5},
+        2: {"Lundi":5, "Mardi":8,   "Jeudi":5, "Samedi":12, "Dimanche":5},
+        3: {"Lundi":5, "Mardi":10,  "Jeudi":5, "Samedi":15, "Dimanche":5},
+        4: {"Lundi":5, "Mardi":12,  "Jeudi":5, "Samedi":10, "Dimanche":5},
+        5: {"Lundi":3, "Mardi":null,"Jeudi":3, "Samedi":5,  "Dimanche":3}
+    };
+
+    // Variante Camille : sortie longue réduite, km de base inchangés (5 km reste accessible)
+    const courseProgramCamille = {
+        1: {"Lundi":3, "Mardi":null, "Jeudi":3, "Samedi":6, "Dimanche":3},
+        2: {"Lundi":3, "Mardi":5,    "Jeudi":3, "Samedi":7, "Dimanche":3},
+        3: {"Lundi":3, "Mardi":6,    "Jeudi":3, "Samedi":8, "Dimanche":3},
+        4: {"Lundi":3, "Mardi":7,    "Jeudi":3, "Samedi":6, "Dimanche":3},
+        5: {"Lundi":2, "Mardi":null, "Jeudi":2, "Samedi":3, "Dimanche":2}
+    };
+
+    // Abdos : oui mardi/vendredi sur toutes les semaines
+    const abdosDays = ["Mardi", "Vendredi"];
+
     const DAYS_FR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
-    function getWorkoutData(targetDate) {
+    // ========================================================================
+    //  CALCUL DES POIDS / ROUND
+    // ========================================================================
+    // Arrondi au multiple supérieur
+    function roundToStep(value, step) {
+        return Math.ceil(value / step) * step;
+    }
+
+    // Pour les objectifs évolutifs (bench cycle +2,5 par bloc de 5 semaines)
+    function getCycleBonus(startDate, targetDate) {
+        const diffDays = Math.floor((targetDate - startDate) / (1000*60*60*24));
+        const weekIndex = Math.floor(diffDays / 7);
+        return Math.floor(weekIndex / 5) * 2.5;
+    }
+
+    // ========================================================================
+    //  ASSEMBLAGE DES EXERCICES DU JOUR
+    // ========================================================================
+    function buildDaySessions(weekInCycle, dayName, isCamille, cycleBonus) {
+        const blocks = [];
+
+        // Multiplicateur global pour Camille
+        const ratio = isCamille ? CAMILLE_RATIO : 1;
+
+        // 1) BENCH
+        const benchDay = benchProgram[weekInCycle][dayName];
+        if (benchDay) {
+            const goal = (BASE_GOAL + cycleBonus) * ratio;
+            blocks.push({
+                type: "bench",
+                icon: "🏋️",
+                title: "Bench Press",
+                subtitle: `Objectif ${roundToStep(goal, isCamille ? 0.5 : 2.5)} kg`,
+                sets: benchDay.map(w => ({
+                    name: w.t,
+                    reps: `${w.r} à ${w.p}%`,
+                    weight: roundToStep(goal * w.p / 100, 2.5)
+                }))
+            });
+        }
+
+        // 2) SQUAT
+        const squatDay = squatProgram[weekInCycle][dayName];
+        if (squatDay) {
+            const goal = (MAX_REF.squat + cycleBonus) * ratio;
+            blocks.push({
+                type: "squat",
+                icon: "🦵",
+                title: "Squat",
+                subtitle: `Max ${roundToStep(goal, 2.5)} kg`,
+                sets: squatDay.map(w => ({
+                    name: w.t,
+                    reps: `${w.r} à ${w.p}%`,
+                    weight: roundToStep(goal * w.p / 100, 2.5)
+                }))
+            });
+        }
+
+        // 3) DM
+        const dmDay = dmProgram[weekInCycle][dayName];
+        if (dmDay) {
+            const goal = MAX_REF.dm * ratio;
+            blocks.push({
+                type: "dm",
+                icon: "💪",
+                title: "Développé Militaire",
+                subtitle: `Max ${roundToStep(goal, 2.5)} kg`,
+                sets: dmDay.map(w => ({
+                    name: w.t,
+                    reps: `${w.r} à ${w.p}%`,
+                    weight: roundToStep(goal * w.p / 100, 2.5)
+                }))
+            });
+        }
+
+        // 4) ROWING
+        const rowDay = rowingProgram[weekInCycle][dayName];
+        if (rowDay) {
+            blocks.push({
+                type: "rowing",
+                icon: "🚣",
+                title: "Rowing",
+                subtitle: `Dos — tirage`,
+                sets: rowDay.map(w => ({
+                    name: w.t,
+                    reps: w.r,
+                    weight: roundToStep(w.kg * ratio, 2)
+                }))
+            });
+        }
+
+        // 5) TRACTION
+        const trac = tracProgram[weekInCycle];
+        if (trac.days.includes(dayName)) {
+            // Pour Camille : pas de lest, pyramide plus courte
+            if (isCamille) {
+                blocks.push({
+                    type: "trac",
+                    icon: "🤸",
+                    title: "Tractions",
+                    subtitle: "Poids du corps / assistance élastique",
+                    single: {
+                        label: weekInCycle === 5 ? "Pyramide 1>3>1" : "Pyramide 1>5>1",
+                        value: "0 kg"
+                    }
+                });
+            } else {
+                blocks.push({
+                    type: "trac",
+                    icon: "🤸",
+                    title: "Tractions",
+                    subtitle: trac.r,
+                    single: {
+                        label: "Lest",
+                        value: `${trac.lest} kg`
+                    }
+                });
+            }
+        }
+
+        // 6) COURSE
+        const km = (isCamille ? courseProgramCamille : courseProgram)[weekInCycle][dayName];
+        if (km != null) {
+            blocks.push({
+                type: "course",
+                icon: "🏃",
+                title: "Course",
+                subtitle: "Allure 6:00 /km",
+                single: {
+                    label: km >= 10 ? "Sortie longue" : "Footing",
+                    value: `${km} km`
+                }
+            });
+        }
+
+        // 7) ABDOS
+        if (abdosDays.includes(dayName)) {
+            blocks.push({
+                type: "abdos",
+                icon: "🔥",
+                title: "Abdos",
+                subtitle: "Gainage + crunchs",
+                single: {
+                    label: "Programme",
+                    value: "Oui"
+                }
+            });
+        }
+
+        return blocks;
+    }
+
+    // ========================================================================
+    //  DONNÉES DU JOUR
+    // ========================================================================
+    function getWorkoutData(targetDate, isCamille = false) {
         const diffTime = targetDate - START_DATE;
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -245,93 +711,140 @@
         const currentWeekIndex = Math.floor(diffDays / 7);
         const cycleIndex = Math.floor(currentWeekIndex / 5);
         const weekInCycle = (currentWeekIndex % 5) + 1;
-        const currentGoal = BASE_GOAL + (cycleIndex * 2.5);
+
+        const cycleBonus = isCamille ? 0 : cycleIndex * 2.5; // bonus seulement sur recto
+        const benchGoal  = (isCamille ? CAMILLE_GOAL : BASE_GOAL) + cycleBonus;
 
         const dayName = DAYS_FR[targetDate.getDay()];
-        const weekProgram = program[weekInCycle];
-        const workouts = weekProgram[dayName];
-        const session = workouts ? { day: dayName, workouts } : null;
+        const blocks = buildDaySessions(weekInCycle, dayName, isCamille, isCamille ? 0 : cycleIndex * 2.5);
 
         return {
-            session,
             week: weekInCycle,
-            goal: currentGoal,
-            dayName
+            benchGoal,
+            dayName,
+            blocks,
+            isDeload: weekInCycle === 5
         };
     }
 
-    function findNextSession(startDate) {
+    function findNextSession(startDate, isCamille) {
         let next = new Date(startDate);
         for (let i = 1; i <= 7; i++) {
             next.setDate(next.getDate() + 1);
-            const data = getWorkoutData(next);
-            if (data && data.session) {
+            const data = getWorkoutData(next, isCamille);
+            if (data && data.blocks.length > 0) {
                 return next.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
             }
         }
+        return null;
     }
 
-    // Génère le HTML intérieur d'une carte pour un objectif donné
-    function buildCardHTML(data, goal, isBack) {
-        if (!data || !data.session) {
+    // ========================================================================
+    //  RENDU HTML
+    // ========================================================================
+    function buildBlockHTML(block) {
+        // Variante single-value (course, abdos, traction simple)
+        if (block.single) {
             return `
-                <div class="rest-state">
-                    <span class="rest-icon">🧘‍♂️</span>
-                    <div style="font-size: 24px; font-weight: 700;">Repos</div>
-                    <div class="next-session">Prochaine séance : <br>${findNextSession(new Date())}</div>
+                <div class="ex-block type-${block.type}">
+                    <div class="ex-header">
+                        <div class="ex-icon ${block.type}">${block.icon}</div>
+                        <div>
+                            <div class="ex-title">${block.title}</div>
+                            <div class="ex-subtitle">${block.subtitle}</div>
+                        </div>
+                    </div>
+                    <div class="single-line">
+                        <span class="set-reps" style="font-size:13px;">${block.single.label}</span>
+                        <span class="value">${block.single.value}</span>
+                    </div>
                 </div>
             `;
         }
 
-        let html = `
-            <div class="goal-info">
-                <div class="goal-text">Semaine ${data.week} • ${isBack ? 'Objectif Camille' : 'Objectif du cycle'}</div>
-                <div class="goal-val">${goal} kg</div>
+        // Variante sets multiples (bench, squat, DM, rowing)
+        const rowsHtml = block.sets.map(s => `
+            <div class="set-row">
+                <div class="set-info">
+                    <span class="set-name">${s.name}</span>
+                    <span class="set-reps">${s.reps}</span>
+                </div>
+                <div class="set-weight">${s.weight} kg</div>
             </div>
-            <div class="workout-list">
-        `;
+        `).join('');
 
-        data.session.workouts.forEach(w => {
-            // Recto : arrondi au 2.5 supérieur (barre olympique)
-            // Verso : arrondi au 0.5 supérieur (charges légères, plus de granularité)
-            let weight;
-            if (isBack) {
-                weight = Math.ceil((goal * w.p / 100) / 2.5) * 2.5;
-            } else {
-                weight = Math.ceil((goal * w.p / 100) / 2.5) * 2.5;
-            }
-            html += `
-                <div class="ex-row">
-                    <div class="ex-info">
-                        <span class="ex-name">${w.t}</span>
-                        <span class="ex-reps">${w.r} à ${w.p}%</span>
+        return `
+            <div class="ex-block type-${block.type}">
+                <div class="ex-header">
+                    <div class="ex-icon ${block.type}">${block.icon}</div>
+                    <div>
+                        <div class="ex-title">${block.title}</div>
+                        <div class="ex-subtitle">${block.subtitle}</div>
                     </div>
-                    <div class="ex-weight">${weight}</div>
+                </div>
+                <div class="set-list">${rowsHtml}</div>
+            </div>
+        `;
+    }
+
+    function buildCardHTML(data, isCamille) {
+        const goalDisplay = isCamille
+            ? `${data.benchGoal} kg`
+            : `${data.benchGoal} kg`;
+
+        const personaLabel = isCamille ? 'Programme Camille' : 'Objectif du cycle';
+
+        // Jour de repos complet
+        if (!data.blocks || data.blocks.length === 0) {
+            const next = findNextSession(new Date(), isCamille);
+            return `
+                ${isCamille ? '<div class="persona-badge">👩 Camille</div>' : ''}
+                <div class="rest-state">
+                    <span class="rest-icon">🧘‍♂️</span>
+                    <div class="rest-title">Repos</div>
+                    <div class="rest-sub">Récupération active</div>
+                    ${next ? `<div class="next-session">Prochaine séance<br>${next}</div>` : ''}
                 </div>
             `;
-        });
+        }
 
-        html += `</div>`;
+        const deloadChip = data.isDeload ? '<span class="deload-chip">Deload</span>' : '';
+
+        let html = `
+            <div class="goal-info">
+                <div class="goal-text">
+                    ${isCamille ? '<div class="persona-badge">👩 Camille</div>' : ''}
+                    <div>Semaine <strong>${data.week}</strong>${deloadChip}</div>
+                    <div style="margin-top:2px;">${personaLabel}</div>
+                </div>
+                <div class="goal-val">${goalDisplay}</div>
+            </div>
+            <div class="workout-list">
+                ${data.blocks.map(buildBlockHTML).join('')}
+            </div>
+        `;
         return html;
     }
 
     function render() {
         const now = new Date();
-        const data = getWorkoutData(now);
-        const app = document.getElementById('app');
-        const appBack = document.getElementById('appBack');
-        
-        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        const dataRecto  = getWorkoutData(now, false);
+        const dataVerso  = getWorkoutData(now, true);
 
-        // Recto : objectif principal (120 kg + progression cycle)
-        app.innerHTML = buildCardHTML(data, data ? data.goal : null, false);
-        // Verso : objectif 37.5 kg
-        appBack.innerHTML = buildCardHTML(data, ALT_GOAL, true);
+        const app     = document.getElementById('app');
+        const appBack = document.getElementById('appBack');
+
+        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', {
+            weekday: 'long', day: 'numeric', month: 'long'
+        });
+
+        app.innerHTML     = buildCardHTML(dataRecto, false);
+        appBack.innerHTML = buildCardHTML(dataVerso, true);
     }
 
     render();
 
-    // Gestion du flip au clic
+    // Flip au clic
     const flipContainer = document.getElementById('flipContainer');
     flipContainer.addEventListener('click', () => {
         flipContainer.classList.toggle('flipped');
