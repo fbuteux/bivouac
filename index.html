@@ -286,7 +286,7 @@
         .ex-block.type-squat  .set-weight { color: #5eb0ff; }   /* Bleu */
         .ex-block.type-rowing .set-weight { color: #5ee088; }   /* Vert */
         .ex-block.type-trac   .set-weight { color: #5ee088; }   /* Vert */
-        .ex-block.type-dm     .set-weight { color: #ffd36e; }   /* Rose */
+        .ex-block.type-dm     .set-weight { color: #ff6e8c; }   /* Rose */
         .ex-block.type-course .single-line .value { color: #ffffff; }   /* Blanc */
         .ex-block.type-abdos  .single-line .value { color: #d78cff; }   /* Violet */
         /* Tractions n'a qu'une single-line */
@@ -952,7 +952,7 @@
                 const camilleLest = cycleIndex >= 4 ? Math.floor((cycleIndex - 3) / 2) * 1.25 : 0;
                 blocks.push({
                     type: "trac",
-                    icon: "🚣",
+                    icon: "🤸",
                     title: "Tractions",
                     subtitle: weekInCycle === 5 ? "Pyramide 1>3>1" : "Pyramide 1>5>1",
                     single: {
@@ -965,7 +965,7 @@
                 const lest = (weekInCycle === 5) ? 0 : trac.lest + (cycleIndex * 1.25);
                 blocks.push({
                     type: "trac",
-                    icon: "🚣",
+                    icon: "🤸",
                     title: "Tractions",
                     subtitle: trac.r,
                     single: {
@@ -1110,7 +1110,7 @@
             ? `${data.benchGoal} kg`
             : `${data.benchGoal} kg`;
 
-        const personaLabel = isCamille ? '' : 'Objectif du cycle';
+        const personaLabel = isCamille ? 'Programme Camille' : 'Objectif du cycle';
 
         // Jour de repos complet
         if (!data.blocks || data.blocks.length === 0) {
@@ -1178,15 +1178,15 @@
 
         // Label : "Aujourd'hui" si c'est aujourd'hui, sinon nom du jour
         if (isSameDay(selectedDate, today)) {
-            dayLabel.innerText = "Aujourd'hui";
+            dayLabel.textContent = "Aujourd'hui";
         } else {
             const diffDays = Math.round((selectedDate - today) / (1000*60*60*24));
-            if (diffDays === 1)       dayLabel.innerText = "Demain";
-            else if (diffDays === -1) dayLabel.innerText = "Hier";
-            else                      dayLabel.innerText = selectedDate.toLocaleDateString('fr-FR', { weekday: 'long' });
+            if (diffDays === 1)       dayLabel.textContent = "Demain";
+            else if (diffDays === -1) dayLabel.textContent = "Hier";
+            else                      dayLabel.textContent = selectedDate.toLocaleDateString('fr-FR', { weekday: 'long' });
         }
 
-        document.getElementById('display-date').innerText = selectedDate.toLocaleDateString('fr-FR', {
+        document.getElementById('display-date').textContent = selectedDate.toLocaleDateString('fr-FR', {
             day: 'numeric', month: 'long'
         });
 
@@ -1401,13 +1401,14 @@
         buildCalendar();
         stage.classList.add('cal-mode');
         headerDate.classList.add('cal-open');
-        flipHint.style.opacity = '0';
-        flipHint.style.pointerEvents = 'none';
+        if (flipHint) {
+            flipHint.style.opacity = '0';
+            flipHint.style.pointerEvents = 'none';
+        }
 
         // Scroll vers le mois courant
         requestAnimationFrame(() => {
             const monthsScroll = document.getElementById('monthsScroll');
-            const today = new Date();
             const todayMonthIdx = 1; // Index 1 = mois courant (puisque minDate = mois -1)
             const block = monthsScroll.querySelector(`.month-block[data-month-index="${todayMonthIdx}"]`);
             if (block) monthsScroll.scrollTop = block.offsetTop - 4;
@@ -1417,8 +1418,10 @@
     function closeCalendar() {
         stage.classList.remove('cal-mode');
         headerDate.classList.remove('cal-open');
-        flipHint.style.opacity = '';
-        flipHint.style.pointerEvents = '';
+        if (flipHint) {
+            flipHint.style.opacity = '';
+            flipHint.style.pointerEvents = '';
+        }
     }
 
     function toggleCalendar() {
