@@ -39,6 +39,14 @@
         .header-date {
             text-align: center;
             margin-bottom: 24px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s ease;
+        }
+
+        .header-date:active {
+            transform: scale(0.97);
         }
 
         .today-label {
@@ -47,6 +55,7 @@
             font-size: 13px;
             font-weight: 700;
             letter-spacing: 1.2px;
+            transition: color 0.3s ease;
         }
 
         .current-date {
@@ -54,6 +63,23 @@
             font-weight: 800;
             margin-top: 4px;
             text-transform: capitalize;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-date::after {
+            content: '⌄';
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 600;
+            transform: translateY(-3px);
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .header-date.cal-open .current-date::after {
+            transform: translateY(-3px) rotate(180deg);
         }
 
         /* Conteneur Flip */
@@ -184,13 +210,13 @@
             flex-shrink: 0;
         }
 
-        .ex-icon.bench   { background: rgba(10, 132, 255, 0.18); }
-        .ex-icon.squat   { background: rgba(191, 90, 242, 0.18); }
-        .ex-icon.rowing  { background: rgba(48, 209, 88, 0.18); }
-        .ex-icon.trac    { background: rgba(255, 159, 10, 0.18); }
-        .ex-icon.dm      { background: rgba(255, 55, 95, 0.18); }
-        .ex-icon.course  { background: rgba(100, 210, 255, 0.18); }
-        .ex-icon.abdos   { background: rgba(255, 214, 10, 0.18); }
+        .ex-icon.bench   { background: rgba(255, 69, 58, 0.18);  }   /* Rouge */
+        .ex-icon.squat   { background: rgba(10, 132, 255, 0.18);  }  /* Bleu */
+        .ex-icon.rowing  { background: rgba(48, 209, 88, 0.18);   }  /* Vert (dos) */
+        .ex-icon.trac    { background: rgba(48, 209, 88, 0.18);   }  /* Vert (dos) */
+        .ex-icon.dm      { background: rgba(255, 55, 95, 0.18);   }  /* Rose/orange */
+        .ex-icon.course  { background: rgba(255, 255, 255, 0.12); }  /* Blanc */
+        .ex-icon.abdos   { background: rgba(191, 90, 242, 0.20);  }  /* Violet */
 
         .ex-title {
             font-size: 15px;
@@ -256,13 +282,15 @@
         }
 
         /* Accent coloré par type sur le nombre */
-        .ex-block.type-bench  .set-weight { color: #5eb0ff; }
-        .ex-block.type-squat  .set-weight { color: #d78cff; }
-        .ex-block.type-rowing .set-weight { color: #5ee088; }
-        .ex-block.type-trac   .set-weight { color: #ffb74a; }
-        .ex-block.type-dm     .set-weight { color: #ff6e8c; }
-        .ex-block.type-course .single-line .value { color: #79dcff; }
-        .ex-block.type-abdos  .single-line .value { color: #ffd946; }
+        .ex-block.type-bench  .set-weight { color: #ff6b61; }   /* Rouge */
+        .ex-block.type-squat  .set-weight { color: #5eb0ff; }   /* Bleu */
+        .ex-block.type-rowing .set-weight { color: #5ee088; }   /* Vert */
+        .ex-block.type-trac   .set-weight { color: #5ee088; }   /* Vert */
+        .ex-block.type-dm     .set-weight { color: #ff6e8c; }   /* Rose */
+        .ex-block.type-course .single-line .value { color: #ffffff; }   /* Blanc */
+        .ex-block.type-abdos  .single-line .value { color: #d78cff; }   /* Violet */
+        /* Tractions n'a qu'une single-line */
+        .ex-block.type-trac   .single-line .value { color: #5ee088; }   /* Vert */
 
         /* État Repos */
         .rest-state {
@@ -346,23 +374,289 @@
             margin-left: 6px;
             vertical-align: middle;
         }
+        /* ====================================================================
+           CALENDRIER
+           Esprit Apple : sheet pleine largeur, transitions douces, pas de bordure
+           ==================================================================== */
+
+        /* Conteneur principal qui orchestre la transition carte ↔ calendrier */
+        .stage {
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            min-height: 460px;
+        }
+
+        .stage > .flip-container,
+        .stage > .calendar-view {
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Mode normal : carte visible, calendrier masqué */
+        .stage:not(.cal-mode) .calendar-view {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.98);
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Mode calendrier : carte masquée, calendrier visible */
+        .stage.cal-mode .flip-container {
+            opacity: 0;
+            transform: translateY(10px) scale(0.97);
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+        .stage.cal-mode .calendar-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .calendar-view {
+            width: 100%;
+        }
+
+        /* Sélecteur de mois (en haut, scrollable horizontalement) */
+        .month-selector {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 4px 2px 14px;
+            margin-bottom: 6px;
+            scroll-snap-type: x mandatory;
+        }
+        .month-selector::-webkit-scrollbar { display: none; }
+
+        .month-pill {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            background: var(--card);
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-soft);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.25s ease;
+            scroll-snap-align: center;
+            white-space: nowrap;
+            text-transform: capitalize;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .month-pill:active { transform: scale(0.95); }
+
+        .month-pill.active {
+            background: white;
+            color: black;
+            border-color: white;
+            font-weight: 700;
+        }
+
+        /* Container scrollable des mois */
+        .months-scroll {
+            max-height: 70vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 0 2px 40px;
+            mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 28px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 28px), transparent 100%);
+        }
+        .months-scroll::-webkit-scrollbar { display: none; }
+
+        .month-block {
+            margin-bottom: 28px;
+        }
+
+        .month-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 4px 4px 14px;
+            text-transform: capitalize;
+            letter-spacing: -0.3px;
+        }
+
+        .month-title .year-tag {
+            color: var(--text-dim);
+            font-weight: 600;
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        /* Grille jours */
+        .weekday-row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            margin: 0 0 8px;
+        }
+
+        .weekday-cell {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 12px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .day-cell.empty {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .day-cell:active:not(.empty) {
+            transform: scale(0.92);
+        }
+
+        .day-cell:hover:not(.empty):not(.today) {
+            background: rgba(255,255,255,0.04);
+        }
+
+        .day-num {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            line-height: 1;
+        }
+
+        /* Jour de repos : numéro plus discret */
+        .day-cell.rest .day-num {
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        /* Conteneur de pastilles (jusqu'à 5 dots côte à côte) */
+        .day-dots {
+            display: flex;
+            gap: 2px;
+            margin-top: 4px;
+            min-height: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            /* La pastille blanche prend une légère bordure pour être visible */
+        }
+        .day-dot.dot-course {
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+        }
+
+        .day-cell.rest .day-dots {
+            visibility: hidden;
+        }
+
+        /* Aujourd'hui : pastille blanche pleine */
+        .day-cell.today {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .day-cell.today .day-num {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        /* Jour sélectionné (différent d'aujourd'hui) */
+        .day-cell.selected:not(.today) {
+            background: rgba(10, 132, 255, 0.15);
+        }
+        .day-cell.selected:not(.today) .day-num {
+            color: var(--blue);
+            font-weight: 800;
+        }
+
+        /* Hors plage (avant un mois en arrière, après 12 mois) */
+        .day-cell.out-of-range {
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* Jours passés : pastilles plus foncées + numéro légèrement atténué */
+        .day-cell.past .day-num {
+            color: var(--text-soft);
+            opacity: 0.6;
+        }
+        .day-cell.past.rest .day-num {
+            opacity: 0.4;
+        }
+        .day-cell.past .day-dot {
+            opacity: 0.45;
+            filter: saturate(0.7);
+        }
+
+        /* Semaine de deload : fond léger jaune translucide sur toute la rangée */
+        .day-cell.deload {
+            background: rgba(255, 214, 10, 0.06);
+        }
+        /* Coins arrondis : on ne les coupe pas par cellule, on les laisse round */
+        .day-cell.deload.today {
+            background: rgba(255, 214, 10, 0.10);
+        }
+        /* Deload passé : fond plus foncé/désaturé */
+        .day-cell.past.deload {
+            background: rgba(255, 214, 10, 0.025);
+        }
+
+        /* Légende du programme Camille */
+        .header-date.camille-mode .today-label {
+            color: var(--orange);
+        }
     </style>
 </head>
 <body>
 
-    <div class="header-date">
+    <div class="header-date" id="headerDate">
         <div class="today-label" id="day-label">Aujourd'hui</div>
         <div class="current-date" id="display-date">--/--</div>
     </div>
 
-    <div id="flipContainer" class="flip-container">
-        <div class="flipper">
-            <div id="app" class="session-card front"></div>
-            <div id="appBack" class="session-card back"></div>
+    <div id="stage" class="stage">
+        <div id="flipContainer" class="flip-container">
+            <div class="flipper">
+                <div id="app" class="session-card front"></div>
+                <div id="appBack" class="session-card back"></div>
+            </div>
+        </div>
+
+        <div id="calendarView" class="calendar-view">
+            <div id="monthSelector" class="month-selector"></div>
+            <div id="monthsScroll" class="months-scroll"></div>
         </div>
     </div>
 
-    <div class="flip-hint">Tape pour retourner <span class="arrow">›</span></div>
+    <div class="flip-hint" id="flipHint">Tape pour retourner <span class="arrow">›</span></div>
 
 <script>
     // ========================================================================
@@ -796,7 +1090,7 @@
 
         // Jour de repos complet
         if (!data.blocks || data.blocks.length === 0) {
-            const next = findNextSession(new Date(), isCamille);
+            const next = findNextSession(selectedDate, isCamille);
             return `
                 ${isCamille ? '<div class="persona-badge">👩 Camille</div>' : ''}
                 <div class="rest-state">
@@ -826,27 +1120,297 @@
         return html;
     }
 
+    // ========================================================================
+    //  HELPERS DATE
+    // ========================================================================
+    function startOfDay(d) {
+        const x = new Date(d);
+        x.setHours(0, 0, 0, 0);
+        return x;
+    }
+
+    function isSameDay(a, b) {
+        return a.getFullYear() === b.getFullYear()
+            && a.getMonth() === b.getMonth()
+            && a.getDate() === b.getDate();
+    }
+
+    // ========================================================================
+    //  ÉTAT GLOBAL
+    // ========================================================================
+    let selectedDate = startOfDay(new Date()); // Date affichée dans la carte
+
+    // ========================================================================
+    //  RENDU CARTE PRINCIPALE
+    // ========================================================================
     function render() {
-        const now = new Date();
-        const dataRecto  = getWorkoutData(now, false);
-        const dataVerso  = getWorkoutData(now, true);
+        const dataRecto = getWorkoutData(selectedDate, false);
+        const dataVerso = getWorkoutData(selectedDate, true);
 
         const app     = document.getElementById('app');
         const appBack = document.getElementById('appBack');
+        const dayLabel = document.getElementById('day-label');
+        const today    = startOfDay(new Date());
 
-        document.getElementById('display-date').innerText = now.toLocaleDateString('fr-FR', {
-            weekday: 'long', day: 'numeric', month: 'long'
+        // Label : "Aujourd'hui" si c'est aujourd'hui, sinon nom du jour
+        if (isSameDay(selectedDate, today)) {
+            dayLabel.innerText = "Aujourd'hui";
+        } else {
+            const diffDays = Math.round((selectedDate - today) / (1000*60*60*24));
+            if (diffDays === 1)       dayLabel.innerText = "Demain";
+            else if (diffDays === -1) dayLabel.innerText = "Hier";
+            else                      dayLabel.innerText = selectedDate.toLocaleDateString('fr-FR', { weekday: 'long' });
+        }
+
+        document.getElementById('display-date').innerText = selectedDate.toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'long'
         });
 
         app.innerHTML     = buildCardHTML(dataRecto, false);
         appBack.innerHTML = buildCardHTML(dataVerso, true);
     }
 
+    // ========================================================================
+    //  COULEURS PAR TYPE D'EXERCICE (palette unifiée carte ↔ calendrier)
+    // ========================================================================
+    const TYPE_COLORS = {
+        bench:  '#ff453a',   // Rouge
+        squat:  '#0a84ff',   // Bleu
+        rowing: '#30d158',   // Vert (dos)
+        trac:   '#30d158',   // Vert (dos)
+        dm:     '#ff375f',   // Rose
+        abdos:  '#bf5af2',   // Violet
+        course: '#ffffff'    // Blanc
+    };
+
+    // Ordre de priorité d'affichage dans la pastille (push → pull → leg → core → cardio)
+    const TYPE_ORDER = ['bench', 'dm', 'squat', 'rowing', 'trac', 'abdos', 'course'];
+
+    // Regroupe les exercices d'un jour en couleurs uniques (rowing + trac = 1 seule pastille verte)
+    function getDayColorKeys(types) {
+        const groups = {
+            push:   ['bench', 'dm'],          // Rouge & Rose mais on les garde distincts
+            back:   ['rowing', 'trac'],       // Tous les deux verts → 1 seule pastille
+        };
+        // On ne fusionne que les types qui partagent EXACTEMENT la même couleur
+        const seenColors = new Set();
+        const keys = [];
+        TYPE_ORDER.forEach(t => {
+            if (!types.includes(t)) return;
+            const c = TYPE_COLORS[t];
+            if (seenColors.has(c)) return;
+            seenColors.add(c);
+            keys.push(t);
+        });
+        return keys;
+    }
+
+    // ========================================================================
+    //  CONSTRUCTION DU CALENDRIER
+    // ========================================================================
+    const MONTHS_FR_SHORT = ['Janv.','Févr.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'];
+    const WEEKDAYS_FR_SHORT = ['L','M','M','J','V','S','D']; // Semaine commence lundi
+
+    function buildCalendar() {
+        const today = startOfDay(new Date());
+        const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1); // 1er jour du mois précédent
+        const maxDate = new Date(today.getFullYear(), today.getMonth() + 13, 0); // dernier jour du mois +12 (1 an d'avance)
+
+        // Générer la liste des mois à afficher (du minDate au maxDate)
+        const months = [];
+        let cursor = new Date(minDate);
+        while (cursor <= maxDate) {
+            months.push({
+                year: cursor.getFullYear(),
+                month: cursor.getMonth()
+            });
+            cursor.setMonth(cursor.getMonth() + 1);
+        }
+
+        // Générer les pills de mois (en haut)
+        const monthSelector = document.getElementById('monthSelector');
+        monthSelector.innerHTML = months.map((m, i) => {
+            const isCurrent = (m.year === today.getFullYear() && m.month === today.getMonth());
+            const label = MONTHS_FR_SHORT[m.month];
+            const yearTag = (m.year !== today.getFullYear()) ? ` ${String(m.year).slice(2)}` : '';
+            return `<div class="month-pill ${isCurrent ? 'active' : ''}" data-month-index="${i}">${label}${yearTag}</div>`;
+        }).join('');
+
+        // Générer les blocs mensuels (scrollables)
+        const monthsScroll = document.getElementById('monthsScroll');
+        monthsScroll.innerHTML = months.map((m, i) => buildMonthBlockHTML(m, i, today, minDate, maxDate)).join('');
+
+        // Listeners : pill click → scroll vers le mois
+        monthSelector.querySelectorAll('.month-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                const idx = parseInt(pill.dataset.monthIndex);
+                const block = monthsScroll.querySelector(`.month-block[data-month-index="${idx}"]`);
+                if (block) {
+                    monthsScroll.scrollTo({
+                        top: block.offsetTop - 4,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Listeners : day click → sélectionner et fermer
+        monthsScroll.querySelectorAll('.day-cell:not(.empty):not(.out-of-range)').forEach(cell => {
+            cell.addEventListener('click', () => {
+                const dateStr = cell.dataset.date;
+                if (dateStr) {
+                    selectedDate = startOfDay(new Date(dateStr));
+                    closeCalendar();
+                    render();
+                }
+            });
+        });
+
+        // Sync de la pill active selon le scroll
+        let scrollTimeout;
+        monthsScroll.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const blocks = monthsScroll.querySelectorAll('.month-block');
+                let activeIdx = 0;
+                const scrollMid = monthsScroll.scrollTop + monthsScroll.clientHeight / 3;
+                blocks.forEach(b => {
+                    if (b.offsetTop <= scrollMid) {
+                        activeIdx = parseInt(b.dataset.monthIndex);
+                    }
+                });
+                monthSelector.querySelectorAll('.month-pill').forEach(p => {
+                    p.classList.toggle('active', parseInt(p.dataset.monthIndex) === activeIdx);
+                });
+                // Centrer la pill active
+                const activePill = monthSelector.querySelector('.month-pill.active');
+                if (activePill) {
+                    const pillRect = activePill.getBoundingClientRect();
+                    const selRect = monthSelector.getBoundingClientRect();
+                    if (pillRect.left < selRect.left + 20 || pillRect.right > selRect.right - 20) {
+                        activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+                }
+            }, 80);
+        });
+    }
+
+    function buildMonthBlockHTML(monthInfo, idx, today, minDate, maxDate) {
+        const { year, month } = monthInfo;
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const numDays = lastDay.getDate();
+
+        // Lundi = 0 dans notre grille (offset)
+        const firstWeekday = (firstDay.getDay() + 6) % 7;
+
+        let cells = '';
+        // Cellules vides avant le 1er
+        for (let i = 0; i < firstWeekday; i++) {
+            cells += `<div class="day-cell empty"></div>`;
+        }
+
+        // Jours du mois
+        for (let d = 1; d <= numDays; d++) {
+            const date = new Date(year, month, d);
+            const isToday = isSameDay(date, today);
+            const isSelected = isSameDay(date, selectedDate);
+            const isOutOfRange = date < minDate || date > maxDate;
+            const isPast = date < today && !isToday;
+
+            // Récupère les exercices du jour pour la pastille (recto uniquement)
+            const data = getWorkoutData(date, false);
+            const types = (data && data.blocks) ? data.blocks.map(b => b.type) : [];
+            const isRest = types.length === 0;
+            const isDeload = data && data.isDeload;
+
+            // Construire les pastilles (1 par couleur unique du jour)
+            const colorKeys = getDayColorKeys(types);
+            const dotsHTML = colorKeys.map(t =>
+                `<div class="day-dot dot-${t}" style="background:${TYPE_COLORS[t]}"></div>`
+            ).join('');
+
+            const classes = [
+                'day-cell',
+                isToday ? 'today' : '',
+                isSelected ? 'selected' : '',
+                isOutOfRange ? 'out-of-range' : '',
+                isRest ? 'rest' : '',
+                isPast ? 'past' : '',
+                isDeload ? 'deload' : ''
+            ].filter(Boolean).join(' ');
+
+            const dateISO = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+            cells += `
+                <div class="${classes}" data-date="${dateISO}">
+                    <div class="day-num">${d}</div>
+                    <div class="day-dots">${dotsHTML}</div>
+                </div>
+            `;
+        }
+
+        const monthName = firstDay.toLocaleDateString('fr-FR', { month: 'long' });
+        const yearTag = (year !== today.getFullYear()) ? `<span class="year-tag">${year}</span>` : '';
+
+        const weekdayHeader = WEEKDAYS_FR_SHORT.map(d => `<div class="weekday-cell">${d}</div>`).join('');
+
+        return `
+            <div class="month-block" data-month-index="${idx}">
+                <div class="month-title">${monthName}${yearTag}</div>
+                <div class="weekday-row">${weekdayHeader}</div>
+                <div class="day-grid">${cells}</div>
+            </div>
+        `;
+    }
+
+    // ========================================================================
+    //  TOGGLE CALENDRIER
+    // ========================================================================
+    const stage = document.getElementById('stage');
+    const headerDate = document.getElementById('headerDate');
+    const flipHint = document.getElementById('flipHint');
+
+    function openCalendar() {
+        buildCalendar();
+        stage.classList.add('cal-mode');
+        headerDate.classList.add('cal-open');
+        flipHint.style.opacity = '0';
+        flipHint.style.pointerEvents = 'none';
+
+        // Scroll vers le mois courant
+        requestAnimationFrame(() => {
+            const monthsScroll = document.getElementById('monthsScroll');
+            const today = new Date();
+            const todayMonthIdx = 1; // Index 1 = mois courant (puisque minDate = mois -1)
+            const block = monthsScroll.querySelector(`.month-block[data-month-index="${todayMonthIdx}"]`);
+            if (block) monthsScroll.scrollTop = block.offsetTop - 4;
+        });
+    }
+
+    function closeCalendar() {
+        stage.classList.remove('cal-mode');
+        headerDate.classList.remove('cal-open');
+        flipHint.style.opacity = '';
+        flipHint.style.pointerEvents = '';
+    }
+
+    function toggleCalendar() {
+        if (stage.classList.contains('cal-mode')) closeCalendar();
+        else openCalendar();
+    }
+
+    headerDate.addEventListener('click', toggleCalendar);
+
+    // ========================================================================
+    //  INIT
+    // ========================================================================
     render();
 
-    // Flip au clic
+    // Flip au clic (carte uniquement, pas en mode calendrier)
     const flipContainer = document.getElementById('flipContainer');
     flipContainer.addEventListener('click', () => {
+        if (stage.classList.contains('cal-mode')) return;
         flipContainer.classList.toggle('flipped');
     });
 </script>
