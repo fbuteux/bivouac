@@ -101,6 +101,37 @@
             transform: rotateY(180deg);
         }
 
+        /* Animation de swipe horizontal (jour précédent/suivant) */
+        /* On anime le flip-container lui-même pour ne pas perturber le rotateY du flipper */
+        .flip-container {
+            transition: transform 0s, opacity 0s;
+            will-change: transform;
+        }
+
+        .flip-container.swipe-anim {
+            transition: transform 0.28s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.28s ease;
+        }
+
+        .flip-container.swipe-out-left {
+            transform: translateX(-110%);
+            opacity: 0;
+        }
+
+        .flip-container.swipe-out-right {
+            transform: translateX(110%);
+            opacity: 0;
+        }
+
+        .flip-container.swipe-in-left {
+            transform: translateX(110%);
+            opacity: 0;
+        }
+
+        .flip-container.swipe-in-right {
+            transform: translateX(-110%);
+            opacity: 0;
+        }
+
         /* Carte de Séance */
         .session-card {
             background: var(--card);
@@ -1159,6 +1190,15 @@
             && a.getDate() === b.getDate();
     }
 
+    // Bornes navigables : mêmes limites que le calendrier
+    // (1er jour du mois -1, dernier jour du mois +12)
+    function getDateBounds() {
+        const today = startOfDay(new Date());
+        const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+        const maxDate = new Date(today.getFullYear(), today.getMonth() + 13, 0);
+        return { minDate, maxDate };
+    }
+
     // ========================================================================
     //  ÉTAT GLOBAL
     // ========================================================================
@@ -1237,8 +1277,7 @@
 
     function buildCalendar() {
         const today = startOfDay(new Date());
-        const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1); // 1er jour du mois précédent
-        const maxDate = new Date(today.getFullYear(), today.getMonth() + 13, 0); // dernier jour du mois +12 (1 an d'avance)
+        const { minDate, maxDate } = getDateBounds();
 
         // Générer la liste des mois à afficher (du minDate au maxDate)
         const months = [];
@@ -1440,8 +1479,179 @@
     const flipContainer = document.getElementById('flipContainer');
     flipContainer.addEventListener('click', () => {
         if (stage.classList.contains('cal-mode')) return;
+        if (flipContainer.dataset.swiped === '1') {
+            // Le clic provient de la fin d'un swipe → on annule le flip
+            flipContainer.dataset.swiped = '';
+            return;
+        }
         flipContainer.classList.toggle('flipped');
     });
+
+    // ========================================================================
+    //  SWIPE GAUCHE/DROITE → JOUR PRÉCÉDENT/SUIVANT
+    //  Mêmes bornes que le calendrier (getDateBounds)
+    // ========================================================================
+    (function setupSwipe() {
+        let startX = 0, startY = 0;
+        let currentX = 0;
+        let dragging = false;
+        let decided = false;       // Direction (horizontal vs vertical) verrouillée
+        let isHorizontal = false;
+        const SWIPE_THRESHOLD = 60;        // px : distance min pour valider un swipe
+        const VELOCITY_THRESHOLD = 0.4;    // px/ms : vitesse min pour valider un flick
+        let startTime = 0;
+
+        function canGoPrev() {
+            const { minDate } = getDateBounds();
+            const prev = new Date(selectedDate);
+            prev.setDate(prev.getDate() - 1);
+            return prev >= minDate;
+        }
+
+        function canGoNext() {
+            const { maxDate } = getDateBounds();
+            const next = new Date(selectedDate);
+            next.setDate(next.getDate() + 1);
+            return next <= maxDate;
+        }
+
+        function navigateDay(direction) {
+            // direction: -1 = jour précédent, +1 = jour suivant
+            if (direction === -1 && !canGoPrev()) return false;
+            if (direction === +1 && !canGoNext()) return false;
+
+            const newDate = new Date(selectedDate);
+            newDate.setDate(newDate.getDate() + direction);
+            selectedDate = newDate;
+
+            // Animation : la carte sort, on rerend, puis elle entre depuis l'autre côté
+            const outClass = direction === +1 ? 'swipe-out-left' : 'swipe-out-right';
+            const inClass  = direction === +1 ? 'swipe-in-left'  : 'swipe-in-right';
+
+            flipContainer.classList.add('swipe-anim', outClass);
+
+            setTimeout(() => {
+                render();
+                // Replace : on enlève la sortie et on met l'entrée (sans animation)
+                flipContainer.classList.remove('swipe-anim', outClass);
+                flipContainer.classList.add(inClass);
+
+                // Frame suivante : on déclenche l'animation d'entrée
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        flipContainer.classList.add('swipe-anim');
+                        flipContainer.classList.remove(inClass);
+
+                        setTimeout(() => {
+                            flipContainer.classList.remove('swipe-anim');
+                        }, 300);
+                    });
+                });
+            }, 280);
+
+            return true;
+        }
+
+        // Petit feedback : si on tente d'aller au-delà des bornes, on fait un rebond
+        function bounceBack(direction) {
+            // direction: -1 = utilisateur a swipé vers la droite (jour précédent) hors limite
+            //            +1 = swipé vers la gauche (jour suivant) hors limite
+            const offset = direction === +1 ? -30 : 30;
+            flipContainer.style.transition = 'transform 0.15s ease-out';
+            flipContainer.style.transform = `translateX(${offset}px)`;
+            setTimeout(() => {
+                flipContainer.style.transition = 'transform 0.25s cubic-bezier(0.33, 1, 0.68, 1)';
+                flipContainer.style.transform = '';
+                setTimeout(() => {
+                    flipContainer.style.transition = '';
+                }, 250);
+            }, 150);
+        }
+
+        function onStart(e) {
+            if (stage.classList.contains('cal-mode')) return;
+            const t = e.touches ? e.touches[0] : e;
+            startX = t.clientX;
+            startY = t.clientY;
+            currentX = 0;
+            dragging = true;
+            decided = false;
+            isHorizontal = false;
+            startTime = Date.now();
+        }
+
+        function onMove(e) {
+            if (!dragging) return;
+            if (stage.classList.contains('cal-mode')) return;
+            const t = e.touches ? e.touches[0] : e;
+            const dx = t.clientX - startX;
+            const dy = t.clientY - startY;
+
+            // Décide la direction au premier mouvement significatif
+            if (!decided) {
+                if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+                    isHorizontal = Math.abs(dx) > Math.abs(dy);
+                    decided = true;
+                }
+            }
+
+            if (decided && isHorizontal) {
+                if (e.cancelable) e.preventDefault(); // bloque le scroll vertical
+                currentX = dx;
+                // Suivi visuel du doigt avec une légère résistance aux bornes
+                let translate = dx;
+                if ((dx < 0 && !canGoNext()) || (dx > 0 && !canGoPrev())) {
+                    translate = dx * 0.3; // résistance "rubber band"
+                }
+                flipContainer.style.transform = `translateX(${translate}px)`;
+                flipContainer.style.transition = 'none';
+            }
+        }
+
+        function onEnd() {
+            if (!dragging) return;
+            dragging = false;
+
+            if (!decided || !isHorizontal) {
+                flipContainer.style.transform = '';
+                flipContainer.style.transition = '';
+                return;
+            }
+
+            const dx = currentX;
+            const dt = Math.max(1, Date.now() - startTime);
+            const velocity = Math.abs(dx) / dt;
+
+            // Reset des styles inline avant l'animation contrôlée par classes
+            flipContainer.style.transform = '';
+            flipContainer.style.transition = '';
+
+            const direction = dx < 0 ? +1 : -1; // gauche = jour suivant, droite = jour précédent
+            const passedThreshold = Math.abs(dx) > SWIPE_THRESHOLD || velocity > VELOCITY_THRESHOLD;
+
+            if (passedThreshold) {
+                const success = navigateDay(direction);
+                if (success) {
+                    // Marquer pour empêcher le clic résiduel de déclencher le flip
+                    flipContainer.dataset.swiped = '1';
+                    setTimeout(() => { flipContainer.dataset.swiped = ''; }, 400);
+                } else {
+                    bounceBack(direction);
+                }
+            }
+        }
+
+        // Touch
+        flipContainer.addEventListener('touchstart', onStart, { passive: true });
+        flipContainer.addEventListener('touchmove', onMove, { passive: false });
+        flipContainer.addEventListener('touchend', onEnd);
+        flipContainer.addEventListener('touchcancel', onEnd);
+
+        // Souris (desktop)
+        flipContainer.addEventListener('mousedown', onStart);
+        window.addEventListener('mousemove', (e) => { if (dragging) onMove(e); });
+        window.addEventListener('mouseup', onEnd);
+    })();
 </script>
 
 </body>
