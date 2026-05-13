@@ -1,0 +1,817 @@
+{
+    "materiels": [
+        { "id": "barre", "name": "Barre", "step": 2.5 },
+        { "id": "haltere", "name": "Haltères", "step": 2 },
+        { "id": "leste", "name": "Lesté", "step": 1.25 },
+        { "id": "poulie", "name": "Poulie", "step": 2.5 },
+        { "id": "machine", "name": "Machine", "step": 2.5 },
+        { "id": "elastique", "name": "Élastique", "step": 1 },
+        { "id": "poulie_basse", "name": "Poulie basse", "step": 2.5 },
+        { "id": "swiss_ball", "name": "Swiss Ball", "step": 0 },
+        { "id": "run", "name": "Course", "step": 0 },
+        { "id": "pdc", "name": "Poids de corps", "step": 0 },
+        { "id": "pdc_leste", "name": "PDC Lesté", "step": 1.25 },
+        { "id": "kettlebell", "name": "Kettlebell", "step": 4 },
+        { "id": "sled", "name": "Traineau", "step": 10 },
+        { "id": "skierg", "name": "SkiErg", "step": 0 },
+        { "id": "rowing_machine", "name": "Rameur", "step": 0 },
+        { "id": "assault_bike", "name": "Assault Bike", "step": 0 },
+        { "id": "sandbag", "name": "Sandbag", "step": 5 },
+        { "id": "farmers_carry", "name": "Farmers Carry", "step": 2 }
+    ],
+    "trainingMethods": {
+        "ppl": {
+            "Push": ["Pecs", "Push", "Triceps", "Épaules"],
+            "Pull": ["Dos", "Pull", "Biceps", "Bras"],
+            "Legs": ["Jambes", "Legs", "Abdos", "Core"]
+        },
+        "split": {
+            "Pecs": ["Pecs", "Push"],
+            "Dos": ["Dos", "Pull"],
+            "Jambes": ["Jambes", "Legs"],
+            "Épaules": ["Épaules"],
+            "Bras": ["Bras", "Biceps", "Triceps"],
+            "Abdos": ["Abdos", "Core"]
+        },
+        "upperlower": {
+            "Upper": ["Pecs", "Push", "Dos", "Pull", "Épaules", "Bras", "Biceps", "Triceps", "Abdos", "Core"],
+            "Lower": ["Jambes", "Legs"]
+        },
+        "run": {
+            "Sortie": ["Sortie", "Course"],
+            "Fractionné": ["Fractionné"],
+            "Renfo": ["Renfo Run", "Jambes", "Core", "Abdos"]
+        },
+        "pdc": {
+            "Poussée": ["PDC Push", "PDC"],
+            "Tirage": ["PDC Pull", "PDC"],
+            "Jambes & Core": ["PDC Legs", "PDC Core", "PDC"]
+        },
+        "hyrox": {
+            "Stations": ["Hyrox Station"],
+            "Course": ["Hyrox Course"],
+            "Renfo": ["Renfo Run", "Jambes", "Core"]
+        },
+        "cardio": {
+            "Machines": ["Cardio Machine"],
+            "Fonctionnel": ["Cardio Fonctionnel"],
+            "Carries": ["Cardio Carry"]
+        }
+    },
+    "runExercices": [
+        {
+            "id": "run_endurance",
+            "name": "Sortie Endurance",
+            "emoji": "🏃",
+            "color": "#ffffff",
+            "type": "course",
+            "categories": ["Sortie", "Course"],
+            "defaultDuration": 45,
+            "defaultDistance": 8,
+            "defaultPaceMin": 5,
+            "defaultPaceSec": 30,
+            "defaultRPE": 6,
+            "zones": ["Z2 Endurance", "Z1 Récup active", "Z3 Tempo"]
+        },
+        {
+            "id": "run_tempo",
+            "name": "Sortie Tempo",
+            "emoji": "⚡",
+            "color": "#ffffff",
+            "type": "course",
+            "categories": ["Sortie", "Course"],
+            "defaultDuration": 40,
+            "defaultDistance": 7,
+            "defaultPaceMin": 4,
+            "defaultPaceSec": 30,
+            "defaultRPE": 7,
+            "zones": ["Z3 Tempo", "Z4 Seuil", "Z2 Endurance"]
+        },
+        {
+            "id": "run_long",
+            "name": "Sortie Longue",
+            "emoji": "🌄",
+            "color": "#ffffff",
+            "type": "course",
+            "categories": ["Sortie", "Course"],
+            "defaultDuration": 90,
+            "defaultDistance": 16,
+            "defaultPaceMin": 5,
+            "defaultPaceSec": 45,
+            "defaultRPE": 6,
+            "zones": ["Z2 Endurance", "Z1 Récup active"]
+        },
+        {
+            "id": "run_frac_court",
+            "name": "Fractionné Court",
+            "emoji": "🔥",
+            "color": "#ffffff",
+            "type": "fractionne",
+            "categories": ["Fractionné"],
+            "defaultBlocs": 8,
+            "defaultEffortSec": 30,
+            "defaultEffortDist": 0,
+            "defaultDistMode": "time",
+            "defaultRecupSec": 30,
+            "defaultEffortPaceMin": 3,
+            "defaultEffortPaceSec": 30,
+            "defaultRecupPaceMin": 6,
+            "defaultRecupPaceSec": 0,
+            "defaultWarmupMin": 10,
+            "defaultCooldownMin": 10,
+            "zones": ["Z5 VO2max", "Z4 Seuil"]
+        },
+        {
+            "id": "run_frac_long",
+            "name": "Fractionné Long",
+            "emoji": "💨",
+            "color": "#ffffff",
+            "type": "fractionne",
+            "categories": ["Fractionné"],
+            "defaultBlocs": 5,
+            "defaultEffortSec": 180,
+            "defaultEffortDist": 0,
+            "defaultDistMode": "time",
+            "defaultRecupSec": 90,
+            "defaultEffortPaceMin": 4,
+            "defaultEffortPaceSec": 0,
+            "defaultRecupPaceMin": 5,
+            "defaultRecupPaceSec": 30,
+            "defaultWarmupMin": 10,
+            "defaultCooldownMin": 10,
+            "zones": ["Z4 Seuil", "Z5 VO2max"]
+        },
+        {
+            "id": "run_frac_dist",
+            "name": "Fractionné Distance",
+            "emoji": "📏",
+            "color": "#ffffff",
+            "type": "fractionne",
+            "categories": ["Fractionné"],
+            "defaultBlocs": 6,
+            "defaultEffortSec": 0,
+            "defaultEffortDist": 400,
+            "defaultDistMode": "distance",
+            "defaultRecupSec": 90,
+            "defaultEffortPaceMin": 4,
+            "defaultEffortPaceSec": 0,
+            "defaultRecupPaceMin": 0,
+            "defaultRecupPaceSec": 0,
+            "defaultWarmupMin": 10,
+            "defaultCooldownMin": 10,
+            "zones": ["Z4 Seuil", "Z5 VO2max"]
+        },
+        {
+            "id": "run_frac_cote",
+            "name": "Côtes",
+            "emoji": "⛰️",
+            "color": "#ffffff",
+            "type": "fractionne",
+            "categories": ["Fractionné"],
+            "defaultBlocs": 6,
+            "defaultEffortSec": 60,
+            "defaultEffortDist": 0,
+            "defaultDistMode": "time",
+            "defaultRecupSec": 120,
+            "defaultEffortPaceMin": 4,
+            "defaultEffortPaceSec": 30,
+            "defaultRecupPaceMin": 0,
+            "defaultRecupPaceSec": 0,
+            "defaultWarmupMin": 15,
+            "defaultCooldownMin": 10,
+            "zones": ["Z5 VO2max", "Z4 Seuil"]
+        }
+    ],
+    "hyroxExercices": [
+        {
+            "id": "hyrox_skierg",
+            "name": "SkiErg",
+            "emoji": "🎿",
+            "color": "#aeaeb2",
+            "type": "machine",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 1000,
+            "defaultTargetMin": 4,
+            "defaultTargetSec": 0,
+            "hasResistance": false
+        },
+        {
+            "id": "hyrox_sled_push",
+            "name": "Sled Push",
+            "emoji": "🛷",
+            "color": "#0a84ff",
+            "type": "sled",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 50,
+            "defaultWeight": 102,
+            "defaultTargetMin": 2,
+            "defaultTargetSec": 0
+        },
+        {
+            "id": "hyrox_sled_pull",
+            "name": "Sled Pull",
+            "emoji": "🪢",
+            "color": "#30d158",
+            "type": "sled",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 50,
+            "defaultWeight": 78,
+            "defaultTargetMin": 2,
+            "defaultTargetSec": 30
+        },
+        {
+            "id": "hyrox_burpee",
+            "name": "Burpee Broad Jump",
+            "emoji": "🤸",
+            "color": "#ff9f0a",
+            "type": "reps",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 80,
+            "defaultTargetMin": 4,
+            "defaultTargetSec": 0
+        },
+        {
+            "id": "hyrox_rowing",
+            "name": "Rowing Ergomètre",
+            "emoji": "🚣",
+            "color": "#aeaeb2",
+            "type": "machine",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 1000,
+            "defaultTargetMin": 4,
+            "defaultTargetSec": 30,
+            "hasResistance": true,
+            "defaultResistance": 5
+        },
+        {
+            "id": "hyrox_farmers",
+            "name": "Farmers Carry",
+            "emoji": "🧳",
+            "color": "#ffd60a",
+            "type": "carry",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 200,
+            "defaultWeight": 32,
+            "defaultTargetMin": 2,
+            "defaultTargetSec": 0
+        },
+        {
+            "id": "hyrox_sandbag",
+            "name": "Sandbag Lunges",
+            "emoji": "🎒",
+            "color": "#0a84ff",
+            "type": "carry",
+            "categories": ["Hyrox Station"],
+            "defaultDistance": 100,
+            "defaultWeight": 20,
+            "defaultTargetMin": 3,
+            "defaultTargetSec": 0
+        },
+        {
+            "id": "hyrox_wallballs",
+            "name": "Wall Balls",
+            "emoji": "⚾",
+            "color": "#ff453a",
+            "type": "reps",
+            "categories": ["Hyrox Station"],
+            "defaultReps": 100,
+            "defaultWeight": 6,
+            "defaultTargetMin": 5,
+            "defaultTargetSec": 0
+        },
+        {
+            "id": "hyrox_course",
+            "name": "Course Hyrox",
+            "emoji": "🏃",
+            "color": "#ffffff",
+            "type": "course_hyrox",
+            "categories": ["Hyrox Course"],
+            "defaultDistance": 1000,
+            "defaultPaceMin": 5,
+            "defaultPaceSec": 0
+        }
+    ],
+    "cardioExercices": [
+        {
+            "id": "cardio_skierg",
+            "name": "SkiErg",
+            "emoji": "🎿",
+            "color": "#aeaeb2",
+            "type": "machine",
+            "categories": ["Cardio Machine"],
+            "defaultDuration": 10,
+            "defaultDistance": 2000,
+            "hasResistance": false
+        },
+        {
+            "id": "cardio_rowing",
+            "name": "Rameur",
+            "emoji": "🚣",
+            "color": "#aeaeb2",
+            "type": "machine",
+            "categories": ["Cardio Machine"],
+            "defaultDuration": 10,
+            "defaultDistance": 2000,
+            "hasResistance": true,
+            "defaultResistance": 5
+        },
+        {
+            "id": "cardio_assault",
+            "name": "Assault Bike",
+            "emoji": "🚴",
+            "color": "#aeaeb2",
+            "type": "machine",
+            "categories": ["Cardio Machine"],
+            "defaultDuration": 10,
+            "defaultDistance": 0,
+            "hasResistance": false
+        },
+        {
+            "id": "cardio_jump_rope",
+            "name": "Corde à Sauter",
+            "emoji": "🪢",
+            "color": "#aeaeb2",
+            "type": "reps_time",
+            "categories": ["Cardio Fonctionnel"],
+            "defaultDuration": 5,
+            "defaultReps": 0
+        },
+        {
+            "id": "cardio_box_jump",
+            "name": "Box Jump",
+            "emoji": "📦",
+            "color": "#aeaeb2",
+            "type": "reps_time",
+            "categories": ["Cardio Fonctionnel"],
+            "defaultDuration": 0,
+            "defaultReps": 20
+        },
+        {
+            "id": "cardio_kb_swing",
+            "name": "KB Swing",
+            "emoji": "🔔",
+            "color": "#aeaeb2",
+            "type": "reps_time",
+            "categories": ["Cardio Fonctionnel"],
+            "defaultDuration": 0,
+            "defaultReps": 20,
+            "defaultWeight": 24
+        },
+        {
+            "id": "cardio_farmers",
+            "name": "Farmers Carry",
+            "emoji": "🧳",
+            "color": "#ffd60a",
+            "type": "carry",
+            "categories": ["Cardio Carry"],
+            "defaultDistance": 50,
+            "defaultWeight": 32
+        },
+        {
+            "id": "cardio_yoke",
+            "name": "Yoke Walk",
+            "emoji": "🏗️",
+            "color": "#ffd60a",
+            "type": "carry",
+            "categories": ["Cardio Carry"],
+            "defaultDistance": 20,
+            "defaultWeight": 100
+        }
+    ],
+    "exercices": [
+        {
+            "id": "dc",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "materielId": "barre",
+            "categories": ["Pecs", "Push"],
+            "defaultSets": 3, "defaultReps": 1, "defaultWeight": 0,
+            "techniques": ["Normal", "Pause", "Spoto"]
+        },
+        {
+            "id": "sq",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 80,
+            "techniques": ["Normal", "Pause", "High Bar", "Low Bar"]
+        },
+        {
+            "id": "deadlift",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "materielId": "barre",
+            "categories": ["Dos", "Jambes", "Pull"],
+            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 100,
+            "techniques": ["Normal", "Sumo", "Roumain", "Pause"]
+        },
+        {
+            "id": "rdl",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 70,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "ohp",
+            "name": "Overhead Press",
+            "emoji": "🔝",
+            "color": "#ff9f0a",
+            "materielId": "barre",
+            "categories": ["Épaules", "Push"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 40,
+            "techniques": ["Normal", "Push Press", "Pause"]
+        },
+        {
+            "id": "zercher",
+            "name": "Zercher Squat",
+            "emoji": "🤲",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 60,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "goodmorning",
+            "name": "Good Morning",
+            "emoji": "🌅",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Dos", "Jambes"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
+            "techniques": ["Normal"]
+        },
+        {
+            "id": "front_sq",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 60,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "traction",
+            "name": "Tractions",
+            "emoji": "🆙",
+            "color": "#30d158",
+            "materielId": "leste",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 10,
+            "techniques": ["Normal", "Lesté"]
+        },
+        {
+            "id": "dc_incline",
+            "name": "DC Incliné",
+            "emoji": "🏔️",
+            "color": "#ff453a",
+            "materielId": "barre",
+            "categories": ["Pecs", "Push"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 50,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "dc_decline",
+            "name": "DC Décliné",
+            "emoji": "📉",
+            "color": "#ff453a",
+            "materielId": "barre",
+            "categories": ["Pecs", "Push"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 55,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "ecartes_halteres",
+            "name": "Écartés Haltères",
+            "emoji": "🤸",
+            "color": "#ff453a",
+            "materielId": "haltere",
+            "categories": ["Pecs", "Push"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 15,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "curl_biceps",
+            "name": "Curl Biceps",
+            "emoji": "💪",
+            "color": "#ffd60a",
+            "materielId": "haltere",
+            "categories": ["Bras", "Pull"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 12,
+            "techniques": ["Normal", "Série dégressive", "Pause", "Marteau"]
+        },
+        {
+            "id": "extension_triceps",
+            "name": "Extension Triceps",
+            "emoji": "💪",
+            "color": "#ffd60a",
+            "materielId": "haltere",
+            "categories": ["Bras", "Push"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 10,
+            "techniques": ["Normal", "Série dégressive"]
+        },
+        {
+            "id": "tirage_vertical",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "materielId": "poulie",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 50,
+            "techniques": ["Normal", "Pause", "Prise neutre"]
+        },
+        {
+            "id": "tirage_horizontal",
+            "name": "Rowing Machine",
+            "emoji": "🚣",
+            "color": "#30d158",
+            "materielId": "poulie",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 45,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "rowing_barre",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "materielId": "barre",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
+            "techniques": ["Normal", "Pause", "Penché"]
+        },
+        {
+            "id": "elevations_laterales",
+            "name": "Élévations Latérales",
+            "emoji": "🦾",
+            "color": "#ff9f0a",
+            "materielId": "haltere",
+            "categories": ["Épaules", "Push"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 8,
+            "techniques": ["Normal", "Série dégressive"]
+        },
+        {
+            "id": "presse_cuisses",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 100,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "leg_extension",
+            "name": "Leg Extension",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 40,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "leg_curl",
+            "name": "Leg Curl",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 35,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "mollets",
+            "name": "Mollets",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 4, "defaultReps": 15, "defaultWeight": 80,
+            "techniques": ["Normal", "Pause", "Contraction max"]
+        },
+        {
+            "id": "abdo_releves",
+            "name": "Relevés de Jambes",
+            "emoji": "🧘",
+            "color": "#bf5af2",
+            "materielId": "leste",
+            "categories": ["Abdos", "Core", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "crunch_swiss",
+            "name": "Crunch Swiss Ball",
+            "emoji": "⚽",
+            "color": "#bf5af2",
+            "materielId": "swiss_ball",
+            "categories": ["Abdos", "Core", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "tirage_menton",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "materielId": "poulie_basse",
+            "categories": ["Épaules", "Pull"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 25,
+            "techniques": ["Normal", "Prise serrée"]
+        },
+        {
+            "id": "pompes",
+            "name": "Pompes",
+            "emoji": "🧘‍♂️",
+            "color": "#ff453a",
+            "materielId": "pdc_leste",
+            "categories": ["Pecs", "Push", "PDC Push", "PDC", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
+            "techniques": ["Normal", "Pause", "Plaque", "Archer", "Diamant"]
+        },
+        {
+            "id": "dips",
+            "name": "Dips",
+            "emoji": "🤸‍♂️",
+            "color": "#ff453a",
+            "materielId": "pdc_leste",
+            "categories": ["Pecs", "Triceps", "Push", "PDC Push", "PDC"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 0,
+            "techniques": ["Normal", "Lesté", "Anneau"]
+        },
+        {
+            "id": "muscle_up",
+            "name": "Muscle-Up",
+            "emoji": "🌀",
+            "color": "#30d158",
+            "materielId": "pdc_leste",
+            "categories": ["Dos", "Pecs", "PDC Pull", "PDC"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
+            "techniques": ["Barre fixe", "Anneau", "Kipping"]
+        },
+        {
+            "id": "traction_pdc",
+            "name": "Tractions PDC",
+            "emoji": "🆙",
+            "color": "#30d158",
+            "materielId": "pdc_leste",
+            "categories": ["Dos", "Pull", "PDC Pull", "PDC"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 0,
+            "techniques": ["Normal", "Lesté", "Australienne", "Archer"]
+        },
+        {
+            "id": "l_sit",
+            "name": "L-Sit",
+            "emoji": "🪑",
+            "color": "#bf5af2",
+            "materielId": "pdc",
+            "categories": ["Core", "PDC Core", "PDC"],
+            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 0,
+            "techniques": ["Parallettes", "Sol", "Barre"],
+            "unit": "sec"
+        },
+        {
+            "id": "front_lever",
+            "name": "Front Lever",
+            "emoji": "⚓",
+            "color": "#30d158",
+            "materielId": "pdc",
+            "categories": ["Dos", "Core", "PDC Pull", "PDC"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 0,
+            "techniques": ["Tuck", "One Leg", "Straddle", "Full"],
+            "unit": "sec"
+        },
+        {
+            "id": "planche",
+            "name": "Planche",
+            "emoji": "🤸",
+            "color": "#ff453a",
+            "materielId": "pdc",
+            "categories": ["Pecs", "PDC Push", "PDC"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
+            "techniques": ["Tuck", "Straddle", "Full"],
+            "unit": "sec"
+        },
+        {
+            "id": "hspu",
+            "name": "Handstand Push-Up",
+            "emoji": "🙃",
+            "color": "#ff9f0a",
+            "materielId": "pdc",
+            "categories": ["Épaules", "PDC Push", "PDC"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
+            "techniques": ["Mur", "Strict", "Kipping", "Déficit"]
+        },
+        {
+            "id": "pistol_squat",
+            "name": "Pistol Squat",
+            "emoji": "🦿",
+            "color": "#0a84ff",
+            "materielId": "pdc_leste",
+            "categories": ["Jambes", "PDC Legs", "PDC"],
+            "defaultSets": 3, "defaultReps": 6, "defaultWeight": 0,
+            "techniques": ["Normal", "Lesté", "Pause"]
+        },
+        {
+            "id": "gainage",
+            "name": "Gainage",
+            "emoji": "🧱",
+            "color": "#bf5af2",
+            "materielId": "pdc",
+            "categories": ["Core", "Abdos", "PDC Core", "PDC", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 45, "defaultWeight": 0,
+            "techniques": ["Planche", "Latéral", "Dynamique"],
+            "unit": "sec"
+        },
+        {
+            "id": "fentes",
+            "name": "Fentes",
+            "emoji": "🦿",
+            "color": "#0a84ff",
+            "materielId": "haltere",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 10,
+            "techniques": ["Normal", "Marchées", "Latérales"]
+        },
+        {
+            "id": "squat_bulgare",
+            "name": "Squat Bulgare",
+            "emoji": "🏋️",
+            "color": "#0a84ff",
+            "materielId": "haltere",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 12,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "step_up",
+            "name": "Step Up",
+            "emoji": "📦",
+            "color": "#0a84ff",
+            "materielId": "haltere",
+            "categories": ["Jambes", "Legs", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 8,
+            "techniques": ["Normal", "Lent"]
+        },
+        {
+            "id": "nordic_curl",
+            "name": "Nordic Curl",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "pdc",
+            "categories": ["Jambes", "Renfo Run"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 0,
+            "techniques": ["Normal", "Excentrique"]
+        },
+        {
+            "id": "sl_weighted_pullup",
+            "name": "Tractions Lestées",
+            "emoji": "🏅",
+            "color": "#30d158",
+            "materielId": "pdc_leste",
+            "categories": ["Dos", "Pull", "PDC Pull", "PDC", "Streetlifting"],
+            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 20,
+            "techniques": ["Normal", "Pronation", "Supination", "Neutre"]
+        },
+        {
+            "id": "sl_weighted_dips",
+            "name": "Dips Lestés",
+            "emoji": "🥇",
+            "color": "#ff453a",
+            "materielId": "pdc_leste",
+            "categories": ["Pecs", "Triceps", "Push", "PDC Push", "PDC", "Streetlifting"],
+            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 20,
+            "techniques": ["Normal", "Penchés avant", "Anneau"]
+        },
+        {
+            "id": "sl_weighted_pushup",
+            "name": "Pompes Lestées",
+            "emoji": "🏆",
+            "color": "#ff453a",
+            "materielId": "pdc_leste",
+            "categories": ["Pecs", "Push", "PDC Push", "PDC", "Streetlifting"],
+            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 20,
+            "techniques": ["Normal", "Archer", "Diamant"]
+        },
+        {
+            "id": "sl_muscle_up",
+            "name": "Muscle-Up Lesté",
+            "emoji": "🎖️",
+            "color": "#30d158",
+            "materielId": "pdc_leste",
+            "categories": ["Dos", "Pecs", "PDC", "Streetlifting"],
+            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 10,
+            "techniques": ["Strict", "Barre", "Anneau"]
+        }
+    ]
+}

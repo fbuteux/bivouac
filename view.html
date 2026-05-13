@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bench Master - Focus</title>
+    <link rel="apple-touch-icon" href="01.png">
+    <style>
+        :root {
+            --bg: #000000; --card: #1c1c1e; --card-soft: #2c2c2e;
+            --yellow: #ffd60a; --blue: #0a84ff; --accent: #30d158;
+            --text-dim: #8e8e93; --text-soft: #aeaeb2; --divider: #3a3a3c;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            background: var(--bg); color: white; margin: 0;
+            padding: 20px 12px 40px; display: flex; flex-direction: column;
+            align-items: center; min-height: 100vh;
+        }
+
+        .header-date {
+            text-align: center; margin-bottom: 24px; cursor: pointer;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+            transition: transform .2s;
+        }
+        .header-date:active { transform: scale(.97); }
+        .today-label { color: var(--accent); text-transform: uppercase; font-size: 13px; font-weight: 700; letter-spacing: 1.2px; }
+        .current-date {
+            font-size: 30px; font-weight: 800; margin-top: 4px;
+            text-transform: capitalize; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .current-date::after {
+            content: '⌄'; font-size: 20px; color: var(--text-dim); font-weight: 600;
+            transform: translateY(-3px); transition: transform .3s; display: inline-block;
+        }
+        .header-date.cal-open .current-date::after { transform: translateY(-3px) rotate(180deg); }
+
+        .stage { width: 100%; max-width: 380px; position: relative; min-height: 460px; }
+        .stage > .flip-container, .stage > .calendar-view {
+            transition: opacity .35s cubic-bezier(.4,0,.2,1), transform .35s cubic-bezier(.4,0,.2,1);
+        }
+        .stage:not(.cal-mode) .calendar-view {
+            opacity: 0; transform: translateY(-10px) scale(.98);
+            pointer-events: none; position: absolute; inset: 0;
+        }
+        .stage.cal-mode .flip-container {
+            opacity: 0; transform: translateY(10px) scale(.97);
+            pointer-events: none; position: absolute; inset: 0;
+        }
+        .stage.cal-mode .calendar-view { opacity: 1; transform: none; pointer-events: auto; }
+
+        .flip-container {
+            width: 100%; max-width: 380px; perspective: 1800px; cursor: pointer;
+            will-change: transform; transition: transform 0s, opacity 0s;
+        }
+        .flipper {
+            position: relative; width: 100%;
+            transition: transform .75s cubic-bezier(.4,0,.2,1);
+            transform-style: preserve-3d;
+        }
+        .flip-container.flipped .flipper { transform: rotateY(180deg); }
+        .flip-container.swipe-anim { transition: transform .28s cubic-bezier(.33,1,.68,1), opacity .28s ease; }
+        .flip-container.swipe-out-left  { transform: translateX(-110%); opacity: 0; }
+        .flip-container.swipe-out-right { transform: translateX(110%); opacity: 0; }
+        .flip-container.swipe-in-left   { transform: translateX(110%); opacity: 0; }
+        .flip-container.swipe-in-right  { transform: translateX(-110%); opacity: 0; }
+
+        .session-card {
+            background: var(--card); width: 100%; border-radius: 28px;
+            padding: 22px 20px; box-shadow: 0 24px 48px rgba(0,0,0,.5);
+            border: 1px solid rgba(255,255,255,.06);
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        }
+        .front { position: relative; }
+        .back  { position: absolute; top: 0; left: 0; transform: rotateY(180deg); }
+
+        .goal-info {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--divider);
+        }
+        .goal-text { font-size: 13px; color: var(--text-dim); font-weight: 500; line-height: 1.35; }
+        .goal-text strong { color: white; font-weight: 700; }
+        .goal-val {
+            font-size: 22px; font-weight: 800;
+            background: linear-gradient(135deg,#0a84ff,#bf5af2,#5e5ce6,#0a84ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gG 4s ease infinite;
+            filter: drop-shadow(0 0 8px rgba(191,90,242,.3));
+            white-space: nowrap;
+        }
+        @keyframes gG { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+        .workout-list { display: flex; flex-direction: column; gap: 12px; }
+        .ex-block { border-radius: 16px; padding: 13px 14px 11px; border: 1px solid rgba(255,255,255,.05); }
+        .ex-header { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+        .ex-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+        .ex-title    { font-size: 15px; font-weight: 700; letter-spacing: .2px; }
+        .ex-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+
+        .set-list { display: flex; flex-direction: column; gap: 4px; }
+        .set-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 4px 5px 6px; }
+        .set-row + .set-row { border-top: 1px solid rgba(255,255,255,.04); }
+        .set-info { display: flex; flex-direction: column; min-width: 0; }
+        .set-name  { font-size: 13px; font-weight: 600; color: white; }
+        .set-meta  { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+        .set-weight {
+            font-size: 15px; font-weight: 700; padding: 4px 11px; border-radius: 8px;
+            min-width: 64px; text-align: center; font-variant-numeric: tabular-nums;
+            background: rgba(255,255,255,.07);
+        }
+
+        .info-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; margin-top: 4px; }
+        .info-item { display: flex; flex-direction: column; gap: 2px; }
+        .info-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--text-dim); }
+        .info-val   { font-size: 13px; font-weight: 700; }
+
+        .rest-state { text-align: center; padding: 50px 0 40px; }
+        .rest-icon  { font-size: 52px; margin-bottom: 14px; display: block; }
+        .rest-title { font-size: 26px; font-weight: 800; }
+        .rest-sub   { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+        .next-session { margin-top: 22px; font-size: 13px; color: var(--accent); font-weight: 600; line-height: 1.5; }
+
+        .deload-chip { display: inline-block; background: rgba(255,214,10,.15); color: var(--yellow); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; letter-spacing: .4px; text-transform: uppercase; margin-left: 6px; vertical-align: middle; }
+        .cycle-chip  { display: inline-block; background: rgba(10,132,255,.15); color: var(--blue); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; margin-left: 6px; vertical-align: middle; }
+
+        .calendar-view { width: 100%; }
+        .month-selector { display: flex; gap: 8px; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 4px 2px 14px; margin-bottom: 6px; scroll-snap-type: x mandatory; }
+        .month-selector::-webkit-scrollbar { display: none; }
+        .month-pill { flex-shrink: 0; padding: 8px 16px; background: var(--card); border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--text-soft); cursor: pointer; border: 1px solid rgba(255,255,255,.04); transition: all .25s; scroll-snap-align: center; white-space: nowrap; text-transform: capitalize; }
+        .month-pill:active { transform: scale(.95); }
+        .month-pill.active { background: white; color: black; border-color: white; font-weight: 700; }
+        .months-scroll { max-height: 70vh; overflow-y: auto; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; scrollbar-width: none; padding: 0 2px 40px; }
+        .months-scroll::-webkit-scrollbar { display: none; }
+        .month-block  { margin-bottom: 28px; }
+        .month-title  { font-size: 22px; font-weight: 800; margin: 4px 4px 14px; text-transform: capitalize; letter-spacing: -.3px; }
+        .month-title .year-tag { color: var(--text-dim); font-weight: 600; font-size: 18px; margin-left: 8px; }
+        .weekday-row  { display: grid; grid-template-columns: repeat(7,1fr); margin: 0 0 8px; }
+        .weekday-cell { text-align: center; font-size: 11px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .5px; }
+        .day-grid     { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+        .day-cell { aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; cursor: pointer; transition: background .2s, transform .15s; }
+        .day-cell.empty { cursor: default; pointer-events: none; }
+        .day-cell:active:not(.empty) { transform: scale(.92); }
+        .day-num { font-size: 16px; font-weight: 600; color: white; line-height: 1; }
+        .day-cell.empty .day-num   { visibility: hidden; }
+        .day-cell.rest .day-num    { color: var(--text-dim); font-weight: 500; }
+        .day-cell.today            { background: rgba(255,255,255,.08); }
+        .day-cell.today .day-num   { color: var(--accent); font-weight: 800; }
+        .day-cell.selected:not(.today) { background: rgba(10,132,255,.15); }
+        .day-cell.selected:not(.today) .day-num { color: var(--blue); font-weight: 800; }
+        .day-cell.out-of-range     { opacity: .25; pointer-events: none; }
+        .day-cell.past .day-num    { color: var(--text-soft); opacity: .6; }
+        .day-cell.deload           { background: rgba(255,214,10,.06); }
+        .day-dots { display: flex; gap: 2px; margin-top: 4px; min-height: 5px; align-items: center; justify-content: center; flex-wrap: wrap; max-width: 36px; }
+        .day-dot  { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+        .day-cell.rest .day-dots { visibility: hidden; }
+        
+        .flip-hint { margin-top: 14px; font-size: 11px; color: var(--text-dim); letter-spacing: .4px; text-transform: uppercase; opacity: .7; }
+        .flip-hint .arrow { display: inline-block; animation: pa 2s ease-in-out infinite; }
+        @keyframes pa { 0%,100%{opacity:.4;transform:translateX(0)} 50%{opacity:1;transform:translateX(3px)} }
+    </style>
+</head>
+<body>
+<br><br>
+<div class="header-date" id="headerDate">
+    <div class="today-label" id="day-label">Aujourd'hui</div>
+    <div class="current-date" id="display-date">--/--</div>
+</div>
+
+<div id="stage" class="stage">
+    <div id="flipContainer" class="flip-container">
+        <div class="flipper">
+            <div id="app" class="session-card front"></div>
+            <div id="appBack" class="session-card back"></div>
+        </div>
+    </div>
+    <div id="calendarView" class="calendar-view">
+        <div id="monthSelector" class="month-selector"></div>
+        <div id="monthsScroll" class="months-scroll"></div>
+    </div>
+</div>
+
+<div class="flip-hint" id="flipHint">Tap pour retourner <span class="arrow">→</span></div>
+
+<script>
+// ════════════════════════════════════════════
+//  CONSTANTES
+// ════════════════════════════════════════════
+const DAYS_FR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const MONTHS_SHORT = ['Janv.', 'Févr.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'];
+const WEEKDAYS_SHORT = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
+// ════════════════════════════════════════════
+//  ÉTAT
+// ════════════════════════════════════════════
+let programRecto = null;
+let programVerso = null;
+let selectedDate = startOfDay(new Date());
+
+// ════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════
+function startOfDay(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+function isSameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+function getDateBounds() { const t = startOfDay(new Date()); return { minDate: new Date(t.getFullYear(), t.getMonth() - 1, 1), maxDate: new Date(t.getFullYear(), t.getMonth() + 13, 0) }; }
+function fmtPace(min, sec) { return `${min}:${String(sec).padStart(2, '0')}/km`; }
+function fmtTime(s) { if (!s) return '—'; return s >= 60 ? `${Math.floor(s / 60)}min${s % 60 ? String(s % 60).padStart(2, '0') : ''}` : `${s}s`; }
+function fmtDur(m) { if (!m) return '—'; return m >= 60 ? `${Math.floor(m / 60)}h${m % 60 ? String(m % 60).padStart(2, '0') : ''}` : `${m}min`; }
+function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+function itemColor(item) {
+    if (item.color) return item.color;
+    const fallbacks = { run: '#30d158', hyrox: '#ff453a', cardio: '#ff9f0a', muscu: '#0a84ff' };
+    return fallbacks[item.cardType] || '#0a84ff';
+}
+function itemEmoji(item) {
+    if (item.emoji) return item.emoji;
+    const fb = { run: '🏃', hyrox: '⚡', cardio: '🚴', muscu: '🏋️' };
+    return fb[item.cardType] || '🏋️';
+}
+
+// ════════════════════════════════════════════
+//  CHARGEMENT - Lit les données partagées depuis localStorage
+// ════════════════════════════════════════════
+function loadPrograms() {
+    document.getElementById('app').innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--text-dim);font-size:14px">Chargement…</div>';
+    
+    const sharedProgram = localStorage.getItem('benchmaster_client_program');
+    if (sharedProgram) {
+        try {
+            const prog = JSON.parse(sharedProgram);
+            programRecto = {
+                programName: prog.programName || 'Mon programme',
+                startDate: prog.startDate,
+                weeks: prog.weeks.map(week => ({
+                    week: week.week,
+                    deload: week.deload,
+                    days: week.days
+                })),
+                maxTargets: prog.maxTargets || {},
+                progressionConfig: prog.progressionConfig || {}
+            };
+            console.log('Programme chargé depuis le tableau principal', programRecto);
+        } catch(e) { console.error('Erreur chargement programme partagé', e); programRecto = null; }
+    }
+    
+    if (!programRecto) {
+        try {
+            fetch('test.json')
+                .then(r => r.ok ? r.json() : null)
+                .then(data => { if (data) { programRecto = data; render(); buildCalendar(); } })
+                .catch(() => {});
+        } catch(e) {}
+    }
+    
+    if (!programRecto) {
+        document.getElementById('app').innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:40px;margin-bottom:12px">📂</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">Aucun programme</div><div style="font-size:12px;color:var(--text-dim)">Créez un programme dans l\'éditeur puis cliquez sur 👁️</div></div>';
+        return;
+    }
+    
+    render();
+    buildCalendar();
+}
+
+// ════════════════════════════════════════════
+//  LOGIQUE PROGRAMME
+// ════════════════════════════════════════════
+function getWorkoutData(prog, date) {
+    if (!prog?.weeks?.length || !prog.startDate) return null;
+    
+    const [sy, sm, sd] = prog.startDate.split('T')[0].split('-').map(Number);
+    const diffDays = Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
+    if (diffDays < 0) return null;
+    
+    const weekIndex = diffDays % prog.weeks.length;
+    const cycleIndex = Math.floor(diffDays / prog.weeks.length);
+    const weekData = prog.weeks[weekIndex];
+    if (!weekData) return null;
+    
+    const dayName = DAYS_FR[date.getDay()];
+    const rawItems = (weekData.days?.[dayName]) || [];
+    
+    const blocks = rawItems.map(item => applyProgression(item, prog, cycleIndex)).filter(Boolean);
+    
+    return {
+        week: weekData.week,
+        cycleIndex: cycleIndex,
+        isDeload: !!weekData.deload,
+        blocks: blocks,
+        dayName: dayName
+    };
+}
+
+function applyProgression(item, prog, cycleIndex) {
+    if (item.cardType !== 'muscu') return item;
+    const cfg = prog.progressionConfig?.[item.id] || { type: 'none' };
+    const delta = computeProg(cfg, cycleIndex, 1.25);
+    if (!delta || delta === 0) return item;
+    const newSets = item.sets.map(s => ({
+        ...s,
+        weight: s.weight != null ? Math.round((s.weight + delta) * 100) / 100 : s.weight
+    }));
+    return { ...item, sets: newSets };
+}
+
+function computeProg(cfg, idx, step) {
+    const s = step || 1;
+    const rnd = v => Math.round(v / s) * s;
+    if (!cfg || cfg.type === 'none') return 0;
+    if (cfg.type === 'linear') return rnd(idx * (cfg.increment || s));
+    if (cfg.type === 'logarithmic') return rnd((cfg.amplitude || 5) * Math.log(1 + (cfg.speed || 0.5) * idx));
+    if (cfg.type === 'asymptotic') {
+        const t = cfg.target || 0;
+        const c = cfg.current || 0;
+        const sp = cfg.speed || 0.15;
+        return rnd(t - (t - c) * Math.exp(-sp * idx) - c);
+    }
+    return 0;
+}
+
+function getDayColors(prog, date) {
+    const data = getWorkoutData(prog, date);
+    if (!data?.blocks?.length) return [];
+    const seen = new Set();
+    const cols = [];
+    data.blocks.forEach(b => {
+        const c = itemColor(b);
+        if (!seen.has(c)) { seen.add(c); cols.push(c); }
+    });
+    return cols;
+}
+
+// ════════════════════════════════════════════
+//  RENDU HTML
+// ════════════════════════════════════════════
+function blockHTML(block) {
+    if (!block) return '';
+    const col = itemColor(block);
+    const em = itemEmoji(block);
+    const bg = col + '10';
+    const iconBg = col + '22';
+    
+    if (block.cardType === 'muscu') return muscuHTML(block, col, em, bg, iconBg);
+    if (block.cardType === 'run') return runHTML(block, col, em, bg, iconBg);
+    if (block.cardType === 'hyrox') return hyroxHTML(block, col, em, bg, iconBg);
+    if (block.cardType === 'cardio') return cardioHTML(block, col, em, bg, iconBg);
+    return '';
+}
+
+function muscuHTML(b, col, em, bg, iconBg) {
+    const rows = (b.sets || []).map(s => {
+        let wStr = '—';
+        if (s.weight !== undefined && s.weight !== null && s.weight > 0) wStr = `${Math.round(s.weight * 4) / 4} kg`;
+        else if (s.pct) wStr = `${s.pct}%`;
+        const reps = s.reps ? `${s.reps} reps` : '';
+        const technique = s.tech || s.technique || 'Normal';
+        return `<div class="set-row">
+            <div class="set-info">
+                <span class="set-name">${technique}</span>
+                ${reps ? `<span class="set-meta">${reps}</span>` : ''}
+            </div>
+            <div class="set-weight" style="color:${col}">${wStr}</div>
+        </div>`;
+    }).join('');
+    const modeBadge = b.trainingMode && b.trainingMode !== 'normal' ? cap(b.trainingMode) + ' · ' : '';
+    const setCount = (b.sets || []).length;
+    return `<div class="ex-block" style="background:${bg}">
+        <div class="ex-header">
+            <div class="ex-icon" style="background:${iconBg}">${em}</div>
+            <div>
+                <div class="ex-title">${b.name || 'Exercice'}</div>
+                <div class="ex-subtitle">${modeBadge}${setCount} série${setCount > 1 ? 's' : ''}</div>
+            </div>
+        </div>
+        <div class="set-list">${rows || '<div class="set-row"><div class="set-info"><span class="set-name">Aucune série</span></div></div>'}</div>
+    </div>`;
+}
+
+function runHTML(b, col, em, bg, iconBg) {
+    const d = b.runData || {};
+    let body = '';
+    if (d.type === 'course') {
+        body = `<div class="info-grid">
+            <div class="info-item"><span class="info-label">Distance</span><span class="info-val" style="color:${col}">${d.distance ? d.distance + ' km' : '—'}</span></div>
+            <div class="info-item"><span class="info-label">Allure</span><span class="info-val">${d.paceMin != null ? fmtPace(d.paceMin, d.paceSec || 0) : '—'}</span></div>
+            <div class="info-item"><span class="info-label">Durée</span><span class="info-val">${d.duration ? fmtDur(d.duration) : '—'}</span></div>
+            ${d.zone ? `<div class="info-item"><span class="info-label">Zone</span><span class="info-val">${d.zone}</span></div>` : ''}
+        </div>`;
+    } else if (d.type === 'fractionne') {
+        const effort = d.distMode === 'distance' ? `${d.blocs}×${d.effortDist}m` : `${d.blocs}×${fmtTime(d.effortSec)}`;
+        body = `<div class="info-grid">
+            <div class="info-item"><span class="info-label">Structure</span><span class="info-val" style="color:${col}">${effort}</span></div>
+            <div class="info-item"><span class="info-label">Allure</span><span class="info-val">${d.effortPaceMin != null ? fmtPace(d.effortPaceMin, d.effortPaceSec || 0) : '—'}</span></div>
+            <div class="info-item"><span class="info-label">Récup</span><span class="info-val">${fmtTime(d.recupSec)}</span></div>
+            <div class="info-item"><span class="info-label">Zone</span><span class="info-val">${d.zone || '—'}</span></div>
+        </div>`;
+    }
+    const notes = d.notes ? `<div style="margin-top:8px;font-size:11px;color:var(--text-dim);font-style:italic">${d.notes}</div>` : '';
+    return `<div class="ex-block" style="background:${bg}">
+        <div class="ex-header">
+            <div class="ex-icon" style="background:${iconBg}">${em}</div>
+            <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${d.zone || 'Course'}</div></div>
+        </div>${body}${notes}
+    </div>`;
+}
+
+function hyroxHTML(b, col, em, bg, iconBg) {
+    const d = b.hyroxData || {};
+    const parts = [];
+    if (d.distance) parts.push(`${d.distance} m`);
+    if (d.weight) parts.push(`${d.weight} kg`);
+    if (d.reps) parts.push(`${d.reps} reps`);
+    if (d.targetMin != null) parts.push(`⏱ ${d.targetMin}:${String(d.targetSec || 0).padStart(2, '0')}`);
+    return `<div class="ex-block" style="background:${bg}">
+        <div class="ex-header">
+            <div class="ex-icon" style="background:${iconBg}">${em}</div>
+            <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${parts.join(' · ') || '—'}</div></div>
+        </div>
+        ${d.notes ? `<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:4px">${d.notes}</div>` : ''}
+    </div>`;
+}
+
+function cardioHTML(b, col, em, bg, iconBg) {
+    const d = b.cardioData || {};
+    const parts = [];
+    if (d.duration) parts.push(`${d.duration} min`);
+    if (d.distance) parts.push(`${d.distance} m`);
+    if (d.reps) parts.push(`${d.reps} reps`);
+    if (d.weight) parts.push(`${d.weight} kg`);
+    if (d.resistance) parts.push(`Rés. ${d.resistance}`);
+    return `<div class="ex-block" style="background:${bg}">
+        <div class="ex-header">
+            <div class="ex-icon" style="background:${iconBg}">${em}</div>
+            <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${parts.join(' · ') || '—'}</div></div>
+        </div>
+        ${d.notes ? `<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:4px">${d.notes}</div>` : ''}
+    </div>`;
+}
+
+// ════════════════════════════════════════════
+//  RENDU CARTE
+// ════════════════════════════════════════════
+function cardHTML(prog, isVerso) {
+    if (!prog) {
+        return `<div style="text-align:center;padding:40px 0">
+            <div style="font-size:40px;margin-bottom:12px">📂</div>
+            <div style="font-size:15px;font-weight:700;margin-bottom:6px">Aucun programme</div>
+            <div style="font-size:12px;color:var(--text-dim)">Créez un programme dans l'éditeur</div>
+        </div>`;
+    }
+    const data = getWorkoutData(prog, selectedDate);
+    if (!data) {
+        return `<div class="rest-state">
+            <span class="rest-icon">📅</span>
+            <div class="rest-title" style="font-size:18px">Avant le début</div>
+            <div class="rest-sub">Début le ${prog.startDate ? new Date(prog.startDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}</div>
+        </div>`;
+    }
+    if (!data.blocks.length) {
+        return `<div class="rest-state">
+            <span class="rest-icon">🧘‍♂️</span>
+            <div class="rest-title">Repos</div>
+            <div class="rest-sub">Récupération active</div>
+        </div>`;
+    }
+    const deloadChip = data.isDeload ? '<span class="deload-chip">Deload</span>' : '';
+    const cycleChip = data.cycleIndex > 0 ? `<span class="cycle-chip">Cycle ${data.cycleIndex + 1}</span>` : '';
+    return `<div class="goal-info">
+        <div class="goal-text">
+            <div>Semaine <strong>${data.week}</strong>${deloadChip}${cycleChip}</div>
+            <div style="margin-top:2px">${prog.programName || 'Objectif du cycle'}</div>
+        </div>
+        <div class="goal-val">${data.blocks.length} ex.</div>
+    </div>
+    <div class="workout-list">${data.blocks.map(blockHTML).join('')}</div>`;
+}
+
+// ════════════════════════════════════════════
+//  RENDER PRINCIPAL
+// ════════════════════════════════════════════
+function render() {
+    const today = startOfDay(new Date());
+    const diff = Math.round((selectedDate - today) / 86400000);
+    document.getElementById('day-label').textContent = diff === 0 ? "Aujourd'hui" : diff === 1 ? "Demain" : diff === -1 ? "Hier" : selectedDate.toLocaleDateString('fr-FR', { weekday: 'long' });
+    document.getElementById('display-date').textContent = selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+    document.getElementById('app').innerHTML = cardHTML(programRecto, false);
+    document.getElementById('appBack').innerHTML = '<div class="rest-state"><span class="rest-icon">🔒</span><div class="rest-title" style="font-size:16px">Verso désactivé</div><div class="rest-sub">Seul le programme principal est affiché</div></div>';
+}
+
+// ════════════════════════════════════════════
+//  CALENDRIER
+// ════════════════════════════════════════════
+function buildCalendar() {
+    if (!programRecto) return;
+    const today = startOfDay(new Date());
+    const { minDate, maxDate } = getDateBounds();
+    const months = [];
+    let cur = new Date(minDate);
+    while (cur <= maxDate) {
+        months.push({ year: cur.getFullYear(), month: cur.getMonth() });
+        cur.setMonth(cur.getMonth() + 1);
+    }
+    const ms = document.getElementById('monthSelector');
+    ms.innerHTML = months.map((m, i) => {
+        const isCurrent = m.year === today.getFullYear() && m.month === today.getMonth();
+        const yr = m.year !== today.getFullYear() ? ` ${String(m.year).slice(2)}` : '';
+        return `<div class="month-pill${isCurrent ? ' active' : ''}" data-idx="${i}">${MONTHS_SHORT[m.month]}${yr}</div>`;
+    }).join('');
+    const sc = document.getElementById('monthsScroll');
+    sc.innerHTML = months.map((m, i) => monthHTML(m, i, today, minDate, maxDate)).join('');
+    ms.querySelectorAll('.month-pill').forEach(p => {
+        p.addEventListener('click', () => {
+            const b = sc.querySelector(`.month-block[data-idx="${p.dataset.idx}"]`);
+            if (b) sc.scrollTo({ top: b.offsetTop - 4, behavior: 'smooth' });
+        });
+    });
+    sc.querySelectorAll('.day-cell:not(.empty):not(.out-of-range)').forEach(c => {
+        c.addEventListener('click', () => {
+            const ds = c.dataset.date;
+            if (!ds) return;
+            const [y, m, d] = ds.split('-').map(Number);
+            selectedDate = new Date(y, m - 1, d);
+            closeCalendar();
+            render();
+        });
+    });
+    let t;
+    sc.addEventListener('scroll', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+            const blocks = sc.querySelectorAll('.month-block');
+            let activeIdx = 0;
+            const mid = sc.scrollTop + sc.clientHeight / 3;
+            blocks.forEach(b => { if (b.offsetTop <= mid) activeIdx = parseInt(b.dataset.idx); });
+            ms.querySelectorAll('.month-pill').forEach(p => {
+                p.classList.toggle('active', parseInt(p.dataset.idx) === activeIdx);
+            });
+        }, 80);
+    });
+}
+
+function monthHTML(mi, idx, today, minDate, maxDate) {
+    const { year, month } = mi;
+    const first = new Date(year, month, 1);
+    const last = new Date(year, month + 1, 0);
+    const offset = (first.getDay() + 6) % 7;
+    let cells = '';
+    for (let i = 0; i < offset; i++) {
+        cells += `<div class="day-cell empty"><div class="day-num"></div><div class="day-dots"></div></div>`;
+    }
+    for (let d = 1; d <= last.getDate(); d++) {
+        const date = new Date(year, month, d);
+        const isToday = isSameDay(date, today);
+        const isSelected = isSameDay(date, selectedDate);
+        const outOfRange = date < minDate || date > maxDate;
+        const past = date < today && !isToday;
+        const wd = getWorkoutData(programRecto, date);
+        const isRest = !wd?.blocks?.length;
+        const isDeload = !!wd?.isDeload;
+        const colors = getDayColors(programRecto, date);
+        const dots = colors.map(c => `<div class="day-dot" style="background:${c}"></div>`).join('');
+        let cls = 'day-cell';
+        if (isToday) cls += ' today';
+        if (isSelected) cls += ' selected';
+        if (outOfRange) cls += ' out-of-range';
+        if (isRest) cls += ' rest';
+        if (past) cls += ' past';
+        if (isDeload) cls += ' deload';
+        const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        cells += `<div class="${cls}" data-date="${iso}"><div class="day-num">${d}</div><div class="day-dots">${dots}</div></div>`;
+    }
+    const monthName = first.toLocaleDateString('fr-FR', { month: 'long' });
+    const yearTag = year !== today.getFullYear() ? `<span class="year-tag">${year}</span>` : '';
+    const weekdays = WEEKDAYS_SHORT.map(d => `<div class="weekday-cell">${d}</div>`).join('');
+    return `<div class="month-block" data-idx="${idx}">
+        <div class="month-title">${monthName}${yearTag}</div>
+        <div class="weekday-row">${weekdays}</div>
+        <div class="day-grid">${cells}</div>
+    </div>`;
+}
+
+// ════════════════════════════════════════════
+//  TOGGLE CALENDAR
+// ════════════════════════════════════════════
+const stage = document.getElementById('stage');
+const headerDate = document.getElementById('headerDate');
+function openCalendar() {
+    buildCalendar();
+    stage.classList.add('cal-mode');
+    headerDate.classList.add('cal-open');
+    const fh = document.getElementById('flipHint');
+    if (fh) { fh.style.opacity = '0'; fh.style.pointerEvents = 'none'; }
+}
+function closeCalendar() {
+    stage.classList.remove('cal-mode');
+    headerDate.classList.remove('cal-open');
+    const fh = document.getElementById('flipHint');
+    if (fh) { fh.style.opacity = ''; fh.style.pointerEvents = ''; }
+}
+headerDate.addEventListener('click', () => {
+    stage.classList.contains('cal-mode') ? closeCalendar() : openCalendar();
+});
+
+// ════════════════════════════════════════════
+//  FLIP & SWIPE
+// ════════════════════════════════════════════
+const fc = document.getElementById('flipContainer');
+fc.addEventListener('click', () => {
+    if (stage.classList.contains('cal-mode')) return;
+    fc.classList.toggle('flipped');
+});
+(function() {
+    let startX = 0, startY = 0, currentX = 0, isDragging = false, isDecided = false, isHorizontal = false, startTime = 0;
+    const SWIPE_THRESHOLD = 60;
+    const VELOCITY_THRESHOLD = 0.4;
+    function canGoPrev() {
+        const { minDate } = getDateBounds();
+        const prev = new Date(selectedDate);
+        prev.setDate(prev.getDate() - 1);
+        return prev >= minDate;
+    }
+    function canGoNext() {
+        const { maxDate } = getDateBounds();
+        const next = new Date(selectedDate);
+        next.setDate(next.getDate() + 1);
+        return next <= maxDate;
+    }
+    function go(direction) {
+        if (direction === -1 && !canGoPrev()) return false;
+        if (direction === 1 && !canGoNext()) return false;
+        selectedDate = new Date(selectedDate);
+        selectedDate.setDate(selectedDate.getDate() + direction);
+        const outClass = direction === 1 ? 'swipe-out-left' : 'swipe-out-right';
+        const inClass = direction === 1 ? 'swipe-in-left' : 'swipe-in-right';
+        fc.classList.add('swipe-anim', outClass);
+        setTimeout(() => {
+            render();
+            fc.classList.remove('swipe-anim', outClass);
+            fc.classList.add(inClass);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    fc.classList.add('swipe-anim');
+                    fc.classList.remove(inClass);
+                    setTimeout(() => fc.classList.remove('swipe-anim'), 300);
+                });
+            });
+        }, 280);
+        return true;
+    }
+    function bounce(direction) {
+        const offset = direction === 1 ? -30 : 30;
+        fc.style.transition = 'transform .15s ease-out';
+        fc.style.transform = `translateX(${offset}px)`;
+        setTimeout(() => {
+            fc.style.transition = 'transform .25s cubic-bezier(0.33, 1, 0.68, 1)';
+            fc.style.transform = '';
+            setTimeout(() => fc.style.transition = '', 250);
+        }, 150);
+    }
+    function onStart(e) {
+        if (stage.classList.contains('cal-mode')) return;
+        const touch = e.touches ? e.touches[0] : e;
+        startX = touch.clientX;
+        startY = touch.clientY;
+        currentX = 0;
+        isDragging = true;
+        isDecided = false;
+        isHorizontal = false;
+        startTime = Date.now();
+    }
+    function onMove(e) {
+        if (!isDragging || stage.classList.contains('cal-mode')) return;
+        const touch = e.touches ? e.touches[0] : e;
+        const deltaX = touch.clientX - startX;
+        const deltaY = touch.clientY - startY;
+        if (!isDecided && (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8)) {
+            isHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+            isDecided = true;
+        }
+        if (isDecided && isHorizontal) {
+            if (e.cancelable) e.preventDefault();
+            currentX = deltaX;
+            let transformX = deltaX;
+            if ((deltaX < 0 && !canGoNext()) || (deltaX > 0 && !canGoPrev())) {
+                transformX = deltaX * 0.3;
+            }
+            fc.style.transform = `translateX(${transformX}px)`;
+            fc.style.transition = 'none';
+        }
+    }
+    function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        if (!isDecided || !isHorizontal) {
+            fc.style.transform = '';
+            fc.style.transition = '';
+            return;
+        }
+        const deltaX = currentX;
+        const deltaTime = Math.max(1, Date.now() - startTime);
+        const velocity = Math.abs(deltaX) / deltaTime;
+        const direction = deltaX < 0 ? 1 : -1;
+        const shouldSwipe = Math.abs(deltaX) > SWIPE_THRESHOLD || velocity > VELOCITY_THRESHOLD;
+        fc.style.transform = '';
+        fc.style.transition = '';
+        if (shouldSwipe) {
+            const success = go(direction);
+            if (!success) bounce(direction);
+        }
+    }
+    fc.addEventListener('touchstart', onStart, { passive: true });
+    fc.addEventListener('touchmove', onMove, { passive: false });
+    fc.addEventListener('touchend', onEnd);
+    fc.addEventListener('touchcancel', onEnd);
+    fc.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', (e) => { if (isDragging) onMove(e); });
+    window.addEventListener('mouseup', onEnd);
+})();
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+
+// --- Lecture de la date cible depuis localStorage (envoyée par l'éditeur) ---
+const storedTargetDate = localStorage.getItem('benchmaster_client_target_date');
+if (storedTargetDate) {
+    const parsed = new Date(storedTargetDate);
+    if (!isNaN(parsed)) {
+        selectedDate = startOfDay(parsed);
+        localStorage.removeItem('benchmaster_client_target_date');
+    }
+}
+// Mise à jour automatique
+window.addEventListener('storage', (e) => {
+    if (e.key === 'benchmaster_client_program' && e.newValue) {
+        try {
+            const newProg = JSON.parse(e.newValue);
+            programRecto = {
+                programName: newProg.programName || 'Mon programme',
+                startDate: newProg.startDate,
+                weeks: newProg.weeks.map(week => ({
+                    week: week.week,
+                    deload: week.deload,
+                    days: week.days
+                })),
+                maxTargets: newProg.maxTargets || {},
+                progressionConfig: newProg.progressionConfig || {}
+            };
+            render();
+            buildCalendar();
+        } catch(err) { console.warn(err); }
+    }
+});
+
+// BroadcastChannel : réception instantanée depuis l'onglet éditeur
+function _applyProgramUpdate(json) {
+    try {
+        const newProg = JSON.parse(json);
+        programRecto = {
+            programName: newProg.programName || 'Mon programme',
+            startDate: newProg.startDate,
+            weeks: newProg.weeks.map(week => ({
+                week: week.week,
+                deload: week.deload,
+                days: week.days
+            })),
+            maxTargets: newProg.maxTargets || {},
+            progressionConfig: newProg.progressionConfig || {}
+        };
+        render();
+        buildCalendar();
+    } catch(err) { console.warn(err); }
+}
+if (typeof BroadcastChannel !== 'undefined') {
+    const _bmChannel = new BroadcastChannel('benchmaster_sync');
+    _bmChannel.onmessage = (e) => {
+        if (e.data && e.data.key === 'benchmaster_client_program' && e.data.value) {
+            _applyProgramUpdate(e.data.value);
+        }
+    };
+}
+
+// Polling de secours (500ms au lieu de 2000ms)
+let lastVersion = localStorage.getItem('benchmaster_client_program');
+setInterval(() => {
+    const current = localStorage.getItem('benchmaster_client_program');
+    if (current !== lastVersion) {
+        lastVersion = current;
+        if (current) _applyProgramUpdate(current);
+    }
+}, 500);
+loadPrograms();
+</script>
+</body>
+</html>
