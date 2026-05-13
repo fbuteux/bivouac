@@ -460,13 +460,13 @@ function _attachSheetSwipeClose(sheet) {
 }
 
 const MOB_METHODS = [
-    { id:'ppl',        label:'PPL',    color:'var(--accent)' },
-    { id:'split',      label:'Split',  color:'var(--accent)' },
-    { id:'upperlower', label:'U / L',  color:'var(--accent)' },
-    { id:'pdc',        label:'PDC',    color:'var(--purple)' },
-    { id:'run',        label:'Run',    color:'var(--green)' },
-    { id:'hyrox',      label:'Hyrox',  color:'var(--red)' },
-    { id:'cardio',     label:'Cardio', color:'var(--orange)' },
+    { id:'ppl',        label:'PPL'    },
+    { id:'split',      label:'Split'  },
+    { id:'upperlower', label:'U / L'  },
+    { id:'pdc',        label:'PDC'    },
+    { id:'run',        label:'Run'    },
+    { id:'hyrox',      label:'Hyrox'  },
+    { id:'cardio',     label:'Cardio' },
 ];
 
 function _renderMobSearchHome() {
@@ -478,10 +478,10 @@ function _renderMobSearchHome() {
         + MOB_METHODS.map(m =>
             '<button onclick="_openMobMethod(\'' + m.id + '\')" style="'
             + 'background:var(--card-2);border:0.5px solid var(--divider-2);border-radius:12px;'
-            + 'padding:14px 4px 12px;cursor:pointer;color:' + m.color + ';'
+            + 'padding:14px 4px 12px;cursor:pointer;color:var(--text-2);'
             + 'font-size:12px;font-weight:600;font-family:inherit;'
             + 'display:flex;flex-direction:column;align-items:center;gap:4px;'
-            + 'transition:background .12s;'
+            + 'transition:background .12s,border-color .12s;'
             + '-webkit-tap-highlight-color:rgba(255,255,255,0.06);'
             + '">' + m.label + '</button>'
         ).join('')
@@ -1065,6 +1065,76 @@ closeModals = function() {
     if (isMobileView) renderMobileView();
 };
 
+// ── SWIPE DOWN TO CLOSE MODALS ON MOBILE ─────────────────────────────────────
+// Observe quand une modal-overlay s'affiche et attache le handler touch
+function _attachModalSwipeClose(overlay) {
+    if (overlay._swipeModalAttached) return;
+    overlay._swipeModalAttached = true;
+
+    const modal = overlay.querySelector('.modal');
+    if (!modal) return;
+
+    let sy = 0, startTranslate = 0, dragging = false;
+
+    // Poignée = toute la modal-header (zone naturelle pour le geste)
+    const header = modal.querySelector('.modal-header');
+    const dragZone = header || modal;
+
+    dragZone.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        sy = e.touches[0].clientY;
+        dragging = true;
+        startTranslate = 0;
+        modal.style.transition = 'none';
+    }, { passive: true });
+
+    dragZone.addEventListener('touchmove', e => {
+        if (!dragging || e.touches.length !== 1) return;
+        const dy = e.touches[0].clientY - sy;
+        if (dy > 0) {
+            modal.style.transform = 'translateY(' + dy + 'px)';
+        }
+    }, { passive: true });
+
+    dragZone.addEventListener('touchend', e => {
+        if (!dragging) return;
+        dragging = false;
+        const dy = e.changedTouches[0].clientY - sy;
+        modal.style.transition = 'transform .28s cubic-bezier(0.25,0.46,0.45,0.94)';
+        if (dy > 90) {
+            // Fermer : animer vers le bas puis closeModals
+            modal.style.transform = 'translateY(110%)';
+            setTimeout(() => {
+                modal.style.transform = '';
+                modal.style.transition = '';
+                closeModals();
+            }, 260);
+        } else {
+            modal.style.transform = 'translateY(0)';
+            setTimeout(() => {
+                modal.style.transform = '';
+                modal.style.transition = '';
+            }, 280);
+        }
+    }, { passive: true });
+
+    // Curseur grab sur la zone de drag
+    if (dragZone) dragZone.style.cursor = 'grab';
+}
+
+// Observer les modaux qui s'affichent
+function _initModalSwipes() {
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        // MutationObserver sur style.display pour détecter l'ouverture
+        const obs = new MutationObserver(() => {
+            if (overlay.style.display !== 'none' && overlay.style.display !== '') {
+                _attachModalSwipeClose(overlay);
+            }
+        });
+        obs.observe(overlay, { attributes: true, attributeFilter: ['style'] });
+    });
+}
+
 // ── RESIZE HANDLER ────────────────────────────────────────────────────────────
 window.addEventListener('resize', () => {
     if (window.innerWidth <= MOBILE_BREAKPOINT && !isMobileView) {
@@ -1077,6 +1147,7 @@ window.addEventListener('resize', () => {
 // ── AUTO-INIT on DOM ready ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     buildMobileSearchSheet();
+    _initModalSwipes();
     if (window.innerWidth <= MOBILE_BREAKPOINT) {
         const waitLib = setInterval(() => {
             if (exerciseLibrary.length > 0) {
