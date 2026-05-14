@@ -106,26 +106,14 @@ function buildMobileShell() {
                         border:none;color:var(--text);padding:12px 16px;cursor:pointer;
                         font-size:13px;font-family:inherit;text-align:left;
                         -webkit-tap-highlight-color:transparent;
-                    ">📅 <span>Date de début</span></button>
+                    "><span>Date de début</span></button>
                     <button onclick="mobMenuAction('client')" style="
                         display:flex;align-items:center;gap:10px;width:100%;background:none;
                         border:none;color:var(--text);padding:12px 16px;cursor:pointer;
                         font-size:13px;font-family:inherit;text-align:left;
                         -webkit-tap-highlight-color:transparent;
-                    ">👁 <span>Vue client</span></button>
+                    "><span>Vue client</span></button>
                     <div style="height:0.5px;background:var(--divider-2);margin:4px 0;"></div>
-                    <button onclick="mobMenuAction('export')" style="
-                        display:flex;align-items:center;gap:10px;width:100%;background:none;
-                        border:none;color:var(--text);padding:12px 16px;cursor:pointer;
-                        font-size:13px;font-family:inherit;text-align:left;
-                        -webkit-tap-highlight-color:transparent;
-                    ">⬆️ <span>Exporter</span></button>
-                    <button onclick="mobMenuAction('import')" style="
-                        display:flex;align-items:center;gap:10px;width:100%;background:none;
-                        border:none;color:var(--text);padding:12px 16px;cursor:pointer;
-                        font-size:13px;font-family:inherit;text-align:left;
-                        -webkit-tap-highlight-color:transparent;
-                    ">⬇️ <span>Importer</span></button>
                     <div style="height:0.5px;background:var(--divider-2);margin:4px 0;"></div>
                     <button onclick="mobMenuAction('new')" style="
                         display:flex;align-items:center;gap:10px;width:100%;background:none;
