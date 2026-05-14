@@ -68,12 +68,13 @@ function onModeChange(mode, regenerate=true) {
     document.getElementById('modal-add-set-btn').style.display=isPyra?'none':'flex';
     updatePyraHint(mode);
     const col=document.getElementById('modal-col-header');
+    const isMob = window.innerWidth <= 768;
     if (mode==='force') {
         col.innerHTML=`<span>#</span><span>Reps</span><span>%</span><span>Kg (auto)</span><span>Technique</span><span>Repos</span><span></span>`;
-        col.style.gridTemplateColumns='30px 1fr 60px 80px 1.5fr 90px 30px';
+        col.style.gridTemplateColumns = isMob ? '22px 1fr 46px 56px 1.4fr 72px 22px' : '30px 1fr 60px 80px 1.5fr 90px 30px';
     } else {
         col.innerHTML=`<span>#</span><span>${currentEditingEl?.dataset.id&&exerciseLibrary.find(e=>e.id===currentEditingEl.dataset.id)?.unit==='sec'?'Sec':'Reps'}</span><span>Kg</span><span>Technique</span><span>Repos</span><span></span>`;
-        col.style.gridTemplateColumns='30px 1fr 1fr 1.5fr 90px 30px';
+        col.style.gridTemplateColumns = isMob ? '22px 1fr 1fr 1.6fr 72px 22px' : '30px 1fr 1fr 1.5fr 90px 30px';
     }
     if (regenerate) {
         if (isPyra) regeneratePyramide(mode);
@@ -151,21 +152,22 @@ function addSetRow(reps=10, weight=60, tech="Normal", pct=null, restMin=2, restS
     const mat=materiels.find(m=>m.id===exoData.materielId);
     const mode=document.getElementById('training-mode-select').value;
     const matStep=mat.step||0;
+    const isMob = window.innerWidth <= 768;
     const techniques=[...exoData.techniques];
     if (!techniques.includes('Partial/Full')&&mat.step>0) techniques.push('Partial/Full');
     const row=document.createElement('div'); row.className='set-row';
 
     // Rest field HTML snippet
-    const restHtml=`<div class="rest-field"><input type="number" class="set-rest-min" value="${restMin||0}" min="0" max="10" style="width:36px;" placeholder="m"><span style="color:var(--text-dim);font-size:11px;">:</span><select class="set-rest-sec">${secSelect(restSec||0)}</select></div>`;
+    const restHtml=`<div class="rest-field"><input type="text" class="set-rest-min" value="${restMin||0}" min="0" max="10" placeholder="m"><span class="rest-sep">:</span><select class="set-rest-sec">${secSelect(restSec||0)}</select></div>`;
 
     if (mode==='force') {
         const maxT=maxTargets[exoData.id]||0;
         const cp=(pct!==null&&pct!==undefined)?pct:(maxT>0?Math.round(weight/maxT*100):75);
         const kg=maxT>0?Math.ceil((maxT*cp/100)/matStep-1e-9)*matStep:weight;
-        row.style.gridTemplateColumns='30px 1fr 60px 80px 1.5fr 90px 30px';
-        row.innerHTML=`<div class="set-num">0</div><input type="number" class="set-reps" value="${reps}" min="1"><input type="number" class="set-pct" value="${cp}" min="1" max="110" step="1" style="font-weight:600;" oninput="updateKgFromPct(this)"><div class="set-kg-auto" data-kg="${kg}" style="padding:7px 8px;background:var(--bg-2);border-radius:var(--radius-sm);font-size:13px;font-weight:700;color:var(--text);text-align:center;border:0.5px solid var(--divider-2);">${kg}kg</div><select class="set-tech">${techniques.map(t=>`<option value="${t}" ${t===tech?'selected':''}>${t}</option>`).join('')}</select>${restHtml}<button onclick="this.parentElement.remove();updateSetNumbers();" class="set-del-btn">×</button>`;
+        row.style.gridTemplateColumns = isMob ? '22px 1fr 46px 56px 1.4fr 72px 22px' : '30px 1fr 60px 80px 1.5fr 90px 30px';
+        row.innerHTML=`<div class="set-num">0</div><input type="number" class="set-reps" value="${reps}" min="1"><input type="number" class="set-pct" value="${cp}" min="1" max="110" step="1" style="font-weight:600;" oninput="updateKgFromPct(this)"><div class="set-kg-auto" data-kg="${kg}">${kg}</div><select class="set-tech">${techniques.map(t=>`<option value="${t}" ${t===tech?'selected':''}>${t}</option>`).join('')}</select>${restHtml}<button onclick="this.parentElement.remove();updateSetNumbers();" class="set-del-btn">×</button>`;
     } else {
-        row.style.gridTemplateColumns='30px 1fr 1fr 1.5fr 90px 30px';
+        row.style.gridTemplateColumns = isMob ? '22px 1fr 1fr 1.6fr 72px 22px' : '30px 1fr 1fr 1.5fr 90px 30px';
         row.innerHTML=`<div class="set-num">0</div><input type="number" class="set-reps" value="${reps}" min="1"><input type="number" class="set-weight" value="${weight}" step="${matStep||1}"><select class="set-tech">${techniques.map(t=>`<option value="${t}" ${t===tech?'selected':''}>${t}</option>`).join('')}</select>${restHtml}<button onclick="this.parentElement.remove();updateSetNumbers();" class="set-del-btn">×</button>`;
     }
     document.getElementById('sets-container').appendChild(row);
@@ -177,7 +179,7 @@ function updateKgFromPct(input) {
     const maxT=maxTargets[exo.id]||0; if(!maxT) return;
     const kgDiv=input.closest('.set-row').querySelector('.set-kg-auto'); if(!kgDiv) return;
     const kg=Math.ceil((maxT*(parseFloat(input.value)||0)/100)/(mat.step||1)-1e-9)*(mat.step||1);
-    kgDiv.textContent=kg+'kg'; kgDiv.dataset.kg=kg;
+    kgDiv.textContent=kg; kgDiv.dataset.kg=kg;
 }
 function updateSetNumbers() {
     Array.from(document.getElementById('sets-container').children).forEach((r,i)=>{const n=r.querySelector('.set-num');if(n)n.textContent=i+1;});
