@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Bench Master - Focus</title>
@@ -693,10 +693,19 @@
     // ========================================================================
     //  CONFIGURATION
     // ========================================================================
-    const START_DATE = new Date(2026, 3, 2); // Jeudi 2 avril 2026 (heure locale) = début S1 duu cycle
+    const START_DATE = new Date(2026, 2, 28); // Jeudi 2 avril 2026 (heure locale) = début S1 du cycle
+
+    // ── PREMIER JOUR DU BLOC (décalage des séances) ─────────────────────────
+    // Décale TOUTES les séances de N jours plus TÔT sur le calendrier.
+    // Les semaines et le deload NE bougent PAS (ancrés sur START_DATE).
+    //   N = 2  →  jeudi devient mardi, vendredi devient mercredi (réglage actuel).
+    //   N = 0  →  aucun décalage.   N = 1 → mercredi, N = 3 → lundi, etc.
+    // Le 1er jour du bloc était jeudi ; passe N à 2 pour l'avoir le mardi.
+    const DAY_SHIFT = 2;
+
     const BASE_GOAL = 120;      // Objectif bench principal (recto)
     const CAMILLE_GOAL = 37.5;  // Objectif bench Camille (verso)
-    const CAMILLE_RATIO = CAMILLE_GOAL / BASE_GOAL; // 0.3125 
+    const CAMILLE_RATIO = CAMILLE_GOAL / BASE_GOAL; // 0.3125
 
     // Objectifs de base par exercice (recto)
     // Ces max servent de référence, les % s'appliquent dessus
@@ -1065,7 +1074,11 @@
         const cycleBonus = cycleIndex * 2.5;
         const benchGoal  = (isCamille ? CAMILLE_GOAL : BASE_GOAL) + cycleBonus;
 
-        const dayName = DAYS_FR[targetDate.getDay()];
+        // Le JOUR de séance est décalé de DAY_SHIFT (jeudi→mardi…) ; la semaine et
+        // le deload restent calculés sur la date réelle (donc inchangés).
+        const shifted = new Date(targetDate);
+        shifted.setDate(shifted.getDate() + DAY_SHIFT);
+        const dayName = DAYS_FR[shifted.getDay()];
         const blocks = buildDaySessions(weekInCycle, dayName, isCamille, cycleBonus);
 
         return {
