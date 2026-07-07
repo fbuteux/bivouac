@@ -113,7 +113,12 @@ function buildMobileShell() {
                         font-size:13px;font-family:inherit;text-align:left;
                         -webkit-tap-highlight-color:transparent;
                     "><span>Vue client</span></button>
-                    <div style="height:0.5px;background:var(--divider-2);margin:4px 0;"></div>
+                    <button onclick="mobMenuAction('fatigue')" style="
+                        display:flex;align-items:center;gap:10px;width:100%;background:none;
+                        border:none;color:var(--text);padding:12px 16px;cursor:pointer;
+                        font-size:13px;font-family:inherit;text-align:left;
+                        -webkit-tap-highlight-color:transparent;
+                    "><span>⚡ Fatigue musculaire</span></button>
                     <div style="height:0.5px;background:var(--divider-2);margin:4px 0;"></div>
                     <button onclick="mobMenuAction('new')" style="
                         display:flex;align-items:center;gap:10px;width:100%;background:none;
@@ -578,6 +583,8 @@ function mobMenuAction(action) {
     _closeMobMenu();
     if (action === 'client') {
         openClientView();
+    } else if (action === 'fatigue') {
+        if (window.FatiguePanel) FatiguePanel.open();
     } else if (action === 'export') {
         openProgressionModal();
     } else if (action === 'import') {

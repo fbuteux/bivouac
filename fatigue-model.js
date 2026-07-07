@@ -98,6 +98,11 @@ const MUSCLE_ORDER = ['Pecs', 'Dos', 'Épaules', 'Biceps', 'Triceps', 'Bras',
     'Jambes', 'Abdos / Core', 'Cardio / Systémique'];
 
 const DAY_NAMES = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+// Nom de jour FR <-> index JS getDay() (Dimanche=0). Sert à poser chaque séance
+// sur la BONNE date : la semaine part de la date de début (ex. un mardi), donc le
+// lundi est en fin de semaine (le lundi SUIVANT), pas la veille du mardi de départ.
+const DAYNAME_TO_JS = { Lundi: 1, Mardi: 2, Mercredi: 3, Jeudi: 4, Vendredi: 5, Samedi: 6, Dimanche: 0 };
+const JS_TO_DAYNAME = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
 // ---------------------------------------------------------------- utils
 function _clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -207,13 +212,16 @@ function extractFatigueEvents(program, library) {
         : (oneRMcache[id] = estimate1RM(id, setsByExo[id], maxTargets)));
 
     const start = _parseStartDate(program);
+    const startWeekday = start.getDay(); // 0=Dim..6=Sam : jour de la semaine du 1er jour du bloc
 
     program.weeks.forEach((week, wi) => {
         const isDeload = !!week.deload;
-        DAY_NAMES.forEach((dayName, di) => {
+        DAY_NAMES.forEach((dayName) => {
             const items = (week.days || {})[dayName];
             if (!items || !items.length) return;
-            const date = _addDays(start, wi * 7 + di);
+            // Position de la séance dans la semaine, à partir de la date de début.
+            const offset = (DAYNAME_TO_JS[dayName] - startWeekday + 7) % 7;
+            const date = _addDays(start, wi * 7 + offset);
 
             items.forEach(item => {
                 if (item.cardType === 'muscu') {
@@ -333,7 +341,7 @@ function buildTimeline(program, library, opts) {
         days.push({
             date,
             key: _dayKey(date),
-            dayName: DAY_NAMES[i % 7],
+            dayName: JS_TO_DAYNAME[date.getDay()],
             weekIndex: wi,
             deload: !!(program.weeks[wi] && program.weeks[wi].deload),
             label: date.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' })

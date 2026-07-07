@@ -17,7 +17,7 @@
     'use strict';
     if (window.FatiguePanel) return; // évite double init
 
-    let drawer, tab, body;
+    let drawer, body;
     let selectedDay = null;   // index du jour affiché dans les cartes
     let lastTimeline = null;
     let opened = false;
@@ -39,12 +39,6 @@
 
     // ------------------------------------------------------ DOM (injection)
     function build() {
-        tab = document.createElement('button');
-        tab.className = 'ftg-tab';
-        tab.title = 'Fatigue musculaire';
-        tab.innerHTML = `<span class="ftg-tab-badge" id="ftg-badge">⚡</span> FATIGUE`;
-        tab.addEventListener('click', toggle);
-
         drawer = document.createElement('aside');
         drawer.className = 'ftg-drawer';
         drawer.innerHTML =
@@ -57,10 +51,32 @@
              </div>
              <div class="ftg-body" id="ftg-body"></div>`;
         drawer.querySelector('.ftg-close').addEventListener('click', close);
-
-        document.body.appendChild(tab);
         document.body.appendChild(drawer);
         body = drawer.querySelector('#ftg-body');
+        setupSwipeToClose();
+    }
+
+    // Fermeture par swipe vers la droite (comme les autres volets/modales).
+    function setupSwipeToClose() {
+        let sx = 0, sy = 0, tracking = false;
+        drawer.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1) { tracking = false; return; }
+            sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+        }, { passive: true });
+        drawer.addEventListener('touchend', e => {
+            if (!tracking) return; tracking = false;
+            const t = e.changedTouches[0];
+            const dx = t.clientX - sx, dy = t.clientY - sy;
+            if (dx > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) close(); // swipe droite
+        }, { passive: true });
+    }
+
+    // Ferme si on clique en dehors du volet (et pas sur un déclencheur Fatigue).
+    function onDocPointer(e) {
+        if (!opened) return;
+        if (e.target.closest('.ftg-drawer')) return;
+        if (e.target.closest('#btn-fatigue-view')) return; // le bouton gère déjà le toggle
+        close();
     }
 
     // -------------------------------------------------- récupère le programme
@@ -84,20 +100,19 @@
         const program = getProgram();
         const hasData = program && program.weeks && program.weeks.some(w =>
             Object.values(w.days || {}).some(items => items && items.length));
-        if (!hasData) { renderEmpty(); updateBadge(null); return; }
+        if (!hasData) { renderEmpty(); return; }
 
         lastTimeline = FatigueModel.buildTimeline(program, getLibrary());
         drawer.querySelector('#ftg-sub').textContent =
             `${lastTimeline.muscles.length} muscles · ${program.weeks.length} sem.`;
 
-        if (!lastTimeline.muscles.length) { renderEmpty(); updateBadge(null); return; }
+        if (!lastTimeline.muscles.length) { renderEmpty(); return; }
 
         // Jour par défaut : première séance, ou aujourd'hui si dans le bloc.
         if (selectedDay == null || selectedDay >= lastTimeline.days.length) {
             selectedDay = defaultDayIndex(lastTimeline);
         }
         render();
-        updateBadge(lastTimeline);
     }
 
     function defaultDayIndex(tl) {
@@ -215,23 +230,18 @@
         if (setMaxBtn) setMaxBtn.onclick = () => { try { openMaxModal(); } catch (e) {} };
     }
 
-    // Badge de la poignée : pire fatigue du jour "aujourd'hui" (ou 1re séance).
-    function updateBadge(tl) {
-        const b = tab.querySelector('#ftg-badge');
-        if (!tl) { b.textContent = '⚡'; return; }
-        const idx = defaultDayIndex(tl);
-        let worst = 0;
-        tl.muscles.forEach(m => { worst = Math.max(worst, tl.grid[m][idx].fatigue); });
-        b.textContent = worst > 0 ? worst + '%' : '✓';
-    }
-
     // ----------------------------------------------------------- ouvrir/fermer
     function open() {
         opened = true;
         drawer.classList.add('open');
-        tab.classList.add('open');
         refresh();
         startObserving();
+        // Clic en dehors du volet → fermeture (comme les autres volets).
+        // setTimeout pour ne pas capter le clic d'ouverture lui-même.
+        setTimeout(() => {
+            document.addEventListener('mousedown', onDocPointer, true);
+            document.addEventListener('touchstart', onDocPointer, true);
+        }, 0);
         // Les 1RM (benchmaster_maxes) ne mutent pas toujours le tableau :
         // on surveille leur valeur pour rafraîchir dès qu'un max est défini/modifié.
         lastMaxes = localStorage.getItem('benchmaster_maxes') || '';
@@ -243,7 +253,8 @@
     function close() {
         opened = false;
         drawer.classList.remove('open');
-        tab.classList.remove('open');
+        document.removeEventListener('mousedown', onDocPointer, true);
+        document.removeEventListener('touchstart', onDocPointer, true);
         clearInterval(maxesWatcher); maxesWatcher = null;
     }
     function toggle() { opened ? close() : open(); }
