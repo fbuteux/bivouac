@@ -16,10 +16,16 @@ let editingPyraTopRep = 3; // reps max du sommet
 let editingPyraKgStep = 5;
 let editingPyraRepsStep = 2;
 let maxTargets = JSON.parse(localStorage.getItem('benchmaster_maxes') || '{}');
+// Progression par bloc, par exercice-id (comme maxTargets). Synchronisée en live.
+//   { [exoId]: {type:'none'} | {type:'linear', increment} | {type:'asymptotic', target, speed} }
+let progressionConfig = JSON.parse(localStorage.getItem('benchmaster_progression') || '{}');
+function saveProgressionToStorage() { localStorage.setItem('benchmaster_progression', JSON.stringify(progressionConfig)); }
 let currentProgName = localStorage.getItem('benchmaster_progname') || 'mon_programme';
 let programNotes = localStorage.getItem('benchmaster_notes') || '';
 // Clipboard pour copier/coller semaines
 let weekClipboard = null; // { deload, days: [{cardType,…}] }
+// Clipboard pour copier/coller une journée (liste d'items d'une cellule)
+let dayClipboard = null; // [ {cardType,…}, … ]
 
 // ======================== UTILS ========================
 function normalizeString(str) { return str.normalize("NFD").replace(/[\u0300-\u036f]/g,""); }

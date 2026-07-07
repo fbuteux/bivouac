@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fatigue musculaire — 2MAN1PUMP</title>
+<style>
+:root{
+    --bg:#000;--bg-2:#0a0a0a;--card:#1c1c1e;--card-2:#2c2c2e;--card-3:#3a3a3c;
+    --divider:#2c2c2e;--divider-2:#3a3a3c;
+    --text:#fff;--text-2:#ebebf0;--text-dim:#8e8e93;--text-faint:#48484a;
+    --accent:#0a84ff;--red:#ff453a;--green:#30d158;--orange:#ff9f0a;--purple:#bf5af2;
+    --radius-sm:8px;--radius:12px;--radius-lg:16px;--nav-height:50px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+nav{height:var(--nav-height);display:flex;align-items:center;gap:14px;padding:0 18px;border-bottom:0.5px solid var(--divider-2);position:sticky;top:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(20px);z-index:20}
+.logo{font-weight:800;letter-spacing:-0.3px}.logo span{color:var(--accent)}
+.nav-sub{font-size:12px;color:var(--text-dim)}
+.live{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-dim)}
+.live .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(48,209,88,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(48,209,88,.5)}70%{box-shadow:0 0 0 7px rgba(48,209,88,0)}100%{box-shadow:0 0 0 0 rgba(48,209,88,0)}}
+.wrap{padding:18px;max-width:1400px;margin:0 auto}
+h1{font-size:19px;font-weight:800;letter-spacing:-0.4px;margin-bottom:2px}
+.subtitle{font-size:12.5px;color:var(--text-dim);margin-bottom:18px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:16px;font-size:11.5px;color:var(--text-dim)}
+.legend .item{display:flex;align-items:center;gap:6px}
+.legend .sw{width:22px;height:12px;border-radius:3px}
+.empty{padding:60px 20px;text-align:center;color:var(--text-dim);border:1px dashed var(--divider-2);border-radius:var(--radius);margin-top:20px}
+.empty a{color:var(--accent);text-decoration:none;font-weight:600}
+/* --- heatmap --- */
+.heat-scroll{overflow-x:auto;border:0.5px solid var(--divider);border-radius:var(--radius);background:var(--bg-2)}
+table.heat{border-collapse:separate;border-spacing:0;width:100%}
+table.heat th,table.heat td{padding:0;text-align:center;white-space:nowrap}
+.muscle-col{position:sticky;left:0;z-index:5;background:var(--card);text-align:left;padding:0 12px;font-weight:700;font-size:12.5px;min-width:130px;border-right:0.5px solid var(--divider-2)}
+thead .muscle-col{background:var(--card)}
+.day-th{padding:6px 4px 7px;font-size:10px;font-weight:600;color:var(--text-dim);border-bottom:0.5px solid var(--divider);min-width:52px;line-height:1.35}
+.day-th .dow{display:block;text-transform:uppercase;letter-spacing:.3px}
+.day-th .dt{display:block;color:var(--text-faint);font-size:9.5px;font-weight:500}
+.day-th.wstart{border-left:1px solid var(--divider-2)}
+.day-th.deload{color:var(--purple)}
+.wk-th{font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;padding:5px 0 4px;border-bottom:0.5px solid var(--divider)}
+.wk-th.deload{color:var(--purple)}
+tbody tr{height:44px}
+tbody .muscle-col{border-bottom:0.5px solid var(--divider)}
+.cell{position:relative;height:44px;border-bottom:0.5px solid rgba(255,255,255,.03);border-left:0.5px solid rgba(255,255,255,.03);font-size:11px;font-weight:700;color:#fff;cursor:default}
+.cell.wstart{border-left:1px solid var(--divider-2)}
+.cell .val{position:relative;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.cell.trained::after{content:"";position:absolute;top:3px;right:3px;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.5);z-index:3}
+.cell:hover{outline:2px solid var(--accent);outline-offset:-2px;z-index:4}
+/* readiness cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:24px}
+.mcard{background:var(--card);border:0.5px solid var(--divider-2);border-radius:var(--radius);padding:14px}
+.mcard h3{font-size:13.5px;font-weight:800;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.mcard .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.bar{height:8px;border-radius:6px;background:var(--card-3);overflow:hidden;margin:6px 0 4px}
+.bar>span{display:block;height:100%;border-radius:6px}
+.mrow{display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-dim);margin-top:6px}
+.mrow strong{color:var(--text-2);font-weight:700}
+.tt{position:fixed;pointer-events:none;z-index:100;background:var(--card-2);border:0.5px solid var(--divider-2);border-radius:var(--radius-sm);padding:9px 11px;font-size:11.5px;box-shadow:0 8px 30px rgba(0,0,0,.6);max-width:240px;opacity:0;transition:opacity .1s;line-height:1.5}
+.tt .ttmus{font-weight:800;margin-bottom:3px}
+.tt .ttex{color:var(--text-dim)}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);margin:26px 0 4px}
+</style>
+</head>
+<body>
+<nav>
+    <span class="logo">2MAN<span>1PUMP</span></span>
+    <span class="nav-sub">· Fatigue musculaire</span>
+    <span class="live"><span class="dot"></span><span id="live-label">En direct</span></span>
+</nav>
+<div class="wrap">
+    <h1 id="prog-title">Fatigue par muscle</h1>
+    <div class="subtitle" id="prog-sub">Chargement du programme…</div>
+
+    <div class="legend" id="legend" style="display:none">
+        <div class="item"><span class="sw" style="background:var(--green)"></span>0–15 % · Frais (lourd OK)</div>
+        <div class="item"><span class="sw" style="background:var(--orange)"></span>15–40 % · Récup. (modéré)</div>
+        <div class="item"><span class="sw" style="background:#ff7b25"></span>40–70 % · Fatigué (léger)</div>
+        <div class="item"><span class="sw" style="background:var(--red)"></span>70–100 % · Épuisé (repos)</div>
+        <div class="item"><span class="sw" style="background:#fff;width:12px;height:12px;border-radius:50%"></span>séance ce jour</div>
+    </div>
+
+    <div id="content"></div>
+</div>
+<div class="tt" id="tt"></div>
+
+<script src="fatigue-model.js"></script>
+<script>
+const LIB_URL = 'bibliotheque.json';
+const STORAGE_KEY = 'benchmaster_client_program';
+let library = { exercices: [] };
+let lastJSON = null;
+
+// Couleur d'une cellule selon la fatigue (dégradé vert -> rouge).
+function heatColor(f){
+    if(f<=0) return 'transparent';
+    // interpolation par paliers
+    let r,g,b;
+    if(f<=15){ // vert
+        return `rgba(48,209,88,${0.18+0.6*(f/15)})`;
+    } else if(f<=40){ // vert->orange
+        const t=(f-15)/25; r=255; g=Math.round(209-(209-159)*t); b=Math.round(88-(88-10)*t);
+        return `rgba(${r},${g},${b},${0.55+0.2*t})`;
+    } else if(f<=70){ // orange->rouge orangé
+        const t=(f-40)/30; r=255; g=Math.round(159-(159-90)*t); b=Math.round(10);
+        return `rgba(${r},${g},${b},${0.78+0.1*t})`;
+    } else { // rouge
+        const t=(f-70)/30; r=255; g=Math.round(90-90*t); b=Math.round(10+48*t);
+        return `rgba(255,${Math.round(69*(1-t)+69*0)},${Math.round(58*t)},${0.9})`;
+    }
+}
+
+function loadProgram(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){ renderEmpty(); return; }
+    if(raw === lastJSON) return; // rien de neuf
+    lastJSON = raw;
+    let program;
+    try { program = JSON.parse(raw); } catch(e){ renderEmpty(); return; }
+    render(program);
+}
+
+function renderEmpty(){
+    document.getElementById('legend').style.display='none';
+    document.getElementById('prog-sub').textContent='Aucun programme détecté.';
+    document.getElementById('content').innerHTML =
+        `<div class="empty">Ouvre l'éditeur et clique sur <strong>Fatigue</strong> (ou <strong>Vue</strong>) pour synchroniser ton programme.<br>Cette page se met à jour automatiquement à chaque modification.</div>`;
+}
+
+function render(program){
+    const tl = FatigueModel.buildTimeline(program, library);
+    document.getElementById('prog-title').textContent = program.programName || 'Fatigue par muscle';
+    document.getElementById('prog-sub').textContent =
+        `${tl.muscles.length} muscles · ${program.weeks.length} semaine(s) · débute le ${program.startDate||'?'}`;
+
+    if(!tl.muscles.length){ renderEmpty(); return; }
+    document.getElementById('legend').style.display='flex';
+
+    // ---- heatmap ----
+    let thead = '<tr><th class="muscle-col"></th>';
+    // ligne semaines
+    let wk = '<tr><th class="muscle-col"></th>';
+    let curW = -1, span = 0, cells='';
+    // en-tête jours
+    tl.days.forEach((d,i)=>{
+        const wstart = i%7===0 ? ' wstart' : '';
+        thead += `<th class="day-th${wstart}${d.deload?' deload':''}"><span class="dow">${d.dayName.slice(0,3)}</span><span class="dt">${d.label.split(' ').slice(-1)[0]}</span></th>`;
+    });
+    thead += '</tr>';
+    // ligne semaines (regroupée)
+    let wkCells='';
+    for(let w=0; w<program.weeks.length; w++){
+        const dl = program.weeks[w].deload;
+        wkCells += `<th class="wk-th${dl?' deload':''}" colspan="7">S${w+1}${dl?' · deload':''}</th>`;
+    }
+    wk = `<tr><th class="muscle-col wk-th">Semaine</th>${wkCells}</tr>`;
+
+    let body='';
+    tl.muscles.forEach(m=>{
+        body += `<tr><td class="muscle-col">${m}</td>`;
+        tl.grid[m].forEach((c,i)=>{
+            const wstart = i%7===0 ? ' wstart' : '';
+            const tr = c.trained ? ' trained' : '';
+            const dataEx = c.trained ? c.trained.map(t=>`${t.emoji||''} ${t.exo} (${t.intensity}%)`).join(' · ') : '';
+            body += `<td class="cell${wstart}${tr}" style="background:${heatColor(c.fatigue)}" `
+                + `data-m="${m}" data-day="${i}" data-f="${c.fatigue}" data-safe="${c.safe}" data-ex="${encodeURIComponent(dataEx)}" data-date="${tl.days[i].label}">`
+                + `<span class="val">${c.fatigue>0?c.fatigue:''}</span></td>`;
+        });
+        body += '</tr>';
+    });
+
+    let html = `<div class="heat-scroll"><table class="heat"><thead>${wk}${thead}</thead><tbody>${body}</tbody></table></div>`;
+
+    // ---- cartes readiness (état aujourd'hui) ----
+    const today = new Date(); today.setHours(8,0,0,0);
+    html += `<div class="section-title">État actuel & prochaine fenêtre "lourd"</div><div class="cards">`;
+    tl.muscles.forEach(m=>{
+        const f = Math.round(FatigueModel.residualFatigue(tl.events, m, today));
+        const safe = FatigueModel.safeIntensity(f);
+        const st = FatigueModel.statusOf(f);
+        const nh = tl.nextHeavy[m];
+        const nhTxt = f<=FatigueModel.FATIGUE_PARAMS.fresh
+            ? 'Prêt maintenant'
+            : (nh ? `dès ${nh.label}` : '—');
+        html += `<div class="mcard">
+            <h3>${m}<span class="badge" style="background:${st.color}22;color:${st.color}">${st.label}</span></h3>
+            <div class="bar"><span style="width:${f}%;background:${st.color}"></span></div>
+            <div class="mrow"><span>Fatigue</span><strong>${f}%</strong></div>
+            <div class="mrow"><span>Ré-attaque max sûre</span><strong>${Math.round(safe)}% 1RM</strong></div>
+            <div class="mrow"><span>Prêt pour du lourd</span><strong>${nhTxt}</strong></div>
+        </div>`;
+    });
+    html += `</div>`;
+
+    document.getElementById('content').innerHTML = html;
+    wireTooltips();
+}
+
+function wireTooltips(){
+    const tt = document.getElementById('tt');
+    document.querySelectorAll('.cell').forEach(cell=>{
+        cell.addEventListener('mousemove', e=>{
+            const f=cell.dataset.f, safe=cell.dataset.safe, m=cell.dataset.m;
+            const ex=decodeURIComponent(cell.dataset.ex||'');
+            tt.innerHTML = `<div class="ttmus">${m} — ${cell.dataset.date}</div>`
+                + `Fatigue <strong>${f}%</strong> · sûr jusqu'à <strong>${safe}% 1RM</strong>`
+                + (ex?`<div class="ttex">🏋️ ${ex}</div>`:'');
+            tt.style.opacity=1;
+            let x=e.clientX+14, y=e.clientY+14;
+            if(x+250>window.innerWidth) x=e.clientX-250;
+            tt.style.left=x+'px'; tt.style.top=y+'px';
+        });
+        cell.addEventListener('mouseleave',()=>{ tt.style.opacity=0; });
+    });
+}
+
+// ---- temps réel : BroadcastChannel + storage + focus ----
+const chan = typeof BroadcastChannel!=='undefined' ? new BroadcastChannel('benchmaster_sync') : null;
+if(chan) chan.onmessage = e=>{ if(e.data && e.data.key===STORAGE_KEY){ localStorage.setItem(STORAGE_KEY, e.data.value); loadProgram(); flashLive(); } };
+window.addEventListener('storage', e=>{ if(e.key===STORAGE_KEY) loadProgram(); });
+window.addEventListener('focus', loadProgram);
+
+function flashLive(){
+    const l=document.getElementById('live-label'); l.textContent='Mis à jour';
+    setTimeout(()=>l.textContent='En direct', 1200);
+}
+
+// init
+fetch(LIB_URL).then(r=>r.json()).then(d=>{ library=d; loadProgram(); })
+    .catch(()=>{ loadProgram(); }); // sans lib, on retombe sur item.categories
+</script>
+</body>
+</html>

@@ -160,6 +160,25 @@
         .flip-hint { margin-top: 14px; font-size: 11px; color: var(--text-dim); letter-spacing: .4px; text-transform: uppercase; opacity: .7; }
         .flip-hint .arrow { display: inline-block; animation: pa 2s ease-in-out infinite; }
         @keyframes pa { 0%,100%{opacity:.4;transform:translateX(0)} 50%{opacity:1;transform:translateX(3px)} }
+
+        /* ── VERSO : STATS DE PROGRESSION ─────────────────────────── */
+        .stats-title { font-size: 20px; font-weight: 800; letter-spacing: -.3px; }
+        .stats-sub   { font-size: 12px; color: var(--text-dim); margin: 3px 0 14px; }
+        .exo-chips   { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .exo-chip    { font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 999px; background: var(--card-soft); color: var(--text-soft); border: 1px solid rgba(255,255,255,.06); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        .exo-chip:active { transform: scale(.95); }
+        .exo-chip.active { background: #fff; color: #000; border-color: #fff; font-weight: 700; }
+        .stat-tiles  { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
+        .stat-tile   { background: var(--card-soft); border-radius: 14px; padding: 11px 6px 10px; text-align: center; }
+        .stat-tile .lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; color: var(--text-dim); }
+        .stat-tile .val { font-size: 19px; font-weight: 800; margin-top: 3px; font-variant-numeric: tabular-nums; }
+        .stat-tile .val .u { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+        .stat-tile .pct { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+        .prog-chart  { width: 100%; display: block; }
+        .chart-legend { display: flex; gap: 18px; justify-content: center; margin-top: 12px; font-size: 11px; color: var(--text-dim); }
+        .chart-legend .k { display: inline-flex; align-items: center; gap: 6px; }
+        .chart-legend .dash { width: 18px; height: 3px; border-radius: 2px; }
+        .stats-empty { text-align: center; padding: 40px 8px; color: var(--text-dim); font-size: 13px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -196,8 +215,9 @@ const WEEKDAYS_SHORT = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 //  ÉTAT
 // ════════════════════════════════════════════
 let programRecto = null;
-let programVerso = null;
 let selectedDate = startOfDay(new Date());
+let statsExoId = null; // exercice sélectionné pour le graphe de progression (verso)
+let urlFileMode = false; // programme chargé via ?file= : on n'écrase pas avec la synchro live
 
 // ════════════════════════════════════════════
 //  HELPERS
@@ -224,9 +244,35 @@ function itemEmoji(item) {
 // ════════════════════════════════════════════
 //  CHARGEMENT - Lit les données partagées depuis localStorage
 // ════════════════════════════════════════════
+function normalizeProgram(prog) {
+    return {
+        programName: prog.programName || 'Mon programme',
+        startDate: prog.startDate,
+        weeks: (prog.weeks || []).map(week => ({ week: week.week, deload: week.deload, days: week.days })),
+        maxTargets: prog.maxTargets || {},
+        progressionConfig: prog.progressionConfig || {}
+    };
+}
+
 function loadPrograms() {
     document.getElementById('app').innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--text-dim);font-size:14px">Chargement…</div>';
-    
+
+    // Paramètre URL : ?file=xxx.json  (aussi ?prog= / ?json=) → charge ce fichier.
+    const params = new URLSearchParams(location.search);
+    const fileParam = params.get('file') || params.get('prog') || params.get('json');
+    if (fileParam) {
+        urlFileMode = true;
+        let f = fileParam.trim();
+        if (!/\.json$/i.test(f)) f += '.json';
+        fetch(encodeURI(f))
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(data => { programRecto = normalizeProgram(data); render(); buildCalendar(); })
+            .catch(() => {
+                document.getElementById('app').innerHTML = `<div style="text-align:center;padding:40px 0"><div style="font-size:40px;margin-bottom:12px">⚠️</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">Fichier introuvable</div><div style="font-size:12px;color:var(--text-dim)">${f}</div></div>`;
+            });
+        return;
+    }
+
     const sharedProgram = localStorage.getItem('benchmaster_client_program');
     if (sharedProgram) {
         try {
@@ -273,9 +319,12 @@ function getWorkoutData(prog, date) {
     const [sy, sm, sd] = prog.startDate.split('T')[0].split('-').map(Number);
     const diffDays = Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
     if (diffDays < 0) return null;
-    
-    const weekIndex = diffDays % prog.weeks.length;
-    const cycleIndex = Math.floor(diffDays / prog.weeks.length);
+
+    // Un « bloc » (cycle) = un passage complet du programme (weeks.length semaines).
+    // La semaine avance chaque 7 jours, le cycle chaque weeks.length semaines.
+    const weekOffset = Math.floor(diffDays / 7);
+    const weekIndex = weekOffset % prog.weeks.length;
+    const cycleIndex = Math.floor(weekOffset / prog.weeks.length);
     const weekData = prog.weeks[weekIndex];
     if (!weekData) return null;
     
@@ -296,13 +345,29 @@ function getWorkoutData(prog, date) {
 function applyProgression(item, prog, cycleIndex) {
     if (item.cardType !== 'muscu') return item;
     const cfg = prog.progressionConfig?.[item.id] || { type: 'none' };
-    const delta = computeProg(cfg, cycleIndex, 1.25);
-    if (!delta || delta === 0) return item;
-    const newSets = item.sets.map(s => ({
+    if (cfg.type === 'none' || cycleIndex <= 0) return item;
+    const sets = item.sets || [];
+
+    // Séries en % du 1RM (mode Force) : le MAX grandit selon la progression,
+    // puis chaque série est recalculée = % du max courant — comme index
+    // (le % s'applique au max grandi, pas un +kg à plat sur chaque série).
+    const maxT = prog.maxTargets?.[item.id];
+    if (maxT > 0 && sets.some(s => s.pct != null)) {
+        const grownMax = maxT + computeProg(cfg, cycleIndex, 2.5);
+        return { ...item, sets: sets.map(s => s.pct != null
+            ? { ...s, weight: Math.ceil((grownMax * s.pct / 100) / 2.5) * 2.5 }
+            : s) };
+    }
+
+    // Charges absolues (ex. rowing) : on ajoute le delta à chaque série.
+    const base = Math.max(0, ...sets.map(s => s.weight || 0));
+    const eff = cfg.type === 'asymptotic' ? { ...cfg, current: base } : cfg;
+    const delta = computeProg(eff, cycleIndex, 1.25);
+    if (!delta) return item;
+    return { ...item, sets: sets.map(s => ({
         ...s,
         weight: s.weight != null ? Math.round((s.weight + delta) * 100) / 100 : s.weight
-    }));
-    return { ...item, sets: newSets };
+    })) };
 }
 
 function computeProg(cfg, idx, step) {
@@ -486,7 +551,163 @@ function render() {
     document.getElementById('day-label').textContent = diff === 0 ? "Aujourd'hui" : diff === 1 ? "Demain" : diff === -1 ? "Hier" : selectedDate.toLocaleDateString('fr-FR', { weekday: 'long' });
     document.getElementById('display-date').textContent = selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
     document.getElementById('app').innerHTML = cardHTML(programRecto, false);
-    document.getElementById('appBack').innerHTML = '<div class="rest-state"><span class="rest-icon">🔒</span><div class="rest-title" style="font-size:16px">Verso désactivé</div><div class="rest-sub">Seul le programme principal est affiché</div></div>';
+    renderVerso();
+}
+
+// ════════════════════════════════════════════
+//  VERSO : STATS DE PROGRESSION
+//  Bleu = progression réalisée (blocs passés + actuel)
+//  Violet = projection (le prochain bloc, +1 d'avance)
+//  Un « bloc » = un cycle complet du programme (weeks.length semaines) ;
+//  la progression par bloc suit progressionConfig via computeProg().
+// ════════════════════════════════════════════
+const PROG_STEP = 1.25;
+
+function currentBlockIndex() {
+    const prog = programRecto;
+    if (!prog?.startDate || !prog.weeks?.length) return 0;
+    const [sy, sm, sd] = prog.startDate.split('T')[0].split('-').map(Number);
+    const t = startOfDay(new Date());
+    const diffDays = Math.round((Date.UTC(t.getFullYear(), t.getMonth(), t.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
+    if (diffDays < 0) return 0;
+    return Math.floor(Math.floor(diffDays / 7) / prog.weeks.length);
+}
+
+// Liste des exercices de muscu chargés (poids > 0), avec charge de référence
+// (série la plus lourde) et config de progression. Triés du plus lourd au plus léger.
+function collectExercises(prog) {
+    const map = {};
+    (prog.weeks || []).forEach(w => {
+        Object.values(w.days || {}).forEach(items => {
+            (items || []).forEach(it => {
+                if (it.cardType !== 'muscu') return;
+                const top = Math.max(0, ...((it.sets || []).map(s => s.weight || 0)));
+                if (top <= 0) return;
+                if (!map[it.id]) map[it.id] = { id: it.id, name: it.name || 'Exercice', emoji: itemEmoji(it), base: top, cfg: prog.progressionConfig?.[it.id] || { type: 'none' } };
+                else map[it.id].base = Math.max(map[it.id].base, top);
+            });
+        });
+    });
+    return Object.values(map).sort((a, b) => b.base - a.base);
+}
+
+const round25 = v => Math.round(v * 4) / 4;
+function weightAtBlock(exo, i) {
+    const cfg = exo.cfg?.type === 'asymptotic' ? { ...exo.cfg, current: exo.base } : exo.cfg;
+    return round25(exo.base + computeProg(cfg, i, PROG_STEP));
+}
+
+function renderVerso() {
+    const back = document.getElementById('appBack');
+    if (!back) return;
+    if (!programRecto) { back.innerHTML = `<div class="stats-title">Progression</div><div class="stats-empty">Aucun programme chargé.</div>`; return; }
+
+    const exos = collectExercises(programRecto);
+    if (!exos.length) {
+        back.innerHTML = `<div class="stats-title">Progression</div><div class="stats-empty">Aucun exercice avec charge pour tracer la progression.<br>Ajoute des poids et une progression dans l'éditeur.</div>`;
+        return;
+    }
+    if (!statsExoId || !exos.find(e => e.id === statsExoId)) statsExoId = exos[0].id;
+    const exo = exos.find(e => e.id === statsExoId);
+    const cur = currentBlockIndex();
+
+    const wCur = weightAtBlock(exo, cur);
+    const wNext = weightAtBlock(exo, cur + 1);
+    const delta = round25(wNext - wCur);
+    const oneRM = programRecto.maxTargets?.[exo.id];
+    const pctNow = oneRM > 0 ? Math.round(wCur / oneRM * 100) : null;
+    const pctNext = oneRM > 0 ? Math.round(wNext / oneRM * 100) : null;
+
+    const chips = exos.map(e =>
+        `<button class="exo-chip no-flip ${e.id === statsExoId ? 'active' : ''}" data-exo="${e.id}">${e.emoji || ''} ${e.name}</button>`
+    ).join('');
+
+    const tiles = `<div class="stat-tiles">
+        <div class="stat-tile">
+            <div class="lbl">Actuel · Bloc ${cur + 1}</div>
+            <div class="val" style="color:#0a84ff">${wCur}<span class="u"> kg</span></div>
+            ${pctNow != null ? `<div class="pct">${pctNow}% 1RM</div>` : ''}
+        </div>
+        <div class="stat-tile">
+            <div class="lbl">Dans 1 bloc</div>
+            <div class="val" style="color:#bf5af2">${wNext}<span class="u"> kg</span></div>
+            ${pctNext != null ? `<div class="pct">${pctNext}% 1RM</div>` : ''}
+        </div>
+        <div class="stat-tile">
+            <div class="lbl">Gain / bloc</div>
+            <div class="val" style="color:${delta > 0 ? 'var(--accent)' : 'var(--text-dim)'}">${delta > 0 ? '+' : ''}${delta}<span class="u"> kg</span></div>
+        </div>
+    </div>`;
+
+    back.innerHTML = `
+        <div class="stats-title">Progression</div>
+        <div class="stats-sub">${exo.emoji || ''} ${exo.name} — où j'en suis, et dans 1 bloc d'avance</div>
+        <div class="exo-chips">${chips}</div>
+        ${tiles}
+        ${buildProgChart(exo, cur)}
+        <div class="chart-legend">
+            <span class="k"><span class="dash" style="background:#0a84ff"></span>Réalisé</span>
+            <span class="k"><span class="dash" style="background:#bf5af2"></span>Projection</span>
+        </div>`;
+
+    // Sélection d'exercice — stopPropagation pour NE PAS retourner la carte.
+    back.querySelectorAll('.exo-chip').forEach(ch => {
+        ch.addEventListener('click', e => { e.stopPropagation(); statsExoId = ch.dataset.exo; renderVerso(); });
+    });
+}
+
+// Graphe SVG : ligne bleue (blocs passés → actuel) + ligne violette pointillée (projection).
+function buildProgChart(exo, cur) {
+    const PAST = 6, FUTURE = 3;
+    const start = Math.max(0, cur - PAST), end = cur + FUTURE;
+    const blocks = [];
+    for (let i = start; i <= end; i++) blocks.push({ i, w: weightAtBlock(exo, i) });
+
+    const W = 340, H = 172, padL = 36, padR = 14, padT = 18, padB = 24;
+    const span = Math.max(1, end - start);
+    const xs = i => padL + (W - padL - padR) * ((i - start) / span);
+    const ws = blocks.map(b => b.w);
+    let dmin = Math.min(...ws), dmax = Math.max(...ws), ymin, ymax;
+    if (dmin === dmax) { ymin = dmin - PROG_STEP * 2; ymax = dmax + PROG_STEP * 2; }
+    else { const yp = (dmax - dmin) * 0.18; ymin = dmin - yp; ymax = dmax + yp; }
+    const ys = w => padT + (H - padT - padB) * (1 - (w - ymin) / (ymax - ymin));
+    const P = b => `${xs(b.i).toFixed(1)},${ys(b.w).toFixed(1)}`;
+
+    const bluePts = blocks.filter(b => b.i <= cur).map(P).join(' ');
+    const purpPts = blocks.filter(b => b.i >= cur).map(P).join(' ');
+
+    const grid = [dmax, dmin].map(v =>
+        `<line x1="${padL}" y1="${ys(v).toFixed(1)}" x2="${W - padR}" y2="${ys(v).toFixed(1)}" stroke="rgba(255,255,255,.06)"/>`
+        + `<text x="${padL - 5}" y="${(ys(v) + 3).toFixed(1)}" fill="#8e8e93" font-size="9" text-anchor="end">${v}</text>`
+    ).join('');
+
+    const divX = xs(cur).toFixed(1);
+    const divider = `<line x1="${divX}" y1="${padT}" x2="${divX}" y2="${H - padB}" stroke="rgba(255,255,255,.10)" stroke-dasharray="3 3"/>`;
+
+    let dots = '';
+    blocks.forEach(b => {
+        const isCur = b.i === cur, isNext = b.i === cur + 1;
+        const c = b.i <= cur ? '#0a84ff' : '#bf5af2';
+        const r = (isCur || isNext) ? 4.5 : 2.6;
+        dots += `<circle cx="${xs(b.i).toFixed(1)}" cy="${ys(b.w).toFixed(1)}" r="${r}" fill="${c}"${(isCur || isNext) ? ' stroke="#000" stroke-width="1.5"' : ''}/>`;
+    });
+
+    const curB = blocks.find(b => b.i === cur), nextB = blocks.find(b => b.i === cur + 1);
+    const lbls =
+        (curB ? `<text x="${xs(cur).toFixed(1)}" y="${(ys(curB.w) - 9).toFixed(1)}" fill="#0a84ff" font-size="10.5" font-weight="800" text-anchor="middle">${curB.w}</text>` : '')
+        + (nextB ? `<text x="${xs(cur + 1).toFixed(1)}" y="${(ys(nextB.w) - 9).toFixed(1)}" fill="#bf5af2" font-size="10.5" font-weight="800" text-anchor="middle">${nextB.w}</text>` : '');
+
+    const xl =
+        (start < cur ? `<text x="${xs(start).toFixed(1)}" y="${H - 7}" fill="#8e8e93" font-size="9" text-anchor="start">B${start + 1}</text>` : '')
+        + `<text x="${xs(cur).toFixed(1)}" y="${H - 7}" fill="#0a84ff" font-size="9" font-weight="700" text-anchor="middle">Actuel</text>`
+        + (nextB ? `<text x="${xs(cur + 1).toFixed(1)}" y="${H - 7}" fill="#bf5af2" font-size="9" font-weight="700" text-anchor="middle">+1</text>` : '');
+
+    return `<svg class="prog-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${grid}${divider}
+        ${bluePts ? `<polyline points="${bluePts}" fill="none" stroke="#0a84ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
+        ${purpPts ? `<polyline points="${purpPts}" fill="none" stroke="#bf5af2" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
+        ${dots}${lbls}${xl}
+    </svg>`;
 }
 
 // ════════════════════════════════════════════
@@ -607,10 +828,21 @@ headerDate.addEventListener('click', () => {
 //  FLIP & SWIPE
 // ════════════════════════════════════════════
 const fc = document.getElementById('flipContainer');
-fc.addEventListener('click', () => {
+const flipHint = document.getElementById('flipHint');
+function updateFlipHint() {
+    if (!flipHint) return;
+    flipHint.innerHTML = fc.classList.contains('flipped')
+        ? 'Tap pour revenir au programme <span class="arrow">→</span>'
+        : 'Tap pour ta progression <span class="arrow">→</span>';
+}
+fc.addEventListener('click', (e) => {
     if (stage.classList.contains('cal-mode')) return;
+    // Ne pas retourner la carte si on interagit avec un contrôle du verso.
+    if (e.target.closest('.no-flip')) return;
     fc.classList.toggle('flipped');
+    updateFlipHint();
 });
+updateFlipHint();
 (function() {
     let startX = 0, startY = 0, currentX = 0, isDragging = false, isDecided = false, isHorizontal = false, startTime = 0;
     const SWIPE_THRESHOLD = 60;
@@ -661,6 +893,7 @@ fc.addEventListener('click', () => {
     }
     function onStart(e) {
         if (stage.classList.contains('cal-mode')) return;
+        if (fc.classList.contains('flipped')) return; // pas de navigation jours sur le verso
         const touch = e.touches ? e.touches[0] : e;
         startX = touch.clientX;
         startY = touch.clientY;
@@ -734,6 +967,7 @@ if (storedTargetDate) {
 }
 // Mise à jour automatique
 window.addEventListener('storage', (e) => {
+    if (urlFileMode) return; // fichier figé chargé via ?file=
     if (e.key === 'benchmaster_client_program' && e.newValue) {
         try {
             const newProg = JSON.parse(e.newValue);
@@ -756,6 +990,7 @@ window.addEventListener('storage', (e) => {
 
 // BroadcastChannel : réception instantanée depuis l'onglet éditeur
 function _applyProgramUpdate(json) {
+    if (urlFileMode) return; // fichier figé chargé via ?file=
     try {
         const newProg = JSON.parse(json);
         programRecto = {

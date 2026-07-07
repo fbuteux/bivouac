@@ -251,9 +251,12 @@ function renderMobileDayContent() {
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 <div style="font-size:14px;font-weight:500;color:var(--text-dim);">Repos ou journée libre</div>
                 <div style="font-size:12px;color:var(--text-faint);">Appuie sur + pour ajouter des exercices</div>
+                <div style="font-size:11px;color:var(--text-faint);opacity:.7;">ou appui long pour coller une journée</div>
             </div>`;
         // swipe aussi sur la vue vide
         _attachDaySwipe(content);
+        // Appui long 0,4 s sur une journée vide → menu (permet de coller)
+        _attachEmptyDayGesture(content.firstElementChild, cell);
         return;
     }
 
@@ -317,7 +320,10 @@ function renderMobileDayContent() {
             ">×</button>
         `;
 
+        card._srcEl = srcEl;
         card.addEventListener('click', e => {
+            // Un geste (drag / menu) vient d'avoir lieu → on annule le clic.
+            if (card._suppressClick) { card._suppressClick = false; e.stopPropagation(); e.preventDefault(); return; }
             if (e.target.classList.contains('mob-card-del')) {
                 srcEl.remove();
                 renderMobileView();
@@ -328,6 +334,7 @@ function renderMobileDayContent() {
             else if (srcEl.dataset.cardType === 'hyrox') openHyroxModal(srcEl);
             else if (srcEl.dataset.cardType === 'cardio') openCardioModal(srcEl);
         });
+        _attachMobileCardGestures(card, srcEl, cell);
 
         content.appendChild(card);
     });
@@ -403,6 +410,121 @@ function _initDaySwiper() {
 }
 
 function _attachDaySwipe(el) { /* no-op — géré par _initDaySwiper sur le conteneur fixe */ }
+
+// ── GESTES TACTILES SUR UNE CARTE (déplacer / menu journée) ──────────────────
+//  Appui 0,1 s  → l'exercice se soulève, on le glisse pour le réordonner.
+//  Appui 0,4 s (immobile) → menu Copier / Coller / Vider la journée.
+function _getMobileAfterCard(cont, y, dragCard) {
+    const els = [...cont.children].filter(c => c !== dragCard && c._srcEl);
+    let closest = null, off = -Infinity;
+    els.forEach(c => { const b = c.getBoundingClientRect(); const o = y - b.top - b.height/2; if (o < 0 && o > off) { off = o; closest = c; } });
+    return closest; // null => insérer en fin
+}
+function _attachMobileCardGestures(card, srcEl, cell) {
+    let t05 = null, t15 = null, startX = 0, startY = 0, mode = null, line = null;
+    const lift   = () => { card.style.transition = 'transform .12s, box-shadow .12s, opacity .12s'; card.style.transform = 'scale(0.98)'; card.style.opacity = '0.6'; card.style.boxShadow = '0 8px 24px rgba(0,0,0,0.5)'; if (navigator.vibrate) navigator.vibrate(15); };
+    const unlift = () => { card.style.transform = ''; card.style.opacity = ''; card.style.boxShadow = ''; };
+    const clearTimers = () => { clearTimeout(t05); clearTimeout(t15); };
+    const dropLine = () => { const d = document.createElement('div'); d.className = 'mob-drop-line'; d.style.cssText = 'height:3px;background:var(--accent);border-radius:2px;margin:3px 2px;box-shadow:0 0 6px var(--accent);'; return d; };
+
+    card.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY; mode = null;
+        t05 = setTimeout(() => { if (mode === null) { mode = 'armed'; lift(); } }, 100);
+        t15 = setTimeout(() => { if (mode === 'armed') { mode = 'menu'; unlift(); card._suppressClick = true; _showMobileDayMenu(cell); } }, 400);
+    }, { passive: true });
+
+    card.addEventListener('touchmove', e => {
+        if (e.touches.length !== 1) return;
+        const x = e.touches[0].clientX, y = e.touches[0].clientY;
+        const dx = x - startX, dy = y - startY;
+        if (mode === null) {
+            if (Math.abs(dx) > 8 || Math.abs(dy) > 8) clearTimers(); // scroll/swipe : pas un appui long
+            return;
+        }
+        if (mode === 'armed') {
+            if (Math.abs(dy) > 6 || Math.abs(dx) > 6) { mode = 'dragging'; clearTimeout(t15); card._suppressClick = true; }
+            else return;
+        }
+        if (mode === 'dragging') {
+            e.preventDefault(); // bloque le scroll pendant le déplacement
+            const cont = card.parentNode;
+            const after = _getMobileAfterCard(cont, y, card);
+            if (!line) line = dropLine();
+            if (after == null) cont.appendChild(line);
+            else cont.insertBefore(line, after);
+        }
+    }, { passive: false });
+
+    card.addEventListener('touchend', () => {
+        clearTimers();
+        if (mode === 'dragging') {
+            let afterCard = null;
+            if (line) { afterCard = line.nextElementSibling; while (afterCard && !afterCard._srcEl) afterCard = afterCard.nextElementSibling; line.remove(); line = null; }
+            unlift();
+            const targetSrc = (afterCard && afterCard !== card) ? afterCard._srcEl : null;
+            if (targetSrc) cell.insertBefore(srcEl, targetSrc);
+            else cell.appendChild(srcEl);
+            card._suppressClick = true;
+            renderMobileView();
+            syncClientProgram();
+        } else if (mode === 'armed') {
+            unlift();
+        }
+        mode = null;
+    }, { passive: true });
+
+    card.addEventListener('touchcancel', () => { clearTimers(); if (line) { line.remove(); line = null; } unlift(); mode = null; }, { passive: true });
+}
+
+// Appui long 0,4 s sur une journée VIDE → menu (pour coller). Pas de drag possible.
+function _attachEmptyDayGesture(el, cell) {
+    if (!el) return;
+    let timer = null, sx = 0, sy = 0;
+    const clear = () => clearTimeout(timer);
+    el.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+        timer = setTimeout(() => { if (navigator.vibrate) navigator.vibrate(15); _showMobileDayMenu(cell); }, 400);
+    }, { passive: true });
+    el.addEventListener('touchmove', e => {
+        const dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
+        if (Math.abs(dx) > 8 || Math.abs(dy) > 8) clear(); // scroll/swipe : on annule
+    }, { passive: true });
+    el.addEventListener('touchend', clear, { passive: true });
+    el.addEventListener('touchcancel', clear, { passive: true });
+}
+
+// ── MENU JOURNÉE MOBILE (action sheet) ───────────────────────────────────────
+function _closeMobileDayMenu() { const m = document.getElementById('mob-day-menu'); if (m) m.remove(); }
+function _showMobileDayMenu(cell) {
+    _closeMobileDayMenu();
+    const count = cell.querySelectorAll('.placed-exo').length;
+    const hasClip = !!dayClipboard;
+    const overlay = document.createElement('div');
+    overlay.id = 'mob-day-menu';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.5);display:flex;align-items:flex-end;animation:none;';
+    const sheet = document.createElement('div');
+    sheet.style.cssText = 'width:100%;background:#1c1c1e;border-radius:18px 18px 0 0;padding:6px 0 calc(env(safe-area-inset-bottom,12px) + 6px);box-shadow:0 -8px 30px rgba(0,0,0,0.5);';
+    const title = document.createElement('div');
+    title.textContent = 'Journée';
+    title.style.cssText = 'text-align:center;font-size:12px;color:var(--text-dim);padding:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;';
+    sheet.appendChild(title);
+    const mk = (label, color, fn, disabled) => {
+        const b = document.createElement('button');
+        b.textContent = label;
+        b.style.cssText = `display:block;width:100%;background:none;border:none;border-top:0.5px solid #2c2c2e;color:${disabled ? '#555' : color};font-size:16px;padding:17px;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;`;
+        if (!disabled) b.onclick = () => { fn(); _closeMobileDayMenu(); };
+        sheet.appendChild(b);
+    };
+    mk('📋  Copier la journée', 'var(--text)', () => copyDay(cell), count === 0);
+    mk('📌  Coller ici' + (hasClip ? ` (${dayClipboard.length})` : ''), 'var(--green)', () => { pasteDay(cell); renderMobileView(); }, !hasClip);
+    mk('🗑  Vider la journée', 'var(--red)', () => { clearDay(cell); renderMobileView(); }, count === 0);
+    mk('Annuler', 'var(--text-dim)', () => {}, false);
+    overlay.appendChild(sheet);
+    overlay.addEventListener('click', e => { if (e.target === overlay) _closeMobileDayMenu(); });
+    document.body.appendChild(overlay);
+}
 
 // ── NAVIGATION ET GESTION DES SEMAINES ────────────────────────────────────────
 function mobileWeekNav(delta) {
@@ -924,6 +1046,7 @@ function exportProgramData() {
         startDate: startDate,
         weeks: weeks,
         maxTargets: maxTargetsData,
+        progressionConfig: progressionConfig || {},
         programNotes: programNotes || ''
     };
 }

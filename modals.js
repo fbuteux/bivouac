@@ -25,6 +25,7 @@ function openEditModal(el) {
     onModeChange(mode, false);
     document.getElementById('sets-container').innerHTML='';
     JSON.parse(el.dataset.setsData).forEach(s=>addSetRow(s.reps,s.weight||0,s.tech,s.pct,s.restMin||0,s.restSec||0));
+    initProgControl(exoData);
     showModalError('modal-save-error','');
     document.getElementById('modal-edit-overlay').style.display='flex';
 }
@@ -206,9 +207,89 @@ function saveExercise() {
     if (PYRA_MODES.includes(mode)) {
         currentEditingEl.dataset.pyramideConfig=JSON.stringify({kgStep:editingPyraKgStep,repsStep:editingPyraRepsStep,topRep:editingPyraTopRep});
     } else { delete currentEditingEl.dataset.pyramideConfig; }
+    // Progression par bloc (par exercice-id, synchronisée en live)
+    const pcfg = getModalProgConfig();
+    if (pcfg.type === 'none') delete progressionConfig[currentEditingEl.dataset.id];
+    else progressionConfig[currentEditingEl.dataset.id] = pcfg;
+    saveProgressionToStorage();
+
     updateExoDisplay(currentEditingEl);
     closeModals();
     syncClientProgram();
+}
+
+// ── PROGRESSION PAR BLOC ─────────────────────────────────────────────────────
+//  3 choix : Aucune / +kg par bloc (linéaire) / Objectif (asymptotique).
+//  Défaut intelligent : si un 1RM existe → Objectif vers ce 1RM ; sinon +pas/bloc.
+let editingProgType = 'none';
+let _progDefaults = { step: 2.5, increment: 2.5, target: 0 };
+
+// Charge de référence = série la plus lourde actuellement saisie dans la modale.
+function currentModalBaseWeight() {
+    let base = 0;
+    document.querySelectorAll('#sets-container .set-row').forEach(r => {
+        const w = parseFloat(r.querySelector('.set-weight')?.value ?? r.querySelector('.set-kg-auto')?.dataset.kg ?? 0) || 0;
+        if (w > base) base = w;
+    });
+    return base;
+}
+
+function initProgControl(exoData) {
+    const cfg = progressionConfig[exoData.id];
+    const mat = materiels.find(m => m.id === exoData.materielId);
+    const step = mat?.step || 2.5;
+    editingProgType = cfg?.type ? (cfg.type === 'logarithmic' ? 'asymptotic' : cfg.type)
+                                : (maxTargets[exoData.id] ? 'asymptotic' : 'linear');
+    const base = currentModalBaseWeight();
+    _progDefaults = {
+        step,
+        increment: cfg?.increment ?? step,
+        target: cfg?.target ?? (maxTargets[exoData.id] || Math.round((base * 1.1) / step) * step || base + step)
+    };
+    renderProgSeg();
+    buildProgParam();
+    // Recalcule l'aperçu quand on change les charges des séries (une seule fois).
+    const sc = document.getElementById('sets-container');
+    if (sc && !sc._progListener) {
+        sc._progListener = true;
+        sc.addEventListener('input', e => {
+            if (e.target.classList.contains('set-weight') || e.target.classList.contains('set-pct')) refreshProgPreview();
+        });
+    }
+}
+
+function renderProgSeg() {
+    document.querySelectorAll('#prog-seg .seg-btn').forEach(b => b.classList.toggle('active', b.dataset.prog === editingProgType));
+}
+function setProgMode(type) { editingProgType = type; renderProgSeg(); buildProgParam(); }
+
+function buildProgParam() {
+    const p = document.getElementById('prog-param'); if (!p) return;
+    const d = _progDefaults;
+    if (editingProgType === 'linear')
+        p.innerHTML = `<span class="prog-input-label">+</span><input type="number" id="prog-inc" class="prog-input" value="${d.increment}" min="0" step="${d.step}" oninput="refreshProgPreview()"><span class="prog-input-label">kg</span>`;
+    else if (editingProgType === 'asymptotic')
+        p.innerHTML = `<span class="prog-input-label">vers</span><input type="number" id="prog-target" class="prog-input" value="${d.target}" min="0" step="${d.step}" oninput="refreshProgPreview()"><span class="prog-input-label">kg</span>`;
+    else
+        p.innerHTML = `<span class="prog-input-label">Charge identique chaque bloc</span>`;
+    refreshProgPreview();
+}
+
+function getModalProgConfig() {
+    if (editingProgType === 'linear') return { type: 'linear', increment: parseFloat(document.getElementById('prog-inc')?.value) || _progDefaults.step };
+    if (editingProgType === 'asymptotic') return { type: 'asymptotic', target: parseFloat(document.getElementById('prog-target')?.value) || _progDefaults.target, speed: 0.15 };
+    return { type: 'none' };
+}
+
+function refreshProgPreview() {
+    const el = document.getElementById('prog-preview'); if (!el) return;
+    const cfg = getModalProgConfig();
+    if (cfg.type === 'none') { el.textContent = ''; return; }
+    const base = currentModalBaseWeight();
+    const step = _progDefaults.step;
+    const eff = cfg.type === 'asymptotic' ? { ...cfg, current: base } : cfg;
+    const w = i => Math.round((base + computeProgression(eff, i, step)) * 4) / 4;
+    el.textContent = `Bloc 1 → 2 → 3 :  ${w(0)} · ${w(1)} · ${w(2)} kg`;
 }
 
 // ======================== MODAL RUN ========================

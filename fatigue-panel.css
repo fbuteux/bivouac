@@ -1,0 +1,163 @@
+/* ======================================================================
+   FATIGUE PANEL — volet repliable à droite de l'éditeur.
+   Module autonome : tout est préfixé .ftg- pour ne rien casser ailleurs.
+   Réutilise les variables de thème (:root) déjà définies par style.css.
+   ====================================================================== */
+:root { --ftg-w: 460px; }
+
+/* Poignée verticale collée au bord droit (ouvre / ferme le volet). */
+.ftg-tab {
+    position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+    z-index: 1200; cursor: pointer; border: none;
+    background: var(--accent); color: #fff;
+    padding: 14px 7px; border-radius: 10px 0 0 10px;
+    font-size: 11px; font-weight: 800; letter-spacing: 1px;
+    writing-mode: vertical-rl; text-orientation: mixed;
+    box-shadow: -3px 0 14px rgba(0,0,0,.4);
+    transition: transform .28s cubic-bezier(.4,0,.2,1), background .15s;
+    display: flex; align-items: center; gap: 7px;
+}
+.ftg-tab:hover { background: #0a74e0; }
+.ftg-tab.open { transform: translateY(-50%) translateX(calc(-1 * var(--ftg-w))); }
+.ftg-tab .ftg-tab-badge {
+    background: rgba(0,0,0,.28); border-radius: 20px; padding: 2px 5px;
+    font-size: 10px; font-weight: 700; writing-mode: horizontal-tb;
+}
+
+/* Le volet. */
+.ftg-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: var(--ftg-w); max-width: 92vw;
+    z-index: 1190; background: var(--bg-2);
+    border-left: 0.5px solid var(--divider-2);
+    box-shadow: -12px 0 40px rgba(0,0,0,.55);
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column;
+    font-size: 14px;
+}
+.ftg-drawer.open { transform: translateX(0); }
+
+.ftg-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 16px; border-bottom: 0.5px solid var(--divider);
+    background: rgba(0,0,0,.35); backdrop-filter: blur(10px);
+}
+.ftg-head .ftg-title { font-weight: 800; font-size: 15px; letter-spacing: -.3px; }
+.ftg-head .ftg-sub { font-size: 11px; color: var(--text-dim); }
+.ftg-head .ftg-close {
+    margin-left: auto; background: none; border: none; color: var(--text-dim);
+    font-size: 22px; line-height: 1; cursor: pointer; padding: 0 4px;
+}
+.ftg-head .ftg-close:hover { color: var(--text); }
+
+.ftg-body { flex: 1; overflow-y: auto; padding: 14px 16px 30px; }
+
+.ftg-empty {
+    padding: 50px 16px; text-align: center; color: var(--text-dim);
+    border: 1px dashed var(--divider-2); border-radius: var(--radius); font-size: 13px;
+}
+
+/* Sélecteur de jour. */
+.ftg-daynav {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--card); border: 0.5px solid var(--divider-2);
+    border-radius: var(--radius); padding: 8px 10px; margin-bottom: 14px;
+}
+.ftg-daynav button {
+    background: var(--card-2); border: 0.5px solid var(--divider-2); color: var(--text);
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+}
+.ftg-daynav button:hover { background: var(--card-3); }
+.ftg-daynav button:disabled { opacity: .3; cursor: default; }
+.ftg-daynav .ftg-daylabel { flex: 1; text-align: center; }
+.ftg-daynav .ftg-daylabel strong { font-size: 13.5px; font-weight: 700; }
+.ftg-daynav .ftg-daylabel span { display: block; font-size: 10.5px; color: var(--text-dim); }
+.ftg-daynav .ftg-daylabel .ftg-dl { color: var(--purple); }
+
+.ftg-section {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text-dim); margin: 4px 2px 8px;
+}
+
+/* Heatmap compacte. */
+.ftg-heat-scroll {
+    overflow-x: auto; border: 0.5px solid var(--divider); border-radius: var(--radius);
+    background: var(--bg); margin-bottom: 20px;
+}
+.ftg-heat { border-collapse: separate; border-spacing: 0; }
+.ftg-heat th, .ftg-heat td { padding: 0; text-align: center; white-space: nowrap; }
+.ftg-mus {
+    position: sticky; left: 0; z-index: 3; background: var(--card);
+    text-align: left; padding: 0 9px; font-size: 11.5px; font-weight: 700;
+    min-width: 92px; border-right: 0.5px solid var(--divider-2);
+}
+.ftg-dth {
+    font-size: 8.5px; font-weight: 600; color: var(--text-dim);
+    min-width: 26px; padding: 4px 0 5px; border-bottom: 0.5px solid var(--divider);
+    cursor: pointer;
+}
+.ftg-dth.wstart { border-left: 1px solid var(--divider-2); }
+.ftg-dth.sel { color: var(--accent); background: var(--accent-soft); }
+.ftg-dth.dl { color: var(--purple); }
+.ftg-heat tbody tr { height: 30px; }
+.ftg-heat tbody .ftg-mus { border-bottom: 0.5px solid var(--divider); }
+.ftg-cell {
+    position: relative; height: 30px; min-width: 26px; cursor: pointer;
+    font-size: 9px; font-weight: 700; color: #fff;
+    border-bottom: 0.5px solid rgba(255,255,255,.03);
+    border-left: 0.5px solid rgba(255,255,255,.03);
+}
+.ftg-cell.wstart { border-left: 1px solid var(--divider-2); }
+.ftg-cell.sel { outline: 2px solid var(--accent); outline-offset: -2px; z-index: 2; }
+.ftg-cell .v { position: relative; z-index: 1; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.ftg-cell.trained::after {
+    content: ""; position: absolute; top: 2px; right: 2px; width: 4px; height: 4px;
+    border-radius: 50%; background: #fff; box-shadow: 0 0 3px rgba(0,0,0,.6); z-index: 2;
+}
+
+/* Cartes muscle (état du jour sélectionné). */
+.ftg-cards { display: flex; flex-direction: column; gap: 9px; }
+.ftg-card {
+    background: var(--card); border: 0.5px solid var(--divider-2);
+    border-radius: var(--radius); padding: 11px 13px;
+}
+.ftg-card .ftg-crow1 {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+}
+.ftg-card .ftg-name { font-size: 13px; font-weight: 800; }
+.ftg-card .ftg-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.ftg-bar { height: 7px; border-radius: 6px; background: var(--card-3); overflow: hidden; }
+.ftg-bar > span { display: block; height: 100%; border-radius: 6px; transition: width .3s; }
+.ftg-meta { display: flex; gap: 12px; margin-top: 8px; font-size: 11px; color: var(--text-dim); }
+.ftg-meta .ftg-m strong { display: block; color: var(--text-2); font-size: 13px; font-weight: 800; }
+.ftg-trained {
+    margin-top: 8px; font-size: 10.5px; color: var(--text-dim);
+    border-top: 0.5px solid var(--divider); padding-top: 7px;
+}
+
+/* Alerte 1RM manquants. */
+.ftg-warn {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    background: var(--orange-soft); border: 0.5px solid var(--orange);
+    color: var(--orange); border-radius: var(--radius);
+    padding: 9px 11px; margin-bottom: 14px; font-size: 11.5px; line-height: 1.4;
+}
+.ftg-warn b { color: var(--text); }
+.ftg-warn button {
+    margin-left: auto; background: var(--orange); border: none; color: #1a1200;
+    font-weight: 800; font-size: 11px; padding: 5px 10px; border-radius: 8px; cursor: pointer;
+    white-space: nowrap;
+}
+.ftg-warn button:hover { filter: brightness(1.08); }
+/* Badge "estimé" sur une carte muscle. */
+.ftg-est {
+    font-size: 9px; font-weight: 700; color: var(--orange);
+    background: var(--orange-soft); border: 0.5px solid var(--orange);
+    padding: 1px 6px; border-radius: 20px; vertical-align: middle; cursor: help;
+}
+
+/* Légende. */
+.ftg-legend { display: flex; flex-wrap: wrap; gap: 9px; margin: 4px 2px 16px; font-size: 10px; color: var(--text-dim); }
+.ftg-legend .i { display: flex; align-items: center; gap: 5px; }
+.ftg-legend .sw { width: 16px; height: 9px; border-radius: 3px; }

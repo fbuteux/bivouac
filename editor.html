@@ -14,6 +14,7 @@
     <!-- Manifest inline pour PWA Android -->
     <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Editor%22,%22short_name%22:%22Editor%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22theme_color%22:%22%23000000%22,%22start_url%22:%22.%2Findex.html%22}">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fatigue-panel.css">
 </head>
 <body>
 
@@ -29,6 +30,11 @@
         <button id="btn-desktop-view" class="btn-action" onclick="openDesktopClientView()" title="Vue client">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg>
             Vue
+        </button>
+        <!-- Fatigue musculaire -->
+        <button id="btn-fatigue-view" class="btn-action" onclick="FatiguePanel.toggle()" title="Fatigue musculaire — volet">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Fatigue
         </button>
         <!-- Objectifs 1RM -->
         <button class="btn-action" onclick="openMaxModal()" title="Objectifs 1RM">
@@ -91,6 +97,18 @@
         </div>
 
         <div id="force-config-panel" style="display:none;padding:12px 20px;background:var(--bg-2);border-bottom:0.5px solid var(--divider-2);align-items:flex-start;gap:10px;"></div>
+
+        <!-- PROGRESSION PAR BLOC -->
+        <div id="prog-config-panel" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 20px;background:var(--bg-2);border-bottom:0.5px solid var(--divider-2);">
+            <label style="font-size:11px;color:var(--text-dim);text-transform:uppercase;white-space:nowrap;letter-spacing:.4px;">Progression / bloc</label>
+            <div class="seg" id="prog-seg">
+                <button type="button" class="seg-btn" data-prog="none" onclick="setProgMode('none')">Aucune</button>
+                <button type="button" class="seg-btn" data-prog="linear" onclick="setProgMode('linear')">+kg/bloc</button>
+                <button type="button" class="seg-btn" data-prog="asymptotic" onclick="setProgMode('asymptotic')">Objectif</button>
+            </div>
+            <div id="prog-param" style="display:flex;align-items:center;gap:6px;"></div>
+            <span id="prog-preview" style="font-size:11px;color:var(--text-dim);margin-left:auto;white-space:nowrap;"></span>
+        </div>
 
         <div class="modal-body">
             <div id="modal-col-header" style="display:grid;grid-template-columns:30px 1fr 1fr 1.5fr 90px 30px;gap:10px;margin-bottom:8px;font-size:11px;color:var(--text-dim);padding:0 5px;">
@@ -242,5 +260,8 @@
 <script src="export_import.js"></script>
 <script src="app.js"></script>
 <script src="mobile.js"></script>
+<!-- Module Fatigue (autonome) -->
+<script src="fatigue-model.js"></script>
+<script src="fatigue-panel.js"></script>
 </body>
 </html>

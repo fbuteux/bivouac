@@ -1,0 +1,1345 @@
+{
+  "programName": "SBD — Powerlifting (bloc 5 semaines)",
+  "startDate": "2025-06-30",
+  "programNotes": "Programme Squat / Bench / Deadlift sur blocs de 5 semaines (4 semaines de charge + 1 deload). Progression linéaire par cycle.",
+  "weeks": [
+    {
+      "week": 1,
+      "deload": false,
+      "days": {
+        "Lundi": [
+          {
+            "id": "sq",
+            "cardType": "muscu",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "presse_cuisses",
+            "cardType": "muscu",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rdl",
+            "cardType": "muscu",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Mercredi": [
+          {
+            "id": "dc",
+            "cardType": "muscu",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 6,
+                "weight": 70,
+                "tech": "Normal"
+              },
+              {
+                "reps": 6,
+                "weight": 70,
+                "tech": "Normal"
+              },
+              {
+                "reps": 6,
+                "weight": 70,
+                "tech": "Normal"
+              },
+              {
+                "reps": 6,
+                "weight": 70,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rowing_barre",
+            "cardType": "muscu",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              }
+            ]
+          },
+          {
+            "id": "tirage_vertical",
+            "cardType": "muscu",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Vendredi": [
+          {
+            "id": "deadlift",
+            "cardType": "muscu",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 120,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 120,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 120,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 120,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "front_sq",
+            "cardType": "muscu",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "tirage_menton",
+            "cardType": "muscu",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "week": 2,
+      "deload": false,
+      "days": {
+        "Lundi": [
+          {
+            "id": "sq",
+            "cardType": "muscu",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 102.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 102.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 102.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 102.5,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "presse_cuisses",
+            "cardType": "muscu",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rdl",
+            "cardType": "muscu",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Mercredi": [
+          {
+            "id": "dc",
+            "cardType": "muscu",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 72.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 72.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 72.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 72.5,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rowing_barre",
+            "cardType": "muscu",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              }
+            ]
+          },
+          {
+            "id": "tirage_vertical",
+            "cardType": "muscu",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Vendredi": [
+          {
+            "id": "deadlift",
+            "cardType": "muscu",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 3,
+                "weight": 125,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 125,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 125,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 125,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "front_sq",
+            "cardType": "muscu",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "tirage_menton",
+            "cardType": "muscu",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "week": 3,
+      "deload": false,
+      "days": {
+        "Lundi": [
+          {
+            "id": "sq",
+            "cardType": "muscu",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 3,
+                "weight": 105,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 105,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 105,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 105,
+                "tech": "Pause"
+              }
+            ]
+          },
+          {
+            "id": "presse_cuisses",
+            "cardType": "muscu",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rdl",
+            "cardType": "muscu",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Mercredi": [
+          {
+            "id": "dc",
+            "cardType": "muscu",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 3,
+                "weight": 75,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 75,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 75,
+                "tech": "Pause"
+              },
+              {
+                "reps": 3,
+                "weight": 75,
+                "tech": "Pause"
+              }
+            ]
+          },
+          {
+            "id": "rowing_barre",
+            "cardType": "muscu",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              }
+            ]
+          },
+          {
+            "id": "tirage_vertical",
+            "cardType": "muscu",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Vendredi": [
+          {
+            "id": "deadlift",
+            "cardType": "muscu",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 3,
+                "weight": 130,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 130,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 130,
+                "tech": "Normal"
+              },
+              {
+                "reps": 3,
+                "weight": 130,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "front_sq",
+            "cardType": "muscu",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "tirage_menton",
+            "cardType": "muscu",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "week": 4,
+      "deload": false,
+      "days": {
+        "Lundi": [
+          {
+            "id": "sq",
+            "cardType": "muscu",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 2,
+                "weight": 107.5,
+                "tech": "Pause"
+              },
+              {
+                "reps": 2,
+                "weight": 107.5,
+                "tech": "Pause"
+              },
+              {
+                "reps": 2,
+                "weight": 107.5,
+                "tech": "Pause"
+              },
+              {
+                "reps": 2,
+                "weight": 107.5,
+                "tech": "Pause"
+              }
+            ]
+          },
+          {
+            "id": "presse_cuisses",
+            "cardType": "muscu",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 140.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rdl",
+            "cardType": "muscu",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 90.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Mercredi": [
+          {
+            "id": "dc",
+            "cardType": "muscu",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 3,
+                "weight": 77.5,
+                "tech": "Spoto"
+              },
+              {
+                "reps": 3,
+                "weight": 77.5,
+                "tech": "Spoto"
+              },
+              {
+                "reps": 3,
+                "weight": 77.5,
+                "tech": "Spoto"
+              },
+              {
+                "reps": 3,
+                "weight": 77.5,
+                "tech": "Spoto"
+              }
+            ]
+          },
+          {
+            "id": "rowing_barre",
+            "cardType": "muscu",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 60.0,
+                "tech": "Penché"
+              }
+            ]
+          },
+          {
+            "id": "tirage_vertical",
+            "cardType": "muscu",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 60.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Vendredi": [
+          {
+            "id": "deadlift",
+            "cardType": "muscu",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 2,
+                "weight": 135,
+                "tech": "Sumo"
+              },
+              {
+                "reps": 2,
+                "weight": 135,
+                "tech": "Sumo"
+              },
+              {
+                "reps": 2,
+                "weight": 135,
+                "tech": "Sumo"
+              },
+              {
+                "reps": 2,
+                "weight": 135,
+                "tech": "Sumo"
+              }
+            ]
+          },
+          {
+            "id": "front_sq",
+            "cardType": "muscu",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 80.0,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "tirage_menton",
+            "cardType": "muscu",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 30.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "week": 5,
+      "deload": true,
+      "days": {
+        "Lundi": [
+          {
+            "id": "sq",
+            "cardType": "muscu",
+            "name": "Squat",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 85,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 85,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 85,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "presse_cuisses",
+            "cardType": "muscu",
+            "name": "Presse à Cuisses",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 118.75,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 118.75,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 118.75,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 118.75,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rdl",
+            "cardType": "muscu",
+            "name": "Romanian Deadlift",
+            "emoji": "🔻",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 76.25,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 76.25,
+                "tech": "Normal"
+              },
+              {
+                "reps": 8,
+                "weight": 76.25,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Mercredi": [
+          {
+            "id": "dc",
+            "cardType": "muscu",
+            "name": "DC Couché",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 6,
+                "weight": 60,
+                "tech": "Normal"
+              },
+              {
+                "reps": 6,
+                "weight": 60,
+                "tech": "Normal"
+              },
+              {
+                "reps": 6,
+                "weight": 60,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "rowing_barre",
+            "cardType": "muscu",
+            "name": "Rowing Barre",
+            "emoji": "🏋️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 8,
+                "weight": 51.25,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 51.25,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 51.25,
+                "tech": "Penché"
+              },
+              {
+                "reps": 8,
+                "weight": 51.25,
+                "tech": "Penché"
+              }
+            ]
+          },
+          {
+            "id": "tirage_vertical",
+            "cardType": "muscu",
+            "name": "Tirage Vertical",
+            "emoji": "🏋️‍♂️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 10,
+                "weight": 51.25,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 51.25,
+                "tech": "Normal"
+              },
+              {
+                "reps": 10,
+                "weight": 51.25,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ],
+        "Vendredi": [
+          {
+            "id": "deadlift",
+            "cardType": "muscu",
+            "name": "Deadlift",
+            "emoji": "⬆️",
+            "color": "#30d158",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 100,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "front_sq",
+            "cardType": "muscu",
+            "name": "Front Squat",
+            "emoji": "🏋️‍♀️",
+            "color": "#0a84ff",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 5,
+                "weight": 67.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 67.5,
+                "tech": "Normal"
+              },
+              {
+                "reps": 5,
+                "weight": 67.5,
+                "tech": "Normal"
+              }
+            ]
+          },
+          {
+            "id": "tirage_menton",
+            "cardType": "muscu",
+            "name": "Tirage Menton",
+            "emoji": "🤨",
+            "color": "#ff9f0a",
+            "trainingMode": "normal",
+            "sets": [
+              {
+                "reps": 12,
+                "weight": 25.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 25.0,
+                "tech": "Normal"
+              },
+              {
+                "reps": 12,
+                "weight": 25.0,
+                "tech": "Normal"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "maxTargets": {
+    "sq": 160,
+    "dc": 110,
+    "deadlift": 200
+  },
+  "progressionConfig": {
+    "sq": {
+      "type": "linear",
+      "increment": 0.45
+    },
+    "dc": {
+      "type": "linear",
+      "increment": 0.3
+    },
+    "deadlift": {
+      "type": "linear",
+      "increment": 0.5
+    },
+    "presse_cuisses": {
+      "type": "linear",
+      "increment": 0.6
+    },
+    "rdl": {
+      "type": "linear",
+      "increment": 0.3
+    },
+    "rowing_barre": {
+      "type": "linear",
+      "increment": 0.25
+    },
+    "tirage_vertical": {
+      "type": "linear",
+      "increment": 0.25
+    },
+    "front_sq": {
+      "type": "linear",
+      "increment": 0.3
+    },
+    "tirage_menton": {
+      "type": "linear",
+      "increment": 0.15
+    }
+  }
+}
