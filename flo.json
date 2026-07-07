@@ -1,2498 +1,3151 @@
 {
-  "programName": "Prog Powerlifting — Recto",
-  "startDate": "2026-03-31",
-  "weeks": [
-    {
-      "week": 1,
-      "deload": false,
-      "days": {
-        "Mardi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 97.5,
-                "pct": 80,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 100,
-                "pct": 82,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 102.5,
-                "pct": 84,
-                "tech": "Classique"
-              },
-              {
-                "reps": 8,
-                "weight": 85,
-                "pct": 70,
-                "tech": "Large/Serrée"
-              },
-              {
-                "reps": 8,
-                "weight": 82.5,
-                "pct": 67,
-                "tech": "Large/Serrée"
-              }
-            ]
-          },
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 37.5,
-                "pct": 82,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 1.25,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Mercredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 80,
-                "pct": 65,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 85,
-                "pct": 70,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 90,
-                "pct": 75,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 102.5,
-                "pct": 82,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Jeudi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 75,
-                "pct": 62,
-                "tech": "Larsen Press"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 1.25,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 60,
-              "distance": 10,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Vendredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 1,
-                "weight": 97.5,
-                "pct": 80,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 102.5,
-                "pct": 85,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 107.5,
-                "pct": 89,
-                "tech": "Classique"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 105,
-                "pct": 84,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 95,
-                "pct": 75,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Dimanche": [
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 100,
-                "pct": 80,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Samedi": [
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 37.5,
-                "pct": 80,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 1.25,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ]
-      }
+    "exportDate": "2026-07-07T14:52:00.584Z",
+    "programName": "Prog Powerlifting — Recto",
+    "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
+    "startDate": "2026-03-30T22:00:00.000Z",
+    "maxTargets": {
+        "sq": 125,
+        "ohp": 45,
+        "dc": 120
     },
-    {
-      "week": 2,
-      "deload": false,
-      "days": {
-        "Mardi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 97.5,
-                "pct": 80,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 100,
-                "pct": 82,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 102.5,
-                "pct": 84,
-                "tech": "Classique"
-              },
-              {
-                "reps": 8,
-                "weight": 85,
-                "pct": 70,
-                "tech": "Large/Serrée"
-              },
-              {
-                "reps": 8,
-                "weight": 82.5,
-                "pct": 67,
-                "tech": "Large/Serrée"
-              }
-            ]
-          },
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 35,
-                "pct": 75,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 2.5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Mercredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 80,
-                "pct": 65,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 85,
-                "pct": 70,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 90,
-                "pct": 75,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 95,
-                "pct": 75,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Jeudi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 75,
-                "pct": 62,
-                "tech": "Larsen Press"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 2.5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 72,
-              "distance": 12,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Vendredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 1,
-                "weight": 102.5,
-                "pct": 85,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 107.5,
-                "pct": 89,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 112.5,
-                "pct": 92,
-                "tech": "Classique"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 95,
-                "pct": 75,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 100,
-                "pct": 80,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Dimanche": [
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 87.5,
-                "pct": 70,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 34,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 48,
-              "distance": 8,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Samedi": [
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 32.5,
-                "pct": 70,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 2.5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ]
-      }
+"progressionConfig": {
+        "dc": {
+            "type": "linear",
+            "increment": 2.5
+        },
+        "sq": {
+            "type": "linear",
+            "increment": 2.5
+        },
+        "ohp": {
+            "type": "linear",
+            "increment": 1.25
+        },
+        "traction": {
+            "type": "linear",
+            "increment": 1.25
+        }
     },
-    {
-      "week": 3,
-      "deload": false,
-      "days": {
-        "Mardi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 100,
-                "pct": 82,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 102.5,
-                "pct": 84,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 105,
-                "pct": 87,
-                "tech": "Classique"
-              },
-              {
-                "reps": 8,
-                "weight": 85,
-                "pct": 70,
-                "tech": "Large/Serrée"
-              },
-              {
-                "reps": 8,
-                "weight": 82.5,
-                "pct": 67,
-                "tech": "Large/Serrée"
-              }
-            ]
-          },
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 40,
-                "pct": 84,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 3.75,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Mercredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 80,
-                "pct": 65,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 85,
-                "pct": 70,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 90,
-                "pct": 75,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 105,
-                "pct": 84,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Jeudi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 75,
-                "pct": 62,
-                "tech": "Larsen Press"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 3.75,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 90,
-              "distance": 15,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Vendredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 1,
-                "weight": 107.5,
-                "pct": 89,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 112.5,
-                "pct": 92,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 115,
-                "pct": 95,
-                "tech": "Classique"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 110,
-                "pct": 87,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 112.5,
-                "pct": 90,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Dimanche": [
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 102.5,
-                "pct": 82,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 60,
-              "distance": 10,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Samedi": [
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 37.5,
-                "pct": 82,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 3.75,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ]
-      }
-    },
-    {
-      "week": 4,
-      "deload": false,
-      "days": {
-        "Mardi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 90,
-                "pct": 75,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 92.5,
-                "pct": 77,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 97.5,
-                "pct": 80,
-                "tech": "Classique"
-              },
-              {
-                "reps": 8,
-                "weight": 82.5,
-                "pct": 67,
-                "tech": "Large/Serrée"
-              },
-              {
-                "reps": 8,
-                "weight": 77.5,
-                "pct": 63,
-                "tech": "Large/Serrée"
-              }
-            ]
-          },
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 45,
-                "pct": 95,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Mercredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 4,
-                "weight": 80,
-                "pct": 65,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 4,
-                "weight": 85,
-                "pct": 70,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 4,
-                "weight": 90,
-                "pct": 75,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 120,
-                "pct": 95,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Jeudi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 7,
-                "weight": 75,
-                "pct": 62,
-                "tech": "Larsen Press"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 60,
-              "distance": 10,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Vendredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 1,
-                "weight": 110,
-                "pct": 90,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 115,
-                "pct": 95,
-                "tech": "Classique"
-              },
-              {
-                "reps": 1,
-                "weight": 120,
-                "pct": 100,
-                "tech": "Classique"
-              },
-              {
-                "reps": 7,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 120,
-                "pct": 95,
-                "tech": "Squat"
-              },
-              {
-                "reps": 1,
-                "weight": 125,
-                "pct": 100,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 38,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Dimanche": [
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 115,
-                "pct": 92,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 36,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_long",
-            "name": "Sortie Longue",
-            "emoji": "🌄",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 72,
-              "distance": 12,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Samedi": [
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 42.5,
-                "pct": 92,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 7,
-                "weight": 5,
-                "tech": "Pyramide 1>7>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ]
-      }
-    },
-    {
-      "week": 5,
-      "deload": true,
-      "days": {
-        "Mardi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Classique"
-              },
-              {
-                "reps": 5,
-                "weight": 80,
-                "pct": 65,
-                "tech": "Classique"
-              },
-              {
-                "reps": 5,
-                "weight": 85,
-                "pct": 70,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              },
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              },
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 0,
-                "tech": "Pyramide 1>5>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 18,
-              "distance": 3,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Mercredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 80,
-                "pct": 65,
-                "tech": "2ct Pause"
-              },
-              {
-                "reps": 5,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Jeudi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 6,
-                "weight": 67.5,
-                "pct": 55,
-                "tech": "Larsen Press"
-              },
-              {
-                "reps": 6,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Larsen Press"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 0,
-                "tech": "Pyramide 1>5>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 30,
-              "distance": 5,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Vendredi": [
-          {
-            "id": "dc",
-            "cardType": "muscu",
-            "name": "DC Couché",
-            "emoji": "🏋️",
-            "color": "#ff453a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 85,
-                "pct": 70,
-                "tech": "Classique"
-              },
-              {
-                "reps": 3,
-                "weight": 90,
-                "pct": 75,
-                "tech": "Classique"
-              },
-              {
-                "reps": 5,
-                "weight": 72.5,
-                "pct": 60,
-                "tech": "Classique"
-              }
-            ]
-          },
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 18,
-              "distance": 3,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ],
-        "Dimanche": [
-          {
-            "id": "sq",
-            "cardType": "muscu",
-            "name": "Squat",
-            "emoji": "🍑",
-            "color": "#0a84ff",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              },
-              {
-                "reps": 5,
-                "weight": 75,
-                "pct": 60,
-                "tech": "Squat"
-              }
-            ]
-          },
-          {
-            "id": "rowing_barre",
-            "cardType": "muscu",
-            "name": "Rowing Barre",
-            "emoji": "🏋️",
-            "color": "#30d158",
-            "materielId": "barre",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              },
-              {
-                "reps": 8,
-                "weight": 28,
-                "tech": "Rowing"
-              }
-            ]
-          },
-          {
-            "id": "gainage",
-            "cardType": "muscu",
-            "name": "Gainage",
-            "emoji": "🧱",
-            "color": "#bf5af2",
-            "materielId": "pdc",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 3,
-                "weight": 0,
-                "tech": "Gainage + crunchs"
-              }
-            ]
-          }
-        ],
-        "Samedi": [
-          {
-            "id": "ohp",
-            "cardType": "muscu",
-            "name": "Overhead Press",
-            "emoji": "🔝",
-            "color": "#ff9f0a",
-            "materielId": "barre",
-            "trainingMode": "force",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              },
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              },
-              {
-                "reps": 5,
-                "weight": 27.5,
-                "pct": 60,
-                "tech": "Développé Militaire"
-              }
-            ]
-          },
-          {
-            "id": "traction",
-            "cardType": "muscu",
-            "name": "Tractions",
-            "emoji": "🆙",
-            "color": "#30d158",
-            "materielId": "leste",
-            "trainingMode": "normal",
-            "sets": [
-              {
-                "reps": 5,
-                "weight": 0,
-                "tech": "Pyramide 1>5>1"
-              }
-            ]
-          },
-          {
-            "cardType": "run",
-            "runId": "run_endurance",
-            "name": "Sortie Endurance",
-            "emoji": "🏃",
-            "color": "#ffffff",
-            "runData": {
-              "type": "course",
-              "duration": 18,
-              "distance": 3,
-              "paceMin": 6,
-              "paceSec": 0,
-              "zone": "Z2 Endurance",
-              "rpe": 6,
-              "notes": ""
-            }
-          }
-        ]
-      }
-    }
-  ],
-  "maxTargets": {
-    "dc": 120,
-    "sq": 125,
-    "ohp": 45
-  },
-  "progressionConfig": {
-    "dc": {
-      "type": "linear",
-      "increment": 2.5
-    },
-    "sq": {
-      "type": "linear",
-      "increment": 2.5
-    },
-    "ohp": {
-      "type": "linear",
-      "increment": 1.25
-    },
-    "traction": {
-      "type": "linear",
-      "increment": 1.25
-    }
-  },
-  "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi."
+    "weeks": [
+        {
+            "week": 1,
+            "deload": false,
+            "days": {
+                "Mardi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 97.5,
+                                "pct": 80,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 100,
+                                "pct": 82,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 102.5,
+                                "pct": 84,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "Large/Serrée"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 82.5,
+                                "pct": 67,
+                                "tech": "Large/Serrée"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 37.5,
+                                "pct": 82,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Mercredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 102.5,
+                                "pct": 82,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ],
+                "Jeudi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 75,
+                                "pct": 62,
+                                "tech": "Larsen Press"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 60,
+                            "distance": 10,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Vendredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 1,
+                                "weight": 97.5,
+                                "pct": 80,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 102.5,
+                                "pct": 85,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 107.5,
+                                "pct": 89,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 105,
+                                "pct": 84,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 95,
+                                "pct": 75,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Samedi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 37.5,
+                                "pct": 80,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Dimanche": [
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 100,
+                                "pct": 80,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "startDate": "2026-03-30"
+        },
+        {
+            "week": 2,
+            "deload": false,
+            "days": {
+                "Mardi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 97.5,
+                                "pct": 80,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 100,
+                                "pct": 82,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 102.5,
+                                "pct": 84,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "Large/Serrée"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 82.5,
+                                "pct": 67,
+                                "tech": "Large/Serrée"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 35,
+                                "pct": 75,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 6.25,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Mercredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 95,
+                                "pct": 75,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ],
+                "Jeudi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 75,
+                                "pct": 62,
+                                "tech": "Larsen Press"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 6.25,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 72,
+                            "distance": 12,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Vendredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 1,
+                                "weight": 102.5,
+                                "pct": 85,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 107.5,
+                                "pct": 89,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 112.5,
+                                "pct": 92,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 95,
+                                "pct": 75,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 100,
+                                "pct": 80,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Samedi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 32.5,
+                                "pct": 70,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 6.25,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Dimanche": [
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 87.5,
+                                "pct": 70,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 34,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 48,
+                            "distance": 8,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ]
+            },
+            "startDate": "2026-04-06"
+        },
+        {
+            "week": 3,
+            "deload": false,
+            "days": {
+                "Mardi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 100,
+                                "pct": 82,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 102.5,
+                                "pct": 84,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 105,
+                                "pct": 87,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "Large/Serrée"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 82.5,
+                                "pct": 67,
+                                "tech": "Large/Serrée"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 40,
+                                "pct": 84,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 7.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Mercredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 105,
+                                "pct": 84,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ],
+                "Jeudi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 75,
+                                "pct": 62,
+                                "tech": "Larsen Press"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 7.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 90,
+                            "distance": 15,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Vendredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 1,
+                                "weight": 107.5,
+                                "pct": 89,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 112.5,
+                                "pct": 92,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 115,
+                                "pct": 95,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 110,
+                                "pct": 87,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 112.5,
+                                "pct": 90,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Samedi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 37.5,
+                                "pct": 82,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 7.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Dimanche": [
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 102.5,
+                                "pct": 82,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 60,
+                            "distance": 10,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ]
+            },
+            "startDate": "2026-04-13"
+        },
+        {
+            "week": 4,
+            "deload": false,
+            "days": {
+                "Mardi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 92.5,
+                                "pct": 77,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 97.5,
+                                "pct": 80,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 82.5,
+                                "pct": 67,
+                                "tech": "Large/Serrée"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 77.5,
+                                "pct": 63,
+                                "tech": "Large/Serrée"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 45,
+                                "pct": 95,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 8.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Mercredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 4,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 4,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 4,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 120,
+                                "pct": 95,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ],
+                "Jeudi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 75,
+                                "pct": 62,
+                                "tech": "Larsen Press"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 8.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 60,
+                            "distance": 10,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Vendredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 1,
+                                "weight": 110,
+                                "pct": 90,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 115,
+                                "pct": 95,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 120,
+                                "pct": 100,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 7,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 120,
+                                "pct": 95,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 1,
+                                "weight": 125,
+                                "pct": 100,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 38,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Samedi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 42.5,
+                                "pct": 92,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 7,
+                                "weight": 8.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Dimanche": [
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 115,
+                                "pct": 92,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 36,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_long",
+                        "name": "Sortie Longue",
+                        "emoji": "🌄",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 72,
+                            "distance": 12,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ]
+            },
+            "startDate": "2026-04-20"
+        },
+        {
+            "week": 5,
+            "deload": true,
+            "days": {
+                "Mardi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 18,
+                            "distance": 3,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Mercredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 80,
+                                "pct": 65,
+                                "tech": "2ct Pause"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ],
+                "Jeudi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 6,
+                                "weight": 67.5,
+                                "pct": 55,
+                                "tech": "Larsen Press"
+                            },
+                            {
+                                "reps": 6,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Larsen Press"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 30,
+                            "distance": 5,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Vendredi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "dc",
+                        "name": "DC Couché",
+                        "emoji": "🏋️",
+                        "color": "#ff453a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 85,
+                                "pct": 70,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 3,
+                                "weight": 90,
+                                "pct": 75,
+                                "tech": "Classique"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 72.5,
+                                "pct": 60,
+                                "tech": "Classique"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 18,
+                            "distance": 3,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Samedi": [
+                    {
+                        "cardType": "muscu",
+                        "id": "ohp",
+                        "name": "Overhead Press",
+                        "emoji": "🔝",
+                        "color": "#ff9f0a",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 27.5,
+                                "pct": 60,
+                                "tech": "Développé Militaire"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "traction",
+                        "name": "Tractions",
+                        "emoji": "🆙",
+                        "color": "#30d158",
+                        "materielId": "leste",
+                        "step": 1.25,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 1.25
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "run",
+                        "runId": "run_endurance",
+                        "name": "Sortie Endurance",
+                        "emoji": "🏃",
+                        "color": "#ffffff",
+                        "type": "course",
+                        "zones": [
+                            "Z2 Endurance",
+                            "Z1 Récup active",
+                            "Z3 Tempo"
+                        ],
+                        "runData": {
+                            "type": "course",
+                            "duration": 18,
+                            "distance": 3,
+                            "paceMin": 6,
+                            "paceSec": 0,
+                            "zone": "Z2 Endurance",
+                            "rpe": 6,
+                            "notes": ""
+                        }
+                    }
+                ],
+                "Dimanche": [
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🍑",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "linear",
+                            "increment": 2.5
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            },
+                            {
+                                "reps": 5,
+                                "weight": 75,
+                                "pct": 60,
+                                "tech": "Squat"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "rowing_barre",
+                        "name": "Rowing Barre",
+                        "emoji": "🏋️",
+                        "color": "#30d158",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            },
+                            {
+                                "reps": 8,
+                                "weight": 28,
+                                "tech": "Rowing"
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "gainage",
+                        "name": "Gainage",
+                        "emoji": "🧱",
+                        "color": "#bf5af2",
+                        "materielId": "pdc",
+                        "step": 0,
+                        "trainingMode": "normal",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "none"
+                        },
+                        "sets": [
+                            {
+                                "reps": 3,
+                                "weight": 0,
+                                "tech": "Gainage + crunchs"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "startDate": "2026-04-27"
+        }
+    ]
 }
