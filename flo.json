@@ -119,7 +119,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 5,
+                                "weight": 6.25,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -327,7 +327,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 5,
+                                "weight": 6.25,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -524,7 +524,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 5,
+                                "weight": 6.25,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -727,7 +727,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 6.25,
+                                "weight": 7.5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -935,7 +935,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 6.25,
+                                "weight": 7.5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -1132,7 +1132,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 6.25,
+                                "weight": 7.5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -1358,7 +1358,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 7.5,
+                                "weight": 8.75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -1566,7 +1566,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 7.5,
+                                "weight": 8.75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -1763,7 +1763,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 7.5,
+                                "weight": 8.75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -1988,7 +1988,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 8.75,
+                                "weight": 10,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -2190,7 +2190,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 8.75,
+                                "weight": 10,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -2387,7 +2387,7 @@
                         "sets": [
                             {
                                 "reps": 7,
-                                "weight": 8.75,
+                                "weight": 10,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -2612,7 +2612,7 @@
                         "sets": [
                             {
                                 "reps": 5,
-                                "weight": 3.75,
+                                "weight": 5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -2814,7 +2814,7 @@
                         "sets": [
                             {
                                 "reps": 5,
-                                "weight": 3.75,
+                                "weight": 5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -3024,7 +3024,7 @@
                         "sets": [
                             {
                                 "reps": 5,
-                                "weight": 3.75,
+                                "weight": 5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
