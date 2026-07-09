@@ -2,9 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Bench Master - Focus</title>
     <link rel="apple-touch-icon" href="01.png">
+    <!-- PWA / Standalone mode — masque la barre Safari sur iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Focus">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <!-- Manifest inline pour PWA Android -->
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Focus%22,%22short_name%22:%22Focus%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22theme_color%22:%22%23000000%22,%22start_url%22:%22.%2Fview.html%22}">
     <style>
         :root {
             --bg: #000000; --card: #1c1c1e; --card-soft: #2c2c2e;
@@ -164,6 +172,9 @@
         /* ── VERSO : STATS DE PROGRESSION ─────────────────────────── */
         .stats-title { font-size: 20px; font-weight: 800; letter-spacing: -.3px; }
         .stats-sub   { font-size: 12px; color: var(--text-dim); margin: 3px 0 14px; }
+        .stat-readout { display: block; margin-top: 5px; font-size: 12.5px; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+        .chart-dot { transition: r .1s; }
+        .chart-dot.sel { stroke: #fff; stroke-width: 2.5; r: 5; }
         .exo-chips   { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
         .exo-chip    { font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 999px; background: var(--card-soft); color: var(--text-soft); border: 1px solid rgba(255,255,255,.06); cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .exo-chip:active { transform: scale(.95); }
@@ -563,85 +574,103 @@ function render() {
 // ════════════════════════════════════════════
 const PROG_STEP = 1.25;
 
-function currentBlockIndex() {
+// Bloc (cycle) contenant une date donnée.
+function blockIndexOfDate(date) {
     const prog = programRecto;
     if (!prog?.startDate || !prog.weeks?.length) return 0;
     const [sy, sm, sd] = prog.startDate.split('T')[0].split('-').map(Number);
-    const t = startOfDay(new Date());
-    const diffDays = Math.round((Date.UTC(t.getFullYear(), t.getMonth(), t.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
+    const diffDays = Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
     if (diffDays < 0) return 0;
     return Math.floor(Math.floor(diffDays / 7) / prog.weeks.length);
 }
 
-// Liste des exercices de muscu chargés (poids > 0), avec charge de référence
-// (série la plus lourde) et config de progression. Triés du plus lourd au plus léger.
-function collectExercises(prog) {
-    const map = {};
-    (prog.weeks || []).forEach(w => {
-        Object.values(w.days || {}).forEach(items => {
-            (items || []).forEach(it => {
-                if (it.cardType !== 'muscu') return;
-                const top = Math.max(0, ...((it.sets || []).map(s => s.weight || 0)));
-                if (top <= 0) return;
-                if (!map[it.id]) map[it.id] = { id: it.id, name: it.name || 'Exercice', emoji: itemEmoji(it), base: top, cfg: prog.progressionConfig?.[it.id] || { type: 'none' } };
-                else map[it.id].base = Math.max(map[it.id].base, top);
-            });
+// Exercices de muscu (chargés) programmés le jour sélectionné.
+function dayExercises(prog, date) {
+    if (!prog?.startDate || !prog.weeks?.length) return [];
+    const [sy, sm, sd] = prog.startDate.split('T')[0].split('-').map(Number);
+    const diffDays = Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(sy, sm - 1, sd)) / 86400000);
+    if (diffDays < 0) return [];
+    const weekIndex = Math.floor(diffDays / 7) % prog.weeks.length;
+    const dayName = DAYS_FR[date.getDay()];
+    const raw = prog.weeks[weekIndex]?.days?.[dayName] || [];
+    return raw
+        .filter(it => it.cardType === 'muscu' && (it.sets || []).some(s => (s.weight || 0) > 0))
+        .map(it => {
+            const sets = it.sets || [];
+            const topPct = Math.max(0, ...sets.map(s => s.pct || 0));
+            const topWeight = Math.max(0, ...sets.map(s => s.weight || 0));
+            const maxT = prog.maxTargets?.[it.id] || 0;
+            return {
+                id: it.id, name: it.name || 'Exercice', emoji: itemEmoji(it),
+                nSets: sets.length, topPct, topWeight, maxT,
+                cfg: prog.progressionConfig?.[it.id] || { type: 'none' },
+                isForce: maxT > 0 && topPct > 0
+            };
         });
-    });
-    return Object.values(map).sort((a, b) => b.base - a.base);
 }
 
 const round25 = v => Math.round(v * 4) / 4;
-function weightAtBlock(exo, i) {
-    const cfg = exo.cfg?.type === 'asymptotic' ? { ...exo.cfg, current: exo.base } : exo.cfg;
-    return round25(exo.base + computeProg(cfg, i, PROG_STEP));
+
+// Objectif de max du bloc i (force) : le 1RM grandit selon la progression.
+function blockMax(exo, i) { return round25(exo.maxT + computeProg(exo.cfg, i, 2.5)); }
+
+// Charge de la série la plus lourde au bloc i (ce qu'on soulève ce jour-là).
+function exoWeightAtBlock(exo, i) {
+    if (exo.isForce) return Math.ceil((blockMax(exo, i) * exo.topPct / 100) / 2.5) * 2.5;
+    const cfg = exo.cfg?.type === 'asymptotic' ? { ...exo.cfg, current: exo.topWeight } : exo.cfg;
+    return round25(exo.topWeight + computeProg(cfg, i, PROG_STEP));
 }
+
+// Date de la séance de cet exo dans le bloc i (même jour de semaine que le jour affiché).
+function blockDate(i, cur) {
+    const d = new Date(selectedDate);
+    d.setDate(d.getDate() + (i - cur) * programRecto.weeks.length * 7);
+    return d;
+}
+
+let statsSelBlock = null; // bloc sélectionné sur le graphe (pour le readout sous le nom)
 
 function renderVerso() {
     const back = document.getElementById('appBack');
     if (!back) return;
     if (!programRecto) { back.innerHTML = `<div class="stats-title">Progression</div><div class="stats-empty">Aucun programme chargé.</div>`; return; }
 
-    const exos = collectExercises(programRecto);
+    const exos = dayExercises(programRecto, selectedDate);
     if (!exos.length) {
-        back.innerHTML = `<div class="stats-title">Progression</div><div class="stats-empty">Aucun exercice avec charge pour tracer la progression.<br>Ajoute des poids et une progression dans l'éditeur.</div>`;
+        back.innerHTML = `<div class="stats-title">Progression</div><div class="stats-empty">Pas d'exercice de force ce jour.<br>Le verso affiche les stats des exercices du jour sélectionné.</div>`;
         return;
     }
     if (!statsExoId || !exos.find(e => e.id === statsExoId)) statsExoId = exos[0].id;
     const exo = exos.find(e => e.id === statsExoId);
-    const cur = currentBlockIndex();
-
-    const wCur = weightAtBlock(exo, cur);
-    const wNext = weightAtBlock(exo, cur + 1);
-    const delta = round25(wNext - wCur);
-    const oneRM = programRecto.maxTargets?.[exo.id];
-    const pctNow = oneRM > 0 ? Math.round(wCur / oneRM * 100) : null;
-    const pctNext = oneRM > 0 ? Math.round(wNext / oneRM * 100) : null;
+    const cur = blockIndexOfDate(selectedDate);
+    statsSelBlock = cur;
 
     const chips = exos.map(e =>
         `<button class="exo-chip no-flip ${e.id === statsExoId ? 'active' : ''}" data-exo="${e.id}">${e.emoji || ''} ${e.name}</button>`
     ).join('');
 
-    const tiles = `<div class="stat-tiles">
-        <div class="stat-tile">
-            <div class="lbl">Actuel · Bloc ${cur + 1}</div>
-            <div class="val" style="color:#0a84ff">${wCur}<span class="u"> kg</span></div>
-            ${pctNow != null ? `<div class="pct">${pctNow}% 1RM</div>` : ''}
-        </div>
-        <div class="stat-tile">
-            <div class="lbl">Dans 1 bloc</div>
-            <div class="val" style="color:#bf5af2">${wNext}<span class="u"> kg</span></div>
-            ${pctNext != null ? `<div class="pct">${pctNext}% 1RM</div>` : ''}
-        </div>
-        <div class="stat-tile">
-            <div class="lbl">Gain / bloc</div>
-            <div class="val" style="color:${delta > 0 ? 'var(--accent)' : 'var(--text-dim)'}">${delta > 0 ? '+' : ''}${delta}<span class="u"> kg</span></div>
-        </div>
-    </div>`;
+    // Tuiles : pour la FORCE → objectif du bloc (1RM visé) · charge top · séries.
+    //          sinon (charge absolue) → charge actuelle · +1 bloc · séries.
+    let tiles;
+    if (exo.isForce) {
+        tiles = `<div class="stat-tiles">
+            <div class="stat-tile"><div class="lbl">Objectif bloc</div><div class="val" style="color:#0a84ff">${blockMax(exo, cur)}<span class="u"> kg</span></div><div class="pct">1RM visé</div></div>
+            <div class="stat-tile"><div class="lbl">Charge top</div><div class="val" style="color:#bf5af2">${exoWeightAtBlock(exo, cur)}<span class="u"> kg</span></div><div class="pct">${exo.topPct}%</div></div>
+            <div class="stat-tile"><div class="lbl">Séries</div><div class="val">${exo.nSets}</div></div>
+        </div>`;
+    } else {
+        tiles = `<div class="stat-tiles">
+            <div class="stat-tile"><div class="lbl">Charge</div><div class="val" style="color:#0a84ff">${exoWeightAtBlock(exo, cur)}<span class="u"> kg</span></div></div>
+            <div class="stat-tile"><div class="lbl">+1 bloc</div><div class="val" style="color:#bf5af2">${exoWeightAtBlock(exo, cur + 1)}<span class="u"> kg</span></div></div>
+            <div class="stat-tile"><div class="lbl">Séries</div><div class="val">${exo.nSets}</div></div>
+        </div>`;
+    }
 
     back.innerHTML = `
         <div class="stats-title">Progression</div>
-        <div class="stats-sub">${exo.emoji || ''} ${exo.name} — où j'en suis, et dans 1 bloc d'avance</div>
+        <div class="stats-sub">${exo.emoji || ''} <strong style="color:var(--text-soft)">${exo.name}</strong>
+            <span class="stat-readout" id="stat-readout"></span>
+        </div>
         <div class="exo-chips">${chips}</div>
         ${tiles}
         ${buildProgChart(exo, cur)}
@@ -650,25 +679,48 @@ function renderVerso() {
             <span class="k"><span class="dash" style="background:#bf5af2"></span>Projection</span>
         </div>`;
 
+    updateReadout(exo, cur, cur);
+
     // Sélection d'exercice — stopPropagation pour NE PAS retourner la carte.
     back.querySelectorAll('.exo-chip').forEach(ch => {
         ch.addEventListener('click', e => { e.stopPropagation(); statsExoId = ch.dataset.exo; renderVerso(); });
     });
+    // Navigation sur le graphe : tap sur un point → date + charge sous le nom.
+    back.querySelectorAll('.chart-hit').forEach(h => {
+        h.addEventListener('click', e => {
+            e.stopPropagation();
+            const i = +h.dataset.block;
+            statsSelBlock = i;
+            updateReadout(exo, i, cur);
+            back.querySelectorAll('.chart-dot').forEach(d => d.classList.toggle('sel', +d.dataset.block === i));
+        });
+    });
 }
 
-// Graphe SVG : ligne bleue (blocs passés → actuel) + ligne violette pointillée (projection).
+// Affiche « Bloc N · date — charge » sous le nom de l'exercice.
+function updateReadout(exo, i, cur) {
+    const el = document.getElementById('stat-readout');
+    if (!el) return;
+    const d = blockDate(i, cur);
+    const dateStr = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    const w = exoWeightAtBlock(exo, i);
+    el.innerHTML = `Bloc ${i + 1} · ${dateStr} — <strong style="color:${i > cur ? '#bf5af2' : '#0a84ff'}">${w} kg</strong>`;
+}
+
+// Graphe SVG de la CHARGE par bloc : ligne bleue (passé → actuel) + violette
+// (projection). Points cliquables (classe .chart-hit) pour naviguer.
 function buildProgChart(exo, cur) {
     const PAST = 6, FUTURE = 3;
     const start = Math.max(0, cur - PAST), end = cur + FUTURE;
     const blocks = [];
-    for (let i = start; i <= end; i++) blocks.push({ i, w: weightAtBlock(exo, i) });
+    for (let i = start; i <= end; i++) blocks.push({ i, w: exoWeightAtBlock(exo, i) });
 
-    const W = 340, H = 172, padL = 36, padR = 14, padT = 18, padB = 24;
+    const W = 340, H = 176, padL = 36, padR = 14, padT = 20, padB = 24;
     const span = Math.max(1, end - start);
     const xs = i => padL + (W - padL - padR) * ((i - start) / span);
     const ws = blocks.map(b => b.w);
     let dmin = Math.min(...ws), dmax = Math.max(...ws), ymin, ymax;
-    if (dmin === dmax) { ymin = dmin - PROG_STEP * 2; ymax = dmax + PROG_STEP * 2; }
+    if (dmin === dmax) { ymin = dmin - 5; ymax = dmax + 5; }
     else { const yp = (dmax - dmin) * 0.18; ymin = dmin - yp; ymax = dmax + yp; }
     const ys = w => padT + (H - padT - padB) * (1 - (w - ymin) / (ymax - ymin));
     const P = b => `${xs(b.i).toFixed(1)},${ys(b.w).toFixed(1)}`;
@@ -684,29 +736,24 @@ function buildProgChart(exo, cur) {
     const divX = xs(cur).toFixed(1);
     const divider = `<line x1="${divX}" y1="${padT}" x2="${divX}" y2="${H - padB}" stroke="rgba(255,255,255,.10)" stroke-dasharray="3 3"/>`;
 
-    let dots = '';
+    let dots = '', hits = '';
     blocks.forEach(b => {
-        const isCur = b.i === cur, isNext = b.i === cur + 1;
+        const isCur = b.i === cur;
         const c = b.i <= cur ? '#0a84ff' : '#bf5af2';
-        const r = (isCur || isNext) ? 4.5 : 2.6;
-        dots += `<circle cx="${xs(b.i).toFixed(1)}" cy="${ys(b.w).toFixed(1)}" r="${r}" fill="${c}"${(isCur || isNext) ? ' stroke="#000" stroke-width="1.5"' : ''}/>`;
+        dots += `<circle class="chart-dot${isCur ? ' sel' : ''}" data-block="${b.i}" cx="${xs(b.i).toFixed(1)}" cy="${ys(b.w).toFixed(1)}" r="${isCur ? 4.5 : 3}" fill="${c}"/>`;
+        hits += `<circle class="chart-hit no-flip" data-block="${b.i}" cx="${xs(b.i).toFixed(1)}" cy="${ys(b.w).toFixed(1)}" r="15" fill="transparent" style="cursor:pointer"/>`;
     });
-
-    const curB = blocks.find(b => b.i === cur), nextB = blocks.find(b => b.i === cur + 1);
-    const lbls =
-        (curB ? `<text x="${xs(cur).toFixed(1)}" y="${(ys(curB.w) - 9).toFixed(1)}" fill="#0a84ff" font-size="10.5" font-weight="800" text-anchor="middle">${curB.w}</text>` : '')
-        + (nextB ? `<text x="${xs(cur + 1).toFixed(1)}" y="${(ys(nextB.w) - 9).toFixed(1)}" fill="#bf5af2" font-size="10.5" font-weight="800" text-anchor="middle">${nextB.w}</text>` : '');
 
     const xl =
         (start < cur ? `<text x="${xs(start).toFixed(1)}" y="${H - 7}" fill="#8e8e93" font-size="9" text-anchor="start">B${start + 1}</text>` : '')
         + `<text x="${xs(cur).toFixed(1)}" y="${H - 7}" fill="#0a84ff" font-size="9" font-weight="700" text-anchor="middle">Actuel</text>`
-        + (nextB ? `<text x="${xs(cur + 1).toFixed(1)}" y="${H - 7}" fill="#bf5af2" font-size="9" font-weight="700" text-anchor="middle">+1</text>` : '');
+        + `<text x="${xs(end).toFixed(1)}" y="${H - 7}" fill="#bf5af2" font-size="9" text-anchor="end">B${end + 1}</text>`;
 
-    return `<svg class="prog-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+    return `<svg class="prog-chart no-flip" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
         ${grid}${divider}
         ${bluePts ? `<polyline points="${bluePts}" fill="none" stroke="#0a84ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
         ${purpPts ? `<polyline points="${purpPts}" fill="none" stroke="#bf5af2" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
-        ${dots}${lbls}${xl}
+        ${dots}${hits}${xl}
     </svg>`;
 }
 
