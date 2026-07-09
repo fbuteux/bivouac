@@ -1,3 +1,37 @@
+// ======================== CIRCUIT (BOX) ========================
+// Conteneur d'exercices = circuit. Paramètres : nom, nb de tours, repos entre tours.
+function createBox(parent, cfg) {
+    cfg = cfg || {};
+    const box = document.createElement('div');
+    box.className = 'circuit-box';
+    box.dataset.cardType = 'box';
+    box.dataset.boxName = cfg.name || 'Circuit';
+    box.dataset.rounds = cfg.rounds || 3;
+    box.dataset.restSec = (cfg.restSec != null ? cfg.restSec : 60);
+    box.innerHTML = `<div class="box-head">
+        <span class="box-badge">🔁</span>
+        <input class="box-name" placeholder="Circuit" maxlength="40">
+        <label class="box-param" title="Nombre de tours">×<input type="number" class="box-rounds" min="1" max="30"></label>
+        <label class="box-param" title="Repos entre les tours (secondes)"><input type="number" class="box-rest" min="0" step="5">s</label>
+        <button class="box-del" title="Supprimer le circuit">×</button>
+      </div><div class="box-drop"></div>`;
+    box.querySelector('.box-name').value = box.dataset.boxName;
+    box.querySelector('.box-rounds').value = box.dataset.rounds;
+    box.querySelector('.box-rest').value = box.dataset.restSec;
+    attachBoxHandlers(box);
+    parent.appendChild(box);
+    return box;
+}
+function attachBoxHandlers(box) {
+    setupDropZone(box.querySelector('.box-drop'));
+    box.querySelector('.box-name').addEventListener('input', e => { box.dataset.boxName = e.target.value; syncClientProgram(); });
+    box.querySelector('.box-rounds').addEventListener('input', e => { box.dataset.rounds = parseInt(e.target.value) || 1; syncClientProgram(); });
+    box.querySelector('.box-rest').addEventListener('input', e => { box.dataset.restSec = parseInt(e.target.value) || 0; syncClientProgram(); });
+    box.querySelector('.box-del').addEventListener('click', e => { e.stopPropagation(); box.remove(); syncClientProgram(); });
+    // Empêche le clic sur l'entête d'ouvrir la recherche flottante de la cellule.
+    box.querySelector('.box-head').addEventListener('click', e => e.stopPropagation());
+}
+
 // ======================== CARTES ========================
 function createPlacedExercise(parent, exoId) {
     const data=exerciseLibrary.find(e=>e.id===exoId); if(!data) return;

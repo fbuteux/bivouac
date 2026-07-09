@@ -426,28 +426,72 @@ function blockHTML(block) {
 }
 
 function muscuHTML(b, col, em, bg, iconBg) {
-    const rows = (b.sets || []).map(s => {
-        let wStr = '—';
-        if (s.weight !== undefined && s.weight !== null && s.weight > 0) wStr = `${Math.round(s.weight * 4) / 4} kg`;
-        else if (s.pct) wStr = `${s.pct}%`;
-        const reps = s.reps ? `${s.reps} reps` : '';
-        const technique = s.tech || s.technique || 'Normal';
-        return `<div class="set-row">
+    const sets = b.sets || [];
+    const fmtW = w => `${Math.round(w * 4) / 4} kg`;
+    const restOf = s => (s.restMin || 0) * 60 + (s.restSec || 0);
+
+    // Repos : jamais affiché si 0 ; une seule fois si tous égaux ; par série s'ils diffèrent.
+    const rests = sets.map(restOf);
+    const anyRest = rests.some(r => r > 0);
+    const restsEqual = rests.every(r => r === rests[0]);
+    const commonRest = anyRest && restsEqual ? `Repos ${fmtTime(rests[0])}` : '';
+
+    // Affichage compact quand toutes les séries ont le MÊME poids, la MÊME
+    // technique ET le MÊME repos : « 1→6→1 » au lieu de N lignes.
+    const w0 = sets[0]?.weight;
+    const t0 = sets[0]?.tech || sets[0]?.technique || 'Normal';
+    const uniform = sets.length >= 3 && w0 > 0 && restsEqual
+        && sets.every(s => (s.weight || 0) === (w0 || 0))
+        && sets.every(s => (s.tech || s.technique || 'Normal') === t0);
+
+    let rows;
+    if (uniform) {
+        const reps = sets.map(s => s.reps || 0);
+        const peak = Math.max(...reps), first = reps[0], last = reps[reps.length - 1];
+        const allEq = reps.every(r => r === first);
+        let desc;
+        if (allEq) desc = `${sets.length} × ${first} reps`;
+        else {
+            const seq = first === peak ? `${peak}→${last}` : last === peak ? `${first}→${peak}` : `${first}→${peak}→${last}`;
+            let step = 0;
+            for (let k = 1; k < reps.length; k++) { const d = Math.abs(reps[k] - reps[k - 1]); if (d > 0) step = step ? Math.min(step, d) : d; }
+            desc = `${seq} reps · pas ${step || 1}`;
+        }
+        rows = `<div class="set-row">
             <div class="set-info">
-                <span class="set-name">${technique}</span>
-                ${reps ? `<span class="set-meta">${reps}</span>` : ''}
+                <span class="set-name">${desc}</span>
+                ${t0 && t0 !== 'Normal' ? `<span class="set-meta">${t0}</span>` : ''}
             </div>
-            <div class="set-weight" style="color:${col}">${wStr}</div>
+            <div class="set-weight" style="color:${col}">${fmtW(w0)}</div>
         </div>`;
-    }).join('');
+    } else {
+        rows = sets.map(s => {
+            let wStr = '—';
+            if (s.weight !== undefined && s.weight !== null && s.weight > 0) wStr = fmtW(s.weight);
+            else if (s.pct) wStr = `${s.pct}%`;
+            const reps = s.reps ? `${s.reps} reps` : '';
+            // Repos par série uniquement s'ils diffèrent (sinon affiché 1 fois dans le sous-titre).
+            const r = restOf(s);
+            const restMeta = (!restsEqual && r > 0) ? `${reps ? ' · ' : ''}repos ${fmtTime(r)}` : '';
+            const technique = s.tech || s.technique || 'Normal';
+            return `<div class="set-row">
+                <div class="set-info">
+                    <span class="set-name">${technique}</span>
+                    ${(reps || restMeta) ? `<span class="set-meta">${reps}${restMeta}</span>` : ''}
+                </div>
+                <div class="set-weight" style="color:${col}">${wStr}</div>
+            </div>`;
+        }).join('');
+    }
+
     const modeBadge = b.trainingMode && b.trainingMode !== 'normal' ? cap(b.trainingMode) + ' · ' : '';
-    const setCount = (b.sets || []).length;
+    const setCount = sets.length;
     return `<div class="ex-block" style="background:${bg}">
         <div class="ex-header">
             <div class="ex-icon" style="background:${iconBg}">${em}</div>
             <div>
                 <div class="ex-title">${b.name || 'Exercice'}</div>
-                <div class="ex-subtitle">${modeBadge}${setCount} série${setCount > 1 ? 's' : ''}</div>
+                <div class="ex-subtitle">${modeBadge}${setCount} série${setCount > 1 ? 's' : ''}${commonRest ? ` · ${commonRest}` : ''}</div>
             </div>
         </div>
         <div class="set-list">${rows || '<div class="set-row"><div class="set-info"><span class="set-name">Aucune série</span></div></div>'}</div>

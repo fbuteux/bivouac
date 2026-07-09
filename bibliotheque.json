@@ -812,6 +812,168 @@
             "categories": ["Dos", "Pecs", "PDC", "Streetlifting"],
             "defaultSets": 3, "defaultReps": 3, "defaultWeight": 10,
             "techniques": ["Strict", "Barre", "Anneau"]
+        },
+        {
+            "id": "fente_bulgare_h",
+            "name": "Fente Bulgare Haltères",
+            "emoji": "🦿",
+            "color": "#0a84ff",
+            "materielId": "haltere",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 20,
+            "techniques": ["Normal", "Pause", "Sauté", "Déficit"]
+        },
+        {
+            "id": "fente_bulgare_b",
+            "name": "Fente Bulgare Barre",
+            "emoji": "🏋️",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "hip_thrust",
+            "name": "Hip Thrust",
+            "emoji": "🍑",
+            "color": "#0a84ff",
+            "materielId": "barre",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 60,
+            "techniques": ["Normal", "Pause", "Unilatéral"]
+        },
+        {
+            "id": "hack_squat",
+            "name": "Hack Squat",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 80,
+            "techniques": ["Normal", "Pause", "Pieds hauts"]
+        },
+        {
+            "id": "mollets_assis",
+            "name": "Mollets Assis",
+            "emoji": "🦵",
+            "color": "#0a84ff",
+            "materielId": "machine",
+            "categories": ["Jambes", "Legs"],
+            "defaultSets": 4, "defaultReps": 15, "defaultWeight": 40,
+            "techniques": ["Normal", "Pause", "Contraction max"]
+        },
+        {
+            "id": "crunch",
+            "name": "Crunch",
+            "emoji": "🔥",
+            "color": "#bf5af2",
+            "materielId": "pdc_leste",
+            "categories": ["Abdos", "Core"],
+            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 0,
+            "techniques": ["Normal", "Lesté", "Câble", "Déclin"]
+        },
+        {
+            "id": "planche_abdos",
+            "name": "Planche (gainage)",
+            "emoji": "🧱",
+            "color": "#bf5af2",
+            "materielId": "pdc_leste",
+            "unit": "sec",
+            "categories": ["Abdos", "Core"],
+            "defaultSets": 3, "defaultReps": 45, "defaultWeight": 0,
+            "techniques": ["Normal", "Avant-bras", "Lestée", "Dynamique"]
+        },
+        {
+            "id": "planche_oblique",
+            "name": "Planche Obliques",
+            "emoji": "📐",
+            "color": "#bf5af2",
+            "materielId": "pdc_leste",
+            "unit": "sec",
+            "categories": ["Abdos", "Core"],
+            "defaultSets": 3, "defaultReps": 30, "defaultWeight": 0,
+            "techniques": ["Normal", "Lestée", "Avec rotation"]
+        },
+        {
+            "id": "russian_twist",
+            "name": "Russian Twist",
+            "emoji": "🔄",
+            "color": "#bf5af2",
+            "materielId": "leste",
+            "categories": ["Abdos", "Core"],
+            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 5,
+            "techniques": ["Normal", "Lesté", "Pieds décollés"]
+        },
+        {
+            "id": "dc_halteres",
+            "name": "DC Haltères",
+            "emoji": "🏋️",
+            "color": "#ff453a",
+            "materielId": "haltere",
+            "categories": ["Pecs", "Push"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 24,
+            "techniques": ["Normal", "Pause", "Incliné", "Décliné"]
+        },
+        {
+            "id": "pull_over",
+            "name": "Pull-Over",
+            "emoji": "🏹",
+            "color": "#30d158",
+            "materielId": "haltere",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 20,
+            "techniques": ["Normal", "Pause"]
+        },
+        {
+            "id": "shrug",
+            "name": "Shrug (Trapèzes)",
+            "emoji": "🤷",
+            "color": "#30d158",
+            "materielId": "barre",
+            "categories": ["Dos", "Pull"],
+            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 80,
+            "techniques": ["Normal", "Haltères", "Pause"]
+        },
+        {
+            "id": "face_pull",
+            "name": "Face Pull",
+            "emoji": "🎯",
+            "color": "#ff9f0a",
+            "materielId": "poulie",
+            "categories": ["Épaules", "Dos"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 20,
+            "techniques": ["Normal", "Corde", "Pause"]
+        },
+        {
+            "id": "oiseau",
+            "name": "Oiseau (Deltoïde post.)",
+            "emoji": "🦅",
+            "color": "#ff9f0a",
+            "materielId": "haltere",
+            "categories": ["Épaules"],
+            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 8,
+            "techniques": ["Normal", "Poulie", "Série dégressive"]
+        },
+        {
+            "id": "curl_barre",
+            "name": "Curl Barre",
+            "emoji": "💪",
+            "color": "#ffd60a",
+            "materielId": "barre",
+            "categories": ["Bras", "Biceps"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 25,
+            "techniques": ["Normal", "Pupitre", "Pause", "EZ"]
+        },
+        {
+            "id": "skullcrusher",
+            "name": "Barre au Front",
+            "emoji": "💀",
+            "color": "#ffd60a",
+            "materielId": "barre",
+            "categories": ["Bras", "Triceps"],
+            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 25,
+            "techniques": ["Normal", "EZ", "Derrière la tête"]
         }
     ]
 }

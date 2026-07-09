@@ -4,9 +4,9 @@ const tbody = document.querySelector('#weekTable tbody');
 // Exercice en cours de déplacement (drag interne PC). Null = drag depuis la sidebar.
 let draggedExo = null;
 
-// Élément .placed-exo devant lequel insérer, selon la position verticale du curseur.
-function getDragAfterElement(cell, y) {
-    const els = [...cell.querySelectorAll('.placed-exo:not(.dragging)')];
+// Élément .placed-exo (enfant DIRECT) devant lequel insérer, selon la position Y.
+function getDragAfterElement(container, y) {
+    const els = [...container.querySelectorAll(':scope > .placed-exo:not(.dragging)')];
     let closest = null, closestOffset = -Infinity;
     els.forEach(child => {
         const box = child.getBoundingClientRect();
@@ -14,6 +14,33 @@ function getDragAfterElement(cell, y) {
         if (offset < 0 && offset > closestOffset) { closestOffset = offset; closest = child; }
     });
     return closest; // null => insérer en fin
+}
+
+// Zone de drop réutilisable (cellule OU intérieur d'un circuit). stopPropagation
+// pour que les zones imbriquées (box dans cellule) ne se marchent pas dessus.
+function setupDropZone(zone) {
+    zone.ondragover = e => {
+        e.preventDefault(); e.stopPropagation();
+        zone.classList.add('over');
+        if (draggedExo) {
+            e.dataTransfer.dropEffect = 'move';
+            const after = getDragAfterElement(zone, e.clientY);
+            if (after == null) zone.appendChild(draggedExo); else zone.insertBefore(draggedExo, after);
+        }
+    };
+    zone.ondragleave = () => zone.classList.remove('over');
+    zone.ondrop = e => {
+        e.preventDefault(); e.stopPropagation(); zone.classList.remove('over');
+        closeFloatingSearch();
+        if (draggedExo) { syncClientProgram(); return; }
+        const id = e.dataTransfer.getData('text/plain');
+        if (!id) return;
+        if (id.startsWith('run:')) createPlacedRun(zone, id.slice(4));
+        else if (id.startsWith('hyrox:')) createPlacedHyrox(zone, id.slice(6));
+        else if (id.startsWith('cardio:')) createPlacedCardio(zone, id.slice(7));
+        else createPlacedExercise(zone, id);
+        syncClientProgram();
+    };
 }
 
 // ── Date par semaine ──────────────────────────────────────────────────────────
@@ -129,14 +156,7 @@ function removeContextMenu() {
 function serializeRow(row) {
     const days = {};
     for (let d=1; d<=7; d++) {
-        const cell = row.cells[d];
-        const items = [];
-        Array.from(cell.querySelectorAll('.placed-exo')).forEach(el => {
-            if (el.dataset.cardType==='muscu') items.push({cardType:'muscu',id:el.dataset.id,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,trainingMode:el.dataset.trainingMode||'normal',setsData:el.dataset.setsData,pyramideConfig:el.dataset.pyramideConfig||null,progressionConfig:el.dataset.progressionConfig||null});
-            else if (el.dataset.cardType==='run') items.push({cardType:'run',runId:el.dataset.runId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,runData:el.dataset.runData});
-            else if (el.dataset.cardType==='hyrox') items.push({cardType:'hyrox',hyroxId:el.dataset.hyroxId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,hyroxData:el.dataset.hyroxData});
-            else if (el.dataset.cardType==='cardio') items.push({cardType:'cardio',cardioId:el.dataset.cardioId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,cardioData:el.dataset.cardioData});
-        });
+        const items = serializeDay(row.cells[d]); // box-aware
         if (items.length) days[d] = items;
     }
     return { deload: row.cells[0].getAttribute('data-deload')||'false', days };
@@ -147,11 +167,12 @@ function copyWeek(row) {
     wc.style.outline = '2px solid var(--accent)';
     setTimeout(() => wc.style.outline='', 800);
 }
+function clearCellContent(cell) {
+    cell.querySelectorAll(':scope > .placed-exo, :scope > .circuit-box').forEach(el => el.remove());
+}
 function pasteWeek(targetRow) {
     if (!weekClipboard) return;
-    for (let d=1; d<=7; d++) {
-        targetRow.cells[d].querySelectorAll('.placed-exo').forEach(el=>el.remove());
-    }
+    for (let d=1; d<=7; d++) clearCellContent(targetRow.cells[d]);
     const data = weekClipboard;
     targetRow.cells[0].setAttribute('data-deload', data.deload);
     for (const [dStr, items] of Object.entries(data.days)) {
@@ -163,6 +184,11 @@ function pasteWeek(targetRow) {
 }
 function restoreItemsInCell(cell, items) {
     items.forEach(item => {
+        if (item.cardType==='box') {
+            const box = createBox(cell, { name:item.name, rounds:item.rounds, restSec:item.restSec });
+            restoreItemsInCell(box.querySelector('.box-drop'), item.items || []);
+            return;
+        }
         if (item.cardType==='muscu') {
             const exoData=exerciseLibrary.find(e=>e.id===item.id); if(!exoData)return;
             const el=document.createElement('div'); el.className='placed-exo';
@@ -208,14 +234,20 @@ function showDayContextMenu(e, cell) {
     menu.style.cssText = `position:fixed;z-index:9999;background:#2c2c2e;border:1px solid #48484a;border-radius:12px;padding:6px 0;min-width:180px;box-shadow:0 8px 30px rgba(0,0,0,0.5);font-size:13px;`;
     const items = [
         { label:'📋  Copier la journée', fn: ()=>copyDay(cell), disabled: count === 0 },
-        { label:'📌  Coller ici' + (hasClip ? ` (${dayClipboard.length})` : ''), fn: ()=>pasteDay(cell), disabled: !hasClip, paste: true },
+        { label:'📌  Coller la journée' + (hasClip ? ` (${dayClipboard.length})` : ''), fn: ()=>pasteDay(cell), disabled: !hasClip, paste: true },
+        { label:'➕  Coller l\'exercice' + (exoClipboard ? ` · ${exoClipboard.name||''}` : ''), fn: ()=>pasteExo(cell), disabled: !exoClipboard, paste: true },
         { sep: true },
         { label:'🗑  Vider la journée', fn: ()=>clearDay(cell), danger: true, disabled: count === 0 },
     ];
+    _renderCtxMenu(e, menu, items);
+}
+
+// Rendu commun d'un menu contextuel (boutons + positionnement).
+function _renderCtxMenu(e, menu, items) {
     items.forEach(item => {
         if (item.sep) { const s=document.createElement('div');s.style.cssText='height:1px;background:#48484a;margin:4px 0;';menu.appendChild(s);return; }
         const btn = document.createElement('button');
-        const col = item.disabled ? '#555' : item.danger ? 'var(--red)' : (item.paste && hasClip) ? 'var(--green)' : 'var(--text)';
+        const col = item.disabled ? '#555' : item.danger ? 'var(--red)' : item.paste ? 'var(--green)' : 'var(--text)';
         btn.style.cssText = `width:100%;background:none;border:none;color:${col};text-align:left;padding:9px 16px;cursor:${item.disabled?'default':'pointer'};font-size:13px;font-family:inherit;transition:background .1s;`;
         btn.textContent = item.label;
         if (!item.disabled) {
@@ -235,20 +267,80 @@ function showDayContextMenu(e, cell) {
     setTimeout(() => document.addEventListener('click', removeContextMenu, {once:true}), 10);
 }
 
+// ── CONTEXT MENU EXERCICE (clic droit sur une carte) ─────────────────────────
+function showExoContextMenu(e, el) {
+    removeContextMenu();
+    const cell = el.closest('.drop-zone');
+    const menu = document.createElement('div');
+    menu.id = 'week-ctx-menu';
+    menu.style.cssText = `position:fixed;z-index:9999;background:#2c2c2e;border:1px solid #48484a;border-radius:12px;padding:6px 0;min-width:190px;box-shadow:0 8px 30px rgba(0,0,0,0.5);font-size:13px;`;
+    const hasClip = !!exoClipboard;
+    const items = [
+        { label:'📋  Copier l\'exercice', fn: ()=>copyExo(el) },
+        { label:'⧉  Dupliquer ici', fn: ()=>duplicateExo(el) },
+        { label:'📌  Coller ici' + (hasClip ? ` · ${exoClipboard.name||''}` : ''), fn: ()=>pasteExo(cell), disabled: !hasClip, paste: true },
+        { sep: true },
+        { label:'🗑  Supprimer', fn: ()=>{ el.remove(); syncClientProgram(); }, danger: true },
+    ];
+    _renderCtxMenu(e, menu, items);
+}
+
+// ── SÉRIALISATION ────────────────────────────────────────────────────────────
+// Sérialise UN exercice placé (avec toutes ses données) en objet réutilisable.
+function serializeExoEl(el) {
+    const d = el.dataset;
+    if (d.cardType==='muscu') return {cardType:'muscu',id:d.id,name:d.name,emoji:d.emoji,color:d.color,trainingMode:d.trainingMode||'normal',setsData:d.setsData,pyramideConfig:d.pyramideConfig||null,progressionConfig:d.progressionConfig||null};
+    if (d.cardType==='run')   return {cardType:'run',runId:d.runId,name:d.name,emoji:d.emoji,color:d.color,runData:d.runData};
+    if (d.cardType==='hyrox') return {cardType:'hyrox',hyroxId:d.hyroxId,name:d.name,emoji:d.emoji,color:d.color,hyroxData:d.hyroxData};
+    if (d.cardType==='cardio')return {cardType:'cardio',cardioId:d.cardioId,name:d.name,emoji:d.emoji,color:d.color,cardioData:d.cardioData};
+    return null;
+}
+
+// Sérialise un circuit (box) et ses exercices.
+function serializeBox(box) {
+    return {
+        cardType: 'box',
+        name: box.dataset.boxName || 'Circuit',
+        rounds: parseInt(box.dataset.rounds) || 1,
+        restSec: parseInt(box.dataset.restSec) || 0,
+        items: Array.from(box.querySelectorAll('.box-drop > .placed-exo')).map(serializeExoEl).filter(Boolean)
+    };
+}
+
 // ── INVERSER / COPIER / COLLER / VIDER UNE JOURNÉE ───────────────────────────
+// Sérialise les items de 1er niveau (exercices ET circuits) dans l'ordre.
 function serializeDay(cell) {
-    const items = [];
-    Array.from(cell.querySelectorAll('.placed-exo')).forEach(el => {
-        if (el.dataset.cardType==='muscu') items.push({cardType:'muscu',id:el.dataset.id,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,trainingMode:el.dataset.trainingMode||'normal',setsData:el.dataset.setsData,pyramideConfig:el.dataset.pyramideConfig||null,progressionConfig:el.dataset.progressionConfig||null});
-        else if (el.dataset.cardType==='run') items.push({cardType:'run',runId:el.dataset.runId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,runData:el.dataset.runData});
-        else if (el.dataset.cardType==='hyrox') items.push({cardType:'hyrox',hyroxId:el.dataset.hyroxId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,hyroxData:el.dataset.hyroxData});
-        else if (el.dataset.cardType==='cardio') items.push({cardType:'cardio',cardioId:el.dataset.cardioId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,cardioData:el.dataset.cardioData});
+    const out = [];
+    Array.from(cell.children).forEach(ch => {
+        if (ch.classList.contains('placed-exo')) { const it = serializeExoEl(ch); if (it) out.push(it); }
+        else if (ch.classList.contains('circuit-box')) out.push(serializeBox(ch));
     });
-    return items;
+    return out;
 }
 function copyDay(cell) {
     dayClipboard = serializeDay(cell);
     flashCell(cell);
+}
+
+// ── COPIER / COLLER UN EXERCICE SEUL (ajoute sans écraser la journée) ────────
+function copyExo(el) {
+    const item = serializeExoEl(el);
+    if (!item) return;
+    exoClipboard = item;
+    el.style.outline = '2px solid var(--accent)'; el.style.outlineOffset = '-1px';
+    setTimeout(() => { el.style.outline=''; el.style.outlineOffset=''; }, 600);
+}
+function pasteExo(cell) {
+    if (!exoClipboard || !cell) return;
+    restoreItemsInCell(cell, [exoClipboard]); // AJOUTE l'exercice, ne vide pas la cellule
+    flashCell(cell);
+    syncClientProgram();
+}
+function duplicateExo(el) {
+    const cell = el.closest('.drop-zone'); if (!cell) return;
+    restoreItemsInCell(cell, [serializeExoEl(el)].filter(Boolean));
+    flashCell(cell);
+    syncClientProgram();
 }
 function pasteDay(cell) {
     if (!dayClipboard) return;
@@ -364,6 +456,8 @@ function _makeDraggable(el, getDragId) {
         setTimeout(() => el.classList.add('dragging'), 0);
     };
     el.ondragend = () => { el.classList.remove('dragging'); draggedExo = null; syncClientProgram(); };
+    // Clic droit = menu de l'exercice (copier / coller ici / dupliquer / supprimer)
+    el.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); showExoContextMenu(e, el); });
 }
 function attachMuscuHandlers(el) {
     el.onclick=e=>{ if(e.target.classList.contains('delete-btn')){ el.remove(); syncClientProgram(); } else openEditModal(el); };

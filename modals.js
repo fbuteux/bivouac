@@ -89,11 +89,20 @@ function updatePyraHint(mode) {
     hint.textContent=map[mode]||'';
 }
 
-// ── PYRAMIDE : logique top-rep ───────────────────────────────────────────────
-function pyraSetCount(mode, topRep) {
-    if (mode==='pyramide') return 2*topRep-1;
-    return topRep;
+// ── PYRAMIDE : séquence de reps cohérente avec le pas ────────────────────────
+// Les reps varient par pas de `step`, sommet = topRep, plancher ≥ 1.
+//   topRep 6, pas 1 → 1,2,3,4,5,6 (asc)   ·  pyramide : 1→6→1
+//   topRep 6, pas 2 → 2,4,6 (asc)         ·  pyramide : 2→6→2
+function pyraRepSequence(mode, topRep, step) {
+    step = Math.max(1, Math.round(step || 1));
+    topRep = Math.max(1, Math.round(topRep));
+    const asc = [];
+    for (let r = topRep; r >= 1; r -= step) asc.unshift(r); // [plancher … sommet]
+    if (mode === 'progressif') return asc.slice().reverse();       // bcp de reps → peu (poids monte)
+    if (mode === 'degressif')  return asc.slice();                 // peu de reps → bcp (poids descend)
+    return asc.concat(asc.slice(0, -1).reverse());                 // pyramide : plancher→sommet→plancher
 }
+function pyraSetCount(mode, topRep, step) { return pyraRepSequence(mode, topRep, step).length; }
 
 function regeneratePyramide(mode) {
     mode=mode||document.getElementById('training-mode-select').value;
@@ -102,13 +111,15 @@ function regeneratePyramide(mode) {
     const mat=materiels.find(m=>m.id===exoData.materielId);
     const matStep=mat.step||1;
     const topRep=Math.max(1, parseInt(document.getElementById('pyra-top-rep')?.value)||editingPyraTopRep);
-    const kgStep=parseFloat(document.getElementById('pyra-kg-step')?.value)||editingPyraKgStep||matStep;
-    const repsStep=parseFloat(document.getElementById('pyra-reps-step-val')?.value)||editingPyraRepsStep||1;
+    // « Pas kg » : 0 accepté explicitement → même poids sur toutes les séries.
+    const kgRaw=document.getElementById('pyra-kg-step')?.value;
+    const kgStep=(kgRaw===''||kgRaw==null||isNaN(parseFloat(kgRaw))) ? (Number.isFinite(editingPyraKgStep)?editingPyraKgStep:matStep) : parseFloat(kgRaw);
+    const repsStep=Math.max(1, parseFloat(document.getElementById('pyra-reps-step-val')?.value)||editingPyraRepsStep||1);
     editingPyraTopRep=topRep; editingPyraKgStep=kgStep; editingPyraRepsStep=repsStep;
 
+    const seq=pyraRepSequence(mode, topRep, repsStep);
     const countDisplay=document.getElementById('pyra-sets-count');
-    const nb=pyraSetCount(mode,topRep);
-    if (countDisplay) countDisplay.textContent=`→ ${nb} série${nb>1?'s':''}`;
+    if (countDisplay) countDisplay.textContent=`→ ${seq.length} série${seq.length>1?'s':''}`;
 
     const saved=JSON.parse(currentEditingEl.dataset.setsData);
     const bW=saved[0]?.weight||exoData.defaultWeight;
@@ -117,27 +128,13 @@ function regeneratePyramide(mode) {
     const bRestSec=saved[0]?.restSec||0;
     document.getElementById('sets-container').innerHTML='';
 
-    if (mode==='progressif') {
-        for (let i=0;i<topRep;i++) {
-            const reps=Math.max(1, topRep - Math.round(i*repsStep));
-            const kg=Math.max(0, Math.round((bW+i*kgStep)/matStep)*matStep);
-            addSetRow(reps, kg, bT, null, bRestMin, bRestSec);
-        }
-    } else if (mode==='degressif') {
-        for (let i=0;i<topRep;i++) {
-            const reps=Math.max(1, 1 + Math.round(i*repsStep));
-            const kg=Math.max(0, Math.round((bW+(topRep-1-i)*kgStep)/matStep)*matStep);
-            addSetRow(reps, kg, bT, null, bRestMin, bRestSec);
-        }
-    } else {
-        const peak=topRep-1;
-        for (let i=0;i<nb;i++) {
-            const dist=Math.abs(i-peak);
-            const reps=Math.max(1, topRep - Math.round(dist*repsStep));
-            const kg=Math.max(0, Math.round((bW+dist*kgStep)/matStep)*matStep);
-            addSetRow(reps, kg, bT, null, bRestMin, bRestSec);
-        }
-    }
+    // Poids : plus on s'éloigne du sommet (moins de reps), plus c'est lourd.
+    // kgStep = 0 → poids constant = bW sur toutes les séries.
+    seq.forEach(R => {
+        const level=(topRep - R)/repsStep;                 // 0 au sommet
+        const kg=kgStep===0 ? bW : Math.max(0, Math.round((bW + level*kgStep)/matStep)*matStep);
+        addSetRow(R, kg, bT, null, bRestMin, bRestSec);
+    });
 }
 
 function onPyraParamChange() {
@@ -156,6 +153,9 @@ function addSetRow(reps=10, weight=60, tech="Normal", pct=null, restMin=2, restS
     const isMob = window.innerWidth <= 768;
     const techniques=[...exoData.techniques];
     if (!techniques.includes('Partial/Full')&&mat.step>0) techniques.push('Partial/Full');
+    // Techniques libres : on conserve une technique custom (ex. "Pyramide 1>7>1")
+    // même si elle n'est pas dans la liste de l'exercice.
+    if (tech && !techniques.includes(tech)) techniques.push(tech);
     const row=document.createElement('div'); row.className='set-row';
 
     // Rest field HTML snippet

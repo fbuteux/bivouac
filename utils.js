@@ -26,6 +26,8 @@ let programNotes = localStorage.getItem('benchmaster_notes') || '';
 let weekClipboard = null; // { deload, days: [{cardType,…}] }
 // Clipboard pour copier/coller une journée (liste d'items d'une cellule)
 let dayClipboard = null; // [ {cardType,…}, … ]
+// Clipboard pour copier/coller UN exercice seul (collé sans écraser la journée)
+let exoClipboard = null; // { cardType,… }
 
 // ======================== UTILS ========================
 function normalizeString(str) { return str.normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
