@@ -1,13 +1,15 @@
 {
-    "exportDate": "2026-07-09T14:59:43.602Z",
+    "exportDate": "2026-07-10T14:50:47.469Z",
     "programName": "flo",
     "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
-    "startDate": "2026-06-06T22:00:00.000Z",
+    "startDate": "2026-06-07T22:00:00.000Z",
     "maxTargets": {
         "sq": 122.5,
         "ohp": 52.5,
         "dc": 125,
-        "dc_incline": 125
+        "dc_incline": 125,
+        "deadlift": 120,
+        "fente_bulgare_b": 50
     },
     "progressionConfig": {
         "dc": {
@@ -32,12 +34,10 @@
             "increment": 2.5
         },
         "elevations_laterales": {
-            "type": "linear",
-            "increment": 2
+            "type": "none"
         },
         "gainage": {
-            "type": "linear",
-            "increment": 2.5
+            "type": "none"
         },
         "shrug": {
             "type": "linear",
@@ -48,6 +48,29 @@
             "increment": 2.5
         },
         "dc_incline": {
+            "type": "linear",
+            "increment": 2.5
+        },
+        "deadlift": {
+            "type": "asymptotic",
+            "target": 120,
+            "speed": 0.15
+        },
+        "extension_lombaire": {
+            "type": "none"
+        },
+        "crunch": {
+            "type": "none"
+        },
+        "skullcrusher": {
+            "type": "linear",
+            "increment": 2.5
+        },
+        "curl_biceps": {
+            "type": "linear",
+            "increment": 2
+        },
+        "fente_bulgare_b": {
             "type": "linear",
             "increment": 2.5
         }
@@ -302,7 +325,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -317,7 +340,7 @@
                             {
                                 "reps": 3,
                                 "pct": 80,
-                                "weight": 105,
+                                "weight": 100,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -325,33 +348,33 @@
                             {
                                 "reps": 3,
                                 "pct": 82,
-                                "weight": 107.5,
+                                "weight": 102.5,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "pct": 84,
-                                "weight": 110,
+                                "weight": 105,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "pct": 70,
-                                "weight": 92.5,
+                                "weight": 87.5,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "pct": 67,
-                                "weight": 87.5,
+                                "weight": 82.5,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             }
                         ]
@@ -360,7 +383,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -399,8 +422,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -568,40 +590,56 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -660,7 +698,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -675,7 +713,7 @@
                             {
                                 "reps": 5,
                                 "pct": 65,
-                                "weight": 85,
+                                "weight": 80,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -683,7 +721,7 @@
                             {
                                 "reps": 5,
                                 "pct": 70,
-                                "weight": 92.5,
+                                "weight": 87.5,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -691,17 +729,17 @@
                             {
                                 "reps": 5,
                                 "pct": 75,
-                                "weight": 97.5,
+                                "weight": 92.5,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "pct": 60,
-                                "weight": 80,
+                                "weight": 75,
                                 "tech": "Normal",
-                                "restMin": 2,
+                                "restMin": 0,
                                 "restSec": 0
                             }
                         ]
@@ -710,7 +748,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -749,8 +787,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -918,40 +955,58 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "curl_biceps",
+                                "name": "Curl Biceps",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "skullcrusher",
+                                "name": "Skull Crusher",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -959,63 +1014,13 @@
                 "Dimanche": [
                     {
                         "cardType": "muscu",
-                        "id": "sq",
-                        "name": "Squat",
-                        "emoji": "🍑",
+                        "id": "fente_bulgare_b",
+                        "name": "Fente Bulgare Barre",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
                         "trainingMode": "force",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "asymptotic",
-                            "target": 120,
-                            "speed": 0.15
-                        },
-                        "sets": [
-                            {
-                                "reps": 7,
-                                "pct": 60,
-                                "weight": 80,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 65,
-                                "weight": 85,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 65,
-                                "weight": 85,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 62,
-                                "weight": 82.5,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            }
-                        ]
-                    },
-                    {
-                        "cardType": "muscu",
-                        "id": "rowing_barre",
-                        "name": "Rowing Barre",
-                        "emoji": "🏋️",
-                        "color": "#30d158",
-                        "materielId": "barre",
-                        "step": 2.5,
-                        "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
                             "type": "linear",
@@ -1023,64 +1028,153 @@
                         },
                         "sets": [
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing"
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 35,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing"
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 37.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing"
+                                "reps": 5,
+                                "pct": 80,
+                                "weight": 40,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 30,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 55,
+                                "weight": 27.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "elevations_laterales",
-                        "name": "Élévations Latérales",
-                        "emoji": "🦾",
-                        "color": "#ff9f0a",
-                        "materielId": "haltere",
-                        "step": 2,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "rowing_barre",
+                                "name": "Rowing Barre",
+                                "emoji": "🚣",
+                                "color": "#30d158",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 8,
+                                        "weight": 34,
+                                        "tech": "Rowing",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "elevations_laterales",
+                                "name": "Élévations Latérales",
+                                "emoji": "🦾",
+                                "color": "#ff9f0a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 15,
+                                        "weight": 10,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
+                            {
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -1337,7 +1431,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -1350,10 +1444,44 @@
                         },
                         "sets": [
                             {
-                                "reps": 5,
-                                "weight": 95,
-                                "pct": 75,
-                                "tech": "Squat"
+                                "reps": 3,
+                                "pct": 80,
+                                "weight": 100,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
+                                "pct": 82,
+                                "weight": 102.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
+                                "pct": 84,
+                                "weight": 105,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 67,
+                                "weight": 82.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -1361,7 +1489,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -1406,8 +1534,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -1575,40 +1702,56 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -1667,7 +1810,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -1681,15 +1824,35 @@
                         "sets": [
                             {
                                 "reps": 5,
-                                "weight": 95,
-                                "pct": 75,
-                                "tech": "Squat"
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
-                                "weight": 100,
-                                "pct": 80,
-                                "tech": "Squat"
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -1697,7 +1860,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -1742,8 +1905,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -1911,40 +2073,58 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "curl_biceps",
+                                "name": "Curl Biceps",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "skullcrusher",
+                                "name": "Skull Crusher",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -1952,63 +2132,13 @@
                 "Dimanche": [
                     {
                         "cardType": "muscu",
-                        "id": "sq",
-                        "name": "Squat",
-                        "emoji": "🍑",
+                        "id": "fente_bulgare_b",
+                        "name": "Fente Bulgare Barre",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
                         "trainingMode": "force",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "asymptotic",
-                            "target": 120,
-                            "speed": 0.15
-                        },
-                        "sets": [
-                            {
-                                "reps": 7,
-                                "pct": 60,
-                                "weight": 72.5,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 65,
-                                "weight": 80,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 65,
-                                "weight": 80,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 7,
-                                "pct": 62,
-                                "weight": 75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 0
-                            }
-                        ]
-                    },
-                    {
-                        "cardType": "muscu",
-                        "id": "rowing_barre",
-                        "name": "Rowing Barre",
-                        "emoji": "🏋️",
-                        "color": "#30d158",
-                        "materielId": "barre",
-                        "step": 2.5,
-                        "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
                             "type": "linear",
@@ -2016,70 +2146,153 @@
                         },
                         "sets": [
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 35,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 37.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 80,
+                                "weight": 40,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 30,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 55,
+                                "weight": 27.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "elevations_laterales",
-                        "name": "Élévations Latérales",
-                        "emoji": "🦾",
-                        "color": "#ff9f0a",
-                        "materielId": "haltere",
-                        "step": 2,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "rowing_barre",
+                                "name": "Rowing Barre",
+                                "emoji": "🚣",
+                                "color": "#30d158",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 8,
+                                        "weight": 34,
+                                        "tech": "Rowing",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "elevations_laterales",
+                                "name": "Élévations Latérales",
+                                "emoji": "🦾",
+                                "color": "#ff9f0a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 15,
+                                        "weight": 10,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
+                            {
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -2336,7 +2549,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -2350,9 +2563,43 @@
                         "sets": [
                             {
                                 "reps": 3,
-                                "weight": 105,
+                                "pct": 82,
+                                "weight": 102.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
                                 "pct": 84,
-                                "tech": "Squat"
+                                "weight": 105,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
+                                "pct": 87,
+                                "weight": 107.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 67,
+                                "weight": 82.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -2360,7 +2607,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -2405,8 +2652,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -2574,40 +2820,56 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -2666,7 +2928,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -2679,16 +2941,36 @@
                         },
                         "sets": [
                             {
-                                "reps": 3,
-                                "weight": 110,
-                                "pct": 87,
-                                "tech": "Squat"
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
-                                "weight": 112.5,
-                                "pct": 90,
-                                "tech": "Squat"
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -2696,7 +2978,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -2741,8 +3023,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -2910,40 +3191,58 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "curl_biceps",
+                                "name": "Curl Biceps",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "skullcrusher",
+                                "name": "Skull Crusher",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -2951,37 +3250,13 @@
                 "Dimanche": [
                     {
                         "cardType": "muscu",
-                        "id": "sq",
-                        "name": "Squat",
-                        "emoji": "🍑",
+                        "id": "fente_bulgare_b",
+                        "name": "Fente Bulgare Barre",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
                         "trainingMode": "force",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "asymptotic",
-                            "target": 120,
-                            "speed": 0.15
-                        },
-                        "sets": [
-                            {
-                                "reps": 3,
-                                "weight": 102.5,
-                                "pct": 82,
-                                "tech": "Squat"
-                            }
-                        ]
-                    },
-                    {
-                        "cardType": "muscu",
-                        "id": "rowing_barre",
-                        "name": "Rowing Barre",
-                        "emoji": "🏋️",
-                        "color": "#30d158",
-                        "materielId": "barre",
-                        "step": 2.5,
-                        "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
                             "type": "linear",
@@ -2989,70 +3264,153 @@
                         },
                         "sets": [
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 35,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 37.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 80,
+                                "weight": 40,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 30,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 55,
+                                "weight": 27.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "elevations_laterales",
-                        "name": "Élévations Latérales",
-                        "emoji": "🦾",
-                        "color": "#ff9f0a",
-                        "materielId": "haltere",
-                        "step": 2,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "rowing_barre",
+                                "name": "Rowing Barre",
+                                "emoji": "🚣",
+                                "color": "#30d158",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 8,
+                                        "weight": 34,
+                                        "tech": "Rowing",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "elevations_laterales",
+                                "name": "Élévations Latérales",
+                                "emoji": "🦾",
+                                "color": "#ff9f0a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 15,
+                                        "weight": 10,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
+                            {
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -3062,7 +3420,7 @@
         },
         {
             "week": 4,
-            "deload": false,
+            "deload": true,
             "days": {
                 "Mardi": [
                     {
@@ -3309,7 +3667,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -3323,9 +3681,43 @@
                         "sets": [
                             {
                                 "reps": 3,
-                                "weight": 120,
-                                "pct": 95,
-                                "tech": "Squat"
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
+                                "pct": 77,
+                                "weight": 95,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 3,
+                                "pct": 80,
+                                "weight": 100,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 67,
+                                "weight": 82.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 63,
+                                "weight": 77.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -3333,7 +3725,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -3378,8 +3770,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -3547,40 +3938,56 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -3639,7 +4046,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -3652,16 +4059,36 @@
                         },
                         "sets": [
                             {
-                                "reps": 3,
-                                "weight": 120,
-                                "pct": 95,
-                                "tech": "Squat"
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
-                                "reps": 1,
-                                "weight": 125,
-                                "pct": 100,
-                                "tech": "Squat"
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -3669,7 +4096,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -3714,8 +4141,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -3883,40 +4309,58 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "curl_biceps",
+                                "name": "Curl Biceps",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "skullcrusher",
+                                "name": "Skull Crusher",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -3924,37 +4368,13 @@
                 "Dimanche": [
                     {
                         "cardType": "muscu",
-                        "id": "sq",
-                        "name": "Squat",
-                        "emoji": "🍑",
+                        "id": "fente_bulgare_b",
+                        "name": "Fente Bulgare Barre",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
                         "trainingMode": "force",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "asymptotic",
-                            "target": 120,
-                            "speed": 0.15
-                        },
-                        "sets": [
-                            {
-                                "reps": 3,
-                                "weight": 115,
-                                "pct": 92,
-                                "tech": "Squat"
-                            }
-                        ]
-                    },
-                    {
-                        "cardType": "muscu",
-                        "id": "rowing_barre",
-                        "name": "Rowing Barre",
-                        "emoji": "🏋️",
-                        "color": "#30d158",
-                        "materielId": "barre",
-                        "step": 2.5,
-                        "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
                             "type": "linear",
@@ -3962,70 +4382,153 @@
                         },
                         "sets": [
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 35,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 37.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 34,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 80,
+                                "weight": 40,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
+                                "weight": 30,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 55,
+                                "weight": 27.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "elevations_laterales",
-                        "name": "Élévations Latérales",
-                        "emoji": "🦾",
-                        "color": "#ff9f0a",
-                        "materielId": "haltere",
-                        "step": 2,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "rowing_barre",
+                                "name": "Rowing Barre",
+                                "emoji": "🚣",
+                                "color": "#30d158",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 8,
+                                        "weight": 34,
+                                        "tech": "Rowing",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "elevations_laterales",
+                                "name": "Élévations Latérales",
+                                "emoji": "🦾",
+                                "color": "#ff9f0a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 15,
+                                        "weight": 10,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
+                            {
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -4042,7 +4545,7 @@
                         "cardType": "muscu",
                         "id": "dc_incline",
                         "name": "DC Incliné",
-                        "emoji": "🏔️",
+                        "emoji": "🏋️",
                         "color": "#ff453a",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4132,7 +4635,7 @@
                         "pyramideConfig": {
                             "kgStep": 0,
                             "repsStep": 1,
-                            "topRep": 8
+                            "topRep": 7
                         },
                         "progressionConfig": {
                             "type": "linear",
@@ -4143,106 +4646,92 @@
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 2,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 8,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 7,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 2,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     }
@@ -4252,7 +4741,7 @@
                         "cardType": "muscu",
                         "id": "dc_incline",
                         "name": "DC Incliné",
-                        "emoji": "🏔️",
+                        "emoji": "🏋️",
                         "color": "#ff453a",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4293,7 +4782,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4306,22 +4795,44 @@
                         },
                         "sets": [
                             {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
+                                "reps": 3,
+                                "pct": 80,
+                                "weight": 100,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
+                                "reps": 3,
+                                "pct": 82,
+                                "weight": 102.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
+                                "reps": 3,
+                                "pct": 84,
+                                "weight": 105,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 67,
+                                "weight": 82.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -4329,7 +4840,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4374,8 +4885,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -4414,7 +4924,7 @@
                         "cardType": "muscu",
                         "id": "dc_incline",
                         "name": "DC Incliné",
-                        "emoji": "🏔️",
+                        "emoji": "🏋️",
                         "color": "#ff453a",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4463,7 +4973,7 @@
                         "pyramideConfig": {
                             "kgStep": 0,
                             "repsStep": 1,
-                            "topRep": 8
+                            "topRep": 7
                         },
                         "progressionConfig": {
                             "type": "linear",
@@ -4474,144 +4984,146 @@
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 2,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 8,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 7,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 2,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -4621,7 +5133,7 @@
                         "cardType": "muscu",
                         "id": "dc_incline",
                         "name": "DC Incliné",
-                        "emoji": "🏔️",
+                        "emoji": "🏋️",
                         "color": "#ff453a",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4662,7 +5174,7 @@
                         "cardType": "muscu",
                         "id": "sq",
                         "name": "Squat",
-                        "emoji": "🍑",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4676,21 +5188,35 @@
                         "sets": [
                             {
                                 "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
-                                "weight": 75,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
                                 "pct": 60,
-                                "tech": "Squat"
+                                "weight": 75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -4698,7 +5224,7 @@
                         "cardType": "muscu",
                         "id": "rowing_barre",
                         "name": "Rowing Barre",
-                        "emoji": "🏋️",
+                        "emoji": "🚣",
                         "color": "#30d158",
                         "materielId": "barre",
                         "step": 2.5,
@@ -4743,8 +5269,7 @@
                         "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
+                            "type": "none"
                         },
                         "sets": [
                             {
@@ -4791,7 +5316,7 @@
                         "pyramideConfig": {
                             "kgStep": 0,
                             "repsStep": 1,
-                            "topRep": 8
+                            "topRep": 7
                         },
                         "progressionConfig": {
                             "type": "linear",
@@ -4802,106 +5327,92 @@
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 2,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 8,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 7,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 6,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 5,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 4,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 3,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 2,
+                                "weight": 3.75,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 1,
                                 "weight": 3.75,
                                 "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 3.75,
-                                "tech": "Normal",
-                                "restMin": 2,
-                                "restSec": 45
+                                "restMin": 0,
+                                "restSec": 0
                             }
                         ]
                     },
@@ -4947,40 +5458,58 @@
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "gainage",
-                        "name": "Gainage",
-                        "emoji": "🧱",
-                        "color": "#bf5af2",
-                        "materielId": "pdc",
-                        "step": 0,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2.5
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 1,
-                                "weight": 0,
-                                "tech": "Planche",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "curl_biceps",
+                                "name": "Curl Biceps",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 1,
-                                "weight": 60,
-                                "tech": "Normal",
-                                "restMin": 1,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "skullcrusher",
+                                "name": "Skull Crusher",
+                                "emoji": "💪",
+                                "color": "#ffd60a",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 12,
+                                        "weight": 20,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -4988,49 +5517,13 @@
                 "Dimanche": [
                     {
                         "cardType": "muscu",
-                        "id": "sq",
-                        "name": "Squat",
-                        "emoji": "🍑",
+                        "id": "fente_bulgare_b",
+                        "name": "Fente Bulgare Barre",
+                        "emoji": "🦵",
                         "color": "#0a84ff",
                         "materielId": "barre",
                         "step": 2.5,
                         "trainingMode": "force",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "asymptotic",
-                            "target": 120,
-                            "speed": 0.15
-                        },
-                        "sets": [
-                            {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
-                            },
-                            {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
-                            },
-                            {
-                                "reps": 5,
-                                "weight": 75,
-                                "pct": 60,
-                                "tech": "Squat"
-                            }
-                        ]
-                    },
-                    {
-                        "cardType": "muscu",
-                        "id": "rowing_barre",
-                        "name": "Rowing Barre",
-                        "emoji": "🏋️",
-                        "color": "#30d158",
-                        "materielId": "barre",
-                        "step": 2.5,
-                        "trainingMode": "normal",
                         "pyramideConfig": null,
                         "progressionConfig": {
                             "type": "linear",
@@ -5038,70 +5531,153 @@
                         },
                         "sets": [
                             {
-                                "reps": 8,
-                                "weight": 30,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 35,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
-                                "weight": 30,
-                                "tech": "Rowing",
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 37.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             },
                             {
-                                "reps": 8,
+                                "reps": 5,
+                                "pct": 80,
+                                "weight": 40,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 60,
                                 "weight": 30,
-                                "tech": "Rowing",
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 7,
+                                "pct": 55,
+                                "weight": 27.5,
+                                "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
                             }
                         ]
                     },
                     {
-                        "cardType": "muscu",
-                        "id": "elevations_laterales",
-                        "name": "Élévations Latérales",
-                        "emoji": "🦾",
-                        "color": "#ff9f0a",
-                        "materielId": "haltere",
-                        "step": 2,
-                        "trainingMode": "normal",
-                        "pyramideConfig": null,
-                        "progressionConfig": {
-                            "type": "linear",
-                            "increment": 2
-                        },
-                        "sets": [
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 3,
+                        "restSec": 60,
+                        "items": [
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "rowing_barre",
+                                "name": "Rowing Barre",
+                                "emoji": "🚣",
+                                "color": "#30d158",
+                                "materielId": "barre",
+                                "step": 2.5,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "linear",
+                                    "increment": 2.5
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 8,
+                                        "weight": 34,
+                                        "tech": "Rowing",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "elevations_laterales",
+                                "name": "Élévations Latérales",
+                                "emoji": "🦾",
+                                "color": "#ff9f0a",
+                                "materielId": "haltere",
+                                "step": 2,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 15,
+                                        "weight": 10,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "box",
+                        "name": "Circuit",
+                        "rounds": 4,
+                        "restSec": 60,
+                        "items": [
+                            {
+                                "cardType": "muscu",
+                                "id": "extension_lombaire",
+                                "name": "Extension Lombaire",
+                                "emoji": "🧱",
+                                "color": "#30d158",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             },
                             {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
-                            },
-                            {
-                                "reps": 15,
-                                "weight": 10,
-                                "tech": "Normal",
-                                "restMin": 0,
-                                "restSec": 0
+                                "cardType": "muscu",
+                                "id": "crunch",
+                                "name": "Crunch",
+                                "emoji": "🔥",
+                                "color": "#bf5af2",
+                                "materielId": "pdc_leste",
+                                "step": 1.25,
+                                "trainingMode": "normal",
+                                "pyramideConfig": null,
+                                "progressionConfig": {
+                                    "type": "none"
+                                },
+                                "sets": [
+                                    {
+                                        "reps": 10,
+                                        "weight": 0,
+                                        "tech": "Normal",
+                                        "restMin": 0,
+                                        "restSec": 0
+                                    }
+                                ]
                             }
                         ]
                     }
