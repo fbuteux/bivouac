@@ -23,8 +23,13 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
             background: var(--bg); color: white; margin: 0;
-            padding: 20px 12px 40px; display: flex; flex-direction: column;
-            align-items: center; min-height: 100vh;
+            height: 100vh; height: 100dvh; overflow: hidden; overscroll-behavior: none;
+        }
+        /* Le document ne défile PAS : tout le scroll est ici → la barre d'adresse
+           du navigateur mobile ne réapparaît pas au défilement (comme l'éditeur). */
+        #app-scroll {
+            height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+            padding: 20px 12px 40px; display: flex; flex-direction: column; align-items: center;
         }
 
         .header-date {
@@ -202,6 +207,7 @@
     </style>
 </head>
 <body>
+<div id="app-scroll">
 <br><br>
 <div class="header-date" id="headerDate">
     <div class="today-label" id="day-label">Aujourd'hui</div>
@@ -222,6 +228,7 @@
 </div>
 
 <div class="flip-hint" id="flipHint">Tap pour retourner <span class="arrow">→</span></div>
+</div>
 
 <script>
 // ════════════════════════════════════════════
