@@ -4,9 +4,10 @@ const tbody = document.querySelector('#weekTable tbody');
 // Exercice en cours de déplacement (drag interne PC). Null = drag depuis la sidebar.
 let draggedExo = null;
 
-// Élément .placed-exo (enfant DIRECT) devant lequel insérer, selon la position Y.
-function getDragAfterElement(container, y) {
-    const els = [...container.querySelectorAll(':scope > .placed-exo:not(.dragging)')];
+// Enfant DIRECT devant lequel insérer, selon la position Y (sélecteur paramétrable).
+function getDragAfterElement(container, y, sel) {
+    sel = sel || ':scope > .placed-exo:not(.dragging)';
+    const els = [...container.querySelectorAll(sel)];
     let closest = null, closestOffset = -Infinity;
     els.forEach(child => {
         const box = child.getBoundingClientRect();
@@ -15,11 +16,13 @@ function getDragAfterElement(container, y) {
     });
     return closest; // null => insérer en fin
 }
+const isBoxEl = el => el && el.classList && el.classList.contains('circuit-box');
 
-// Zone de drop réutilisable (cellule OU intérieur d'un circuit). stopPropagation
-// pour que les zones imbriquées (box dans cellule) ne se marchent pas dessus.
+// Zone de drop de l'INTÉRIEUR d'un circuit (n'accepte que des exercices).
+// Si on glisse un circuit, on laisse l'évènement remonter à la cellule (pas de circuit imbriqué).
 function setupDropZone(zone) {
     zone.ondragover = e => {
+        if (isBoxEl(draggedExo)) return; // circuit → géré par la cellule
         e.preventDefault(); e.stopPropagation();
         zone.classList.add('over');
         if (draggedExo) {
@@ -30,11 +33,12 @@ function setupDropZone(zone) {
     };
     zone.ondragleave = () => zone.classList.remove('over');
     zone.ondrop = e => {
+        if (isBoxEl(draggedExo)) return; // laisse la cellule gérer le circuit
         e.preventDefault(); e.stopPropagation(); zone.classList.remove('over');
         closeFloatingSearch();
         if (draggedExo) { syncClientProgram(); return; }
         const id = e.dataTransfer.getData('text/plain');
-        if (!id) return;
+        if (!id || id === 'box:') return;
         if (id.startsWith('run:')) createPlacedRun(zone, id.slice(4));
         else if (id.startsWith('hyrox:')) createPlacedHyrox(zone, id.slice(6));
         else if (id.startsWith('cardio:')) createPlacedCardio(zone, id.slice(7));
@@ -194,6 +198,7 @@ function restoreItemsInCell(cell, items) {
             const el=document.createElement('div'); el.className='placed-exo';
             el.dataset.id=item.id; el.dataset.name=item.name; el.dataset.emoji=exoData.emoji; el.dataset.color=exoData.color;
             el.dataset.trainingMode=item.trainingMode||'normal'; el.dataset.cardType='muscu';
+            if (exoData.unit) el.dataset.unit=exoData.unit;
             if (item.pyramideConfig) el.dataset.pyramideConfig=item.pyramideConfig;
             if (item.progressionConfig) el.dataset.progressionConfig=item.progressionConfig;
             el.style.backgroundColor=exoData.color+"22"; el.style.borderLeft=`3px solid ${exoData.color}`;
@@ -227,15 +232,17 @@ function restoreItemsInCell(cell, items) {
 // ── CONTEXT MENU JOUR (cellule) ──────────────────────────────────────────────
 function showDayContextMenu(e, cell) {
     removeContextMenu();
-    const count = cell.querySelectorAll('.placed-exo').length;
+    const count = cell.querySelectorAll(':scope > .placed-exo, :scope > .circuit-box').length;
     const hasClip = !!dayClipboard;
     const menu = document.createElement('div');
     menu.id = 'week-ctx-menu'; // même id → removeContextMenu / Escape le ferment
     menu.style.cssText = `position:fixed;z-index:9999;background:#2c2c2e;border:1px solid #48484a;border-radius:12px;padding:6px 0;min-width:180px;box-shadow:0 8px 30px rgba(0,0,0,0.5);font-size:13px;`;
     const items = [
+        { label:'🔁  Créer un circuit', fn: ()=>{ createBox(cell, {}); syncClientProgram(); } },
         { label:'📋  Copier la journée', fn: ()=>copyDay(cell), disabled: count === 0 },
         { label:'📌  Coller la journée' + (hasClip ? ` (${dayClipboard.length})` : ''), fn: ()=>pasteDay(cell), disabled: !hasClip, paste: true },
         { label:'➕  Coller l\'exercice' + (exoClipboard ? ` · ${exoClipboard.name||''}` : ''), fn: ()=>pasteExo(cell), disabled: !exoClipboard, paste: true },
+        { label:'🔁  Coller le circuit' + (boxClipboard ? ` · ${boxClipboard.name||''}` : ''), fn: ()=>pasteBox(cell), disabled: !boxClipboard, paste: true },
         { sep: true },
         { label:'🗑  Vider la journée', fn: ()=>clearDay(cell), danger: true, disabled: count === 0 },
     ];
@@ -270,7 +277,7 @@ function _renderCtxMenu(e, menu, items) {
 // ── CONTEXT MENU EXERCICE (clic droit sur une carte) ─────────────────────────
 function showExoContextMenu(e, el) {
     removeContextMenu();
-    const cell = el.closest('.drop-zone');
+    const cell = el.parentElement; // conteneur direct : cellule OU intérieur d'un circuit
     const menu = document.createElement('div');
     menu.id = 'week-ctx-menu';
     menu.style.cssText = `position:fixed;z-index:9999;background:#2c2c2e;border:1px solid #48484a;border-radius:12px;padding:6px 0;min-width:190px;box-shadow:0 8px 30px rgba(0,0,0,0.5);font-size:13px;`;
@@ -281,6 +288,24 @@ function showExoContextMenu(e, el) {
         { label:'📌  Coller ici' + (hasClip ? ` · ${exoClipboard.name||''}` : ''), fn: ()=>pasteExo(cell), disabled: !hasClip, paste: true },
         { sep: true },
         { label:'🗑  Supprimer', fn: ()=>{ el.remove(); syncClientProgram(); }, danger: true },
+    ];
+    _renderCtxMenu(e, menu, items);
+}
+
+// ── CONTEXT MENU CIRCUIT (clic droit sur une box) ────────────────────────────
+function showBoxContextMenu(e, box) {
+    removeContextMenu();
+    const cell = box.parentElement;
+    const menu = document.createElement('div');
+    menu.id = 'week-ctx-menu';
+    menu.style.cssText = `position:fixed;z-index:9999;background:#2c2c2e;border:1px solid #48484a;border-radius:12px;padding:6px 0;min-width:200px;box-shadow:0 8px 30px rgba(0,0,0,0.5);font-size:13px;`;
+    const hasClip = !!boxClipboard;
+    const items = [
+        { label:'📋  Copier le circuit', fn: ()=>copyBox(box) },
+        { label:'⧉  Dupliquer le circuit', fn: ()=>duplicateBox(box) },
+        { label:'📌  Coller un circuit' + (hasClip ? ` · ${boxClipboard.name||''}` : ''), fn: ()=>pasteBox(cell), disabled: !hasClip, paste: true },
+        { sep: true },
+        { label:'🗑  Supprimer le circuit', fn: ()=>{ box.remove(); syncClientProgram(); }, danger: true },
     ];
     _renderCtxMenu(e, menu, items);
 }
@@ -337,20 +362,36 @@ function pasteExo(cell) {
     syncClientProgram();
 }
 function duplicateExo(el) {
-    const cell = el.closest('.drop-zone'); if (!cell) return;
-    restoreItemsInCell(cell, [serializeExoEl(el)].filter(Boolean));
+    const cont = el.parentElement; if (!cont) return; // même conteneur (cellule ou box)
+    restoreItemsInCell(cont, [serializeExoEl(el)].filter(Boolean));
+    syncClientProgram();
+}
+
+// ── COPIER / COLLER / DUPLIQUER UN CIRCUIT (box + ses exercices) ─────────────
+function copyBox(box) {
+    boxClipboard = serializeBox(box);
+    flashCell(box);
+}
+function pasteBox(cell) {
+    if (!boxClipboard || !cell) return;
+    restoreItemsInCell(cell, [boxClipboard]); // ajoute un nouveau circuit
     flashCell(cell);
+    syncClientProgram();
+}
+function duplicateBox(box) {
+    const cell = box.parentElement; if (!cell) return;
+    restoreItemsInCell(cell, [serializeBox(box)]);
     syncClientProgram();
 }
 function pasteDay(cell) {
     if (!dayClipboard) return;
-    cell.querySelectorAll('.placed-exo').forEach(el => el.remove());
+    clearCellContent(cell);
     restoreItemsInCell(cell, dayClipboard);
     flashCell(cell);
     syncClientProgram();
 }
 function clearDay(cell) {
-    cell.querySelectorAll('.placed-exo').forEach(el => el.remove());
+    clearCellContent(cell);
     syncClientProgram();
 }
 function flashCell(cell) {
@@ -360,26 +401,15 @@ function flashCell(cell) {
 }
 
 // ── DUPLICATION ──────────────────────────────────────────────────────────────
+// Passe par la sérialisation (box-aware) plutôt que le clonage DOM.
 function duplicateRow(srcRow) {
+    const data = serializeRow(srcRow);
     addRow();
     const newRow = tbody.rows[tbody.rows.length-1];
-    pasteWeek_fromRow(srcRow, newRow);
+    newRow.cells[0].setAttribute('data-deload', data.deload);
+    for (const [dStr, items] of Object.entries(data.days)) restoreItemsInCell(newRow.cells[parseInt(dStr)], items);
     updateTableAndDeload();
-}
-function pasteWeek_fromRow(srcRow, dstRow) {
-    dstRow.cells[0].setAttribute('data-deload', srcRow.cells[0].getAttribute('data-deload')||'false');
-    for (let d=1; d<=7; d++) {
-        const srcCell=srcRow.cells[d]; const dstCell=dstRow.cells[d];
-        dstCell.querySelectorAll('.placed-exo').forEach(el=>el.remove());
-        Array.from(srcCell.querySelectorAll('.placed-exo')).forEach(srcEl=>{
-            const clone=srcEl.cloneNode(true);
-            if (srcEl.dataset.cardType==='muscu') attachMuscuHandlers(clone);
-            else if (srcEl.dataset.cardType==='run') attachRunHandlers(clone);
-            else if (srcEl.dataset.cardType==='hyrox') attachHyroxHandlers(clone);
-            else if (srcEl.dataset.cardType==='cardio') attachCardioHandlers(clone);
-            dstCell.appendChild(clone);
-        });
-    }
+    syncClientProgram();
 }
 
 // ── AJOUT / SUPPRESSION LIGNES ───────────────────────────────────────────────
@@ -393,10 +423,10 @@ function addRow() {
         const cell = row.insertCell(); cell.className='drop-zone';
         cell.ondragover = e=>{
             e.preventDefault(); cell.classList.add('over');
-            // Drag interne : on réordonne en direct (l'exercice suit le curseur).
+            // Drag interne : on réordonne en direct (exercice OU circuit) au 1er niveau.
             if (draggedExo) {
                 e.dataTransfer.dropEffect = 'move';
-                const after = getDragAfterElement(cell, e.clientY);
+                const after = getDragAfterElement(cell, e.clientY, ':scope > .placed-exo:not(.dragging), :scope > .circuit-box:not(.dragging)');
                 if (after == null) cell.appendChild(draggedExo);
                 else cell.insertBefore(draggedExo, after);
             }
@@ -409,6 +439,7 @@ function addRow() {
             if (draggedExo) { syncClientProgram(); return; }
             // Drag depuis la sidebar : on crée un nouvel exercice.
             const id=e.dataTransfer.getData('text/plain');
+            if (!id || id==='box:') return;
             if (id.startsWith('run:')) createPlacedRun(cell,id.slice(4));
             else if (id.startsWith('hyrox:')) createPlacedHyrox(cell,id.slice(6));
             else if (id.startsWith('cardio:')) createPlacedCardio(cell,id.slice(7));

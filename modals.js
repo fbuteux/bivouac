@@ -124,7 +124,7 @@ function regeneratePyramide(mode) {
     const saved=JSON.parse(currentEditingEl.dataset.setsData);
     const bW=saved[0]?.weight||exoData.defaultWeight;
     const bT=saved[0]?.tech||exoData.techniques[0];
-    const bRestMin=saved[0]?.restMin||2;
+    const bRestMin=saved[0]?.restMin||0;
     const bRestSec=saved[0]?.restSec||0;
     document.getElementById('sets-container').innerHTML='';
 
@@ -145,7 +145,7 @@ function onPyraParamChange() {
 }
 
 // ── SETS ─────────────────────────────────────────────────────────────────────
-function addSetRow(reps=10, weight=60, tech="Normal", pct=null, restMin=2, restSec=0) {
+function addSetRow(reps=10, weight=60, tech="Normal", pct=null, restMin=0, restSec=0) {
     const exoData=exerciseLibrary.find(e=>e.id===currentEditingEl.dataset.id);
     const mat=materiels.find(m=>m.id===exoData.materielId);
     const mode=document.getElementById('training-mode-select').value;
@@ -207,10 +207,10 @@ function saveExercise() {
     if (PYRA_MODES.includes(mode)) {
         currentEditingEl.dataset.pyramideConfig=JSON.stringify({kgStep:editingPyraKgStep,repsStep:editingPyraRepsStep,topRep:editingPyraTopRep});
     } else { delete currentEditingEl.dataset.pyramideConfig; }
-    // Progression par bloc (par exercice-id, synchronisée en live)
-    const pcfg = getModalProgConfig();
-    if (pcfg.type === 'none') delete progressionConfig[currentEditingEl.dataset.id];
-    else progressionConfig[currentEditingEl.dataset.id] = pcfg;
+    // Progression par bloc (par exercice-id, synchronisée en live).
+    // On stocke AUSSI « Aucune » ({type:'none'}) pour que le choix soit mémorisé :
+    // sinon la réouverture retomberait sur le défaut intelligent (Objectif / +kg).
+    progressionConfig[currentEditingEl.dataset.id] = getModalProgConfig();
     saveProgressionToStorage();
 
     updateExoDisplay(currentEditingEl);

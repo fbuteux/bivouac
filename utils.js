@@ -28,6 +28,8 @@ let weekClipboard = null; // { deload, days: [{cardType,…}] }
 let dayClipboard = null; // [ {cardType,…}, … ]
 // Clipboard pour copier/coller UN exercice seul (collé sans écraser la journée)
 let exoClipboard = null; // { cardType,… }
+// Clipboard pour copier/coller un circuit (box) entier avec ses exercices
+let boxClipboard = null; // { cardType:'box', name, rounds, restSec, items:[…] }
 
 // ======================== UTILS ========================
 function normalizeString(str) { return str.normalize("NFD").replace(/[\u0300-\u036f]/g,""); }

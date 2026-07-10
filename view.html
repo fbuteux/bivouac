@@ -102,11 +102,20 @@
         @keyframes gG { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
         .workout-list { display: flex; flex-direction: column; gap: 12px; }
+        /* Circuit : cadre dégradé animé, exercices dans un panneau solide. */
+        .circuit-card { border-radius: 18px; padding: 2px; background: linear-gradient(135deg,#0a84ff,#bf5af2,#5e5ce6,#0a84ff); background-size: 300% 300%; animation: gG 4s ease infinite; }
+        .circuit-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 13px 9px; gap: 8px; }
+        .circuit-name { font-weight: 800; font-size: 14px; color: #fff; }
+        .circuit-meta { font-size: 12px; font-weight: 700; color: #fff; opacity: .9; white-space: nowrap; }
+        .circuit-body { background: var(--card); border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
         .ex-block { border-radius: 16px; padding: 13px 14px 11px; border: 1px solid rgba(255,255,255,.05); }
         .ex-header { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
         .ex-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
         .ex-title    { font-size: 15px; font-weight: 700; letter-spacing: .2px; }
         .ex-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+        /* Lien vidéo « ? » : discret, aligné en haut à droite (niveau du nom). */
+        .vid-link { margin-left: auto; align-self: flex-start; flex-shrink: 0; width: 19px; height: 19px; border-radius: 50%; border: 1px solid var(--divider); color: var(--text-dim); font-size: 11px; font-weight: 700; line-height: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: color .15s, border-color .15s, background .15s; -webkit-tap-highlight-color: transparent; }
+        .vid-link:hover, .vid-link:active { color: #fff; border-color: var(--blue); background: rgba(10,132,255,.18); }
 
         .set-list { display: flex; flex-direction: column; gap: 4px; }
         .set-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 4px 5px 6px; }
@@ -354,6 +363,7 @@ function getWorkoutData(prog, date) {
 }
 
 function applyProgression(item, prog, cycleIndex) {
+    if (item.cardType === 'box') return { ...item, items: (item.items || []).map(i => applyProgression(i, prog, cycleIndex)) };
     if (item.cardType !== 'muscu') return item;
     const cfg = prog.progressionConfig?.[item.id] || { type: 'none' };
     if (cfg.type === 'none' || cycleIndex <= 0) return item;
@@ -401,16 +411,32 @@ function getDayColors(prog, date) {
     if (!data?.blocks?.length) return [];
     const seen = new Set();
     const cols = [];
-    data.blocks.forEach(b => {
+    // Les circuits (box) sont INVISIBLES dans le calendrier : on ne prend que la
+    // couleur de leurs exercices (pastilles), pas celle de la box.
+    const addColorsOf = b => {
+        if (!b) return;
+        if (b.cardType === 'box') { (b.items || []).forEach(addColorsOf); return; }
         const c = itemColor(b);
         if (!seen.has(c)) { seen.add(c); cols.push(c); }
-    });
+    };
+    data.blocks.forEach(addColorsOf);
     return cols;
 }
 
 // ════════════════════════════════════════════
 //  RENDU HTML
 // ════════════════════════════════════════════
+// Vidéos des exercices, lues depuis bibliotheque.json (id -> URL). Ainsi, éditer
+// bibliotheque.json met à jour les liens partout, sans ré-exporter les programmes.
+let videoMap = {};
+function videoLinkHTML(b) {
+    const id = b.id || b.runId || b.hyroxId || b.cardioId;
+    const v = id && videoMap[id];
+    if (!v) return '';
+    const href = /^https?:\/\//.test(v) ? v : 'https://' + v;
+    return `<a class="vid-link no-flip" href="${href}" target="_blank" rel="noopener" title="Voir la vidéo de l'exercice" onclick="event.stopPropagation()">?</a>`;
+}
+
 function blockHTML(block) {
     if (!block) return '';
     const col = itemColor(block);
@@ -418,6 +444,7 @@ function blockHTML(block) {
     const bg = col + '10';
     const iconBg = col + '22';
     
+    if (block.cardType === 'box') return boxHTML(block);
     if (block.cardType === 'muscu') return muscuHTML(block, col, em, bg, iconBg);
     if (block.cardType === 'run') return runHTML(block, col, em, bg, iconBg);
     if (block.cardType === 'hyrox') return hyroxHTML(block, col, em, bg, iconBg);
@@ -425,10 +452,26 @@ function blockHTML(block) {
     return '';
 }
 
+// Circuit : cadre dégradé animé (comme le compteur d'exos), exercices à l'intérieur.
+function boxHTML(box) {
+    const rounds = box.rounds || 1;
+    const restStr = box.restSec > 0 ? ` · repos ${fmtTime(box.restSec)}` : '';
+    const inner = (box.items || []).map(blockHTML).join('');
+    return `<div class="circuit-card">
+        <div class="circuit-head">
+            <span class="circuit-name">🔁 ${box.name || 'Circuit'}</span>
+            <span class="circuit-meta">×${rounds}${restStr}</span>
+        </div>
+        <div class="circuit-body">${inner || '<div style="color:var(--text-dim);font-size:12px;text-align:center;padding:6px">Circuit vide</div>'}</div>
+    </div>`;
+}
+
 function muscuHTML(b, col, em, bg, iconBg) {
     const sets = b.sets || [];
+    const isSec = b.unit === 'sec'; // exercice au temps (gainage, planche…) : reps = secondes
     const fmtW = w => `${Math.round(w * 4) / 4} kg`;
     const restOf = s => (s.restMin || 0) * 60 + (s.restSec || 0);
+    const amt = r => isSec ? `${r} s` : `${r} reps`;
 
     // Repos : jamais affiché si 0 ; une seule fois si tous égaux ; par série s'ils diffèrent.
     const rests = sets.map(restOf);
@@ -436,11 +479,10 @@ function muscuHTML(b, col, em, bg, iconBg) {
     const restsEqual = rests.every(r => r === rests[0]);
     const commonRest = anyRest && restsEqual ? `Repos ${fmtTime(rests[0])}` : '';
 
-    // Affichage compact quand toutes les séries ont le MÊME poids, la MÊME
-    // technique ET le MÊME repos : « 1→6→1 » au lieu de N lignes.
+    // Affichage compact quand toutes les séries ont même charge, technique ET repos.
     const w0 = sets[0]?.weight;
     const t0 = sets[0]?.tech || sets[0]?.technique || 'Normal';
-    const uniform = sets.length >= 3 && w0 > 0 && restsEqual
+    const uniform = sets.length >= 3 && (isSec || w0 > 0) && restsEqual
         && sets.every(s => (s.weight || 0) === (w0 || 0))
         && sets.every(s => (s.tech || s.technique || 'Normal') === t0);
 
@@ -449,37 +491,48 @@ function muscuHTML(b, col, em, bg, iconBg) {
         const reps = sets.map(s => s.reps || 0);
         const peak = Math.max(...reps), first = reps[0], last = reps[reps.length - 1];
         const allEq = reps.every(r => r === first);
+        const uSfx = isSec ? ' s' : ' reps';
         let desc;
-        if (allEq) desc = `${sets.length} × ${first} reps`;
+        if (allEq) desc = `${sets.length} × ${first}${uSfx}`;
         else {
             const seq = first === peak ? `${peak}→${last}` : last === peak ? `${first}→${peak}` : `${first}→${peak}→${last}`;
             let step = 0;
             for (let k = 1; k < reps.length; k++) { const d = Math.abs(reps[k] - reps[k - 1]); if (d > 0) step = step ? Math.min(step, d) : d; }
-            desc = `${seq} reps · pas ${step || 1}`;
+            desc = `${seq}${uSfx} · pas ${step || 1}`;
         }
+        // Colonne de droite : charge (kg) — ou lest si exercice au temps, rien si poids du corps.
+        const right = isSec ? (w0 > 0 ? `+${fmtW(w0)}` : '') : fmtW(w0);
         rows = `<div class="set-row">
             <div class="set-info">
                 <span class="set-name">${desc}</span>
                 ${t0 && t0 !== 'Normal' ? `<span class="set-meta">${t0}</span>` : ''}
             </div>
-            <div class="set-weight" style="color:${col}">${fmtW(w0)}</div>
+            <div class="set-weight" style="color:${col}">${right}</div>
         </div>`;
     } else {
         rows = sets.map(s => {
-            let wStr = '—';
-            if (s.weight !== undefined && s.weight !== null && s.weight > 0) wStr = fmtW(s.weight);
-            else if (s.pct) wStr = `${s.pct}%`;
-            const reps = s.reps ? `${s.reps} reps` : '';
-            // Repos par série uniquement s'ils diffèrent (sinon affiché 1 fois dans le sous-titre).
-            const r = restOf(s);
-            const restMeta = (!restsEqual && r > 0) ? `${reps ? ' · ' : ''}repos ${fmtTime(r)}` : '';
             const technique = s.tech || s.technique || 'Normal';
+            const r = restOf(s);
+            const restMeta = (!restsEqual && r > 0) ? `repos ${fmtTime(r)}` : '';
+            let right, metaParts = [];
+            if (isSec) {
+                // Durée mise en avant ; le poids n'apparaît que si lesté.
+                right = `${s.reps || 0} s`;
+                if (s.weight > 0) metaParts.push(`+${fmtW(s.weight)}`);
+            } else {
+                if (s.weight !== undefined && s.weight !== null && s.weight > 0) right = fmtW(s.weight);
+                else if (s.pct) right = `${s.pct}%`;
+                else right = '—';
+                if (s.reps) metaParts.push(amt(s.reps));
+            }
+            if (restMeta) metaParts.push(restMeta);
+            const meta = metaParts.join(' · ');
             return `<div class="set-row">
                 <div class="set-info">
                     <span class="set-name">${technique}</span>
-                    ${(reps || restMeta) ? `<span class="set-meta">${reps}${restMeta}</span>` : ''}
+                    ${meta ? `<span class="set-meta">${meta}</span>` : ''}
                 </div>
-                <div class="set-weight" style="color:${col}">${wStr}</div>
+                <div class="set-weight" style="color:${col}">${right}</div>
             </div>`;
         }).join('');
     }
@@ -493,6 +546,7 @@ function muscuHTML(b, col, em, bg, iconBg) {
                 <div class="ex-title">${b.name || 'Exercice'}</div>
                 <div class="ex-subtitle">${modeBadge}${setCount} série${setCount > 1 ? 's' : ''}${commonRest ? ` · ${commonRest}` : ''}</div>
             </div>
+            ${videoLinkHTML(b)}
         </div>
         <div class="set-list">${rows || '<div class="set-row"><div class="set-info"><span class="set-name">Aucune série</span></div></div>'}</div>
     </div>`;
@@ -522,6 +576,7 @@ function runHTML(b, col, em, bg, iconBg) {
         <div class="ex-header">
             <div class="ex-icon" style="background:${iconBg}">${em}</div>
             <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${d.zone || 'Course'}</div></div>
+            ${videoLinkHTML(b)}
         </div>${body}${notes}
     </div>`;
 }
@@ -537,6 +592,7 @@ function hyroxHTML(b, col, em, bg, iconBg) {
         <div class="ex-header">
             <div class="ex-icon" style="background:${iconBg}">${em}</div>
             <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${parts.join(' · ') || '—'}</div></div>
+            ${videoLinkHTML(b)}
         </div>
         ${d.notes ? `<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:4px">${d.notes}</div>` : ''}
     </div>`;
@@ -554,6 +610,7 @@ function cardioHTML(b, col, em, bg, iconBg) {
         <div class="ex-header">
             <div class="ex-icon" style="background:${iconBg}">${em}</div>
             <div><div class="ex-title">${b.name}</div><div class="ex-subtitle">${parts.join(' · ') || '—'}</div></div>
+            ${videoLinkHTML(b)}
         </div>
         ${d.notes ? `<div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:4px">${d.notes}</div>` : ''}
     </div>`;
@@ -637,7 +694,9 @@ function dayExercises(prog, date) {
     const weekIndex = Math.floor(diffDays / 7) % prog.weeks.length;
     const dayName = DAYS_FR[date.getDay()];
     const raw = prog.weeks[weekIndex]?.days?.[dayName] || [];
-    return raw
+    // Aplatit les circuits (box) pour inclure leurs exercices dans les stats.
+    const flat = raw.flatMap(it => it && it.cardType === 'box' ? (it.items || []) : [it]).filter(Boolean);
+    return flat
         .filter(it => it.cardType === 'muscu' && (it.sets || []).some(s => (s.weight || 0) > 0))
         .map(it => {
             const sets = it.sets || [];
@@ -1117,6 +1176,14 @@ setInterval(() => {
         if (current) _applyProgramUpdate(current);
     }
 }, 500);
+
+// Charge les vidéos des exercices depuis bibliotheque.json (id -> URL) puis re-rend.
+fetch('bibliotheque.json').then(r => r.json()).then(lib => {
+    ['exercices', 'runExercices', 'hyroxExercices', 'cardioExercices'].forEach(k =>
+        (lib[k] || []).forEach(e => { if (e.video) videoMap[e.id] = e.video; }));
+    if (programRecto) render();
+}).catch(() => {});
+
 loadPrograms();
 </script>
 </body>

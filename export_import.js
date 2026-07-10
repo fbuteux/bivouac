@@ -94,13 +94,20 @@ function confirmExport(){
         weeks:Array.from(tbody.rows).map((row,idx)=>{
             const wc=row.cells[0];const isDl=wc.getAttribute('data-deload')==='true';
             let wsd=null;if(sd){wsd=new Date(sd);wsd.setDate(wsd.getDate()+idx*7);}
+            const exportEl=el=>{
+                if(el.dataset.cardType==='muscu'){const em=exerciseLibrary.find(e=>e.id===el.dataset.id);const mt=em?materiels.find(m=>m.id===em.materielId):null;return{cardType:'muscu',id:el.dataset.id,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,materielId:em?em.materielId:null,step:mt?mt.step:1,unit:em&&em.unit?em.unit:undefined,trainingMode:el.dataset.trainingMode||'normal',pyramideConfig:el.dataset.pyramideConfig?JSON.parse(el.dataset.pyramideConfig):null,progressionConfig:pC[el.dataset.id]||{type:'none'},sets:JSON.parse(el.dataset.setsData)};}
+                if(el.dataset.cardType==='run'){const rm=runLibrary.find(r=>r.id===el.dataset.runId);return{cardType:'run',runId:el.dataset.runId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:rm?rm.type:'course',zones:rm?rm.zones:[],runData:JSON.parse(el.dataset.runData)};}
+                if(el.dataset.cardType==='hyrox'){const hm=hyroxLibrary.find(h=>h.id===el.dataset.hyroxId);return{cardType:'hyrox',hyroxId:el.dataset.hyroxId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:hm?hm.type:null,hyroxData:JSON.parse(el.dataset.hyroxData)};}
+                if(el.dataset.cardType==='cardio'){const cm=cardioLibrary.find(c=>c.id===el.dataset.cardioId);return{cardType:'cardio',cardioId:el.dataset.cardioId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:cm?cm.type:null,cardioData:JSON.parse(el.dataset.cardioData)};}
+                return null;
+            };
             const days={};
             for(let d=1;d<=7;d++){
                 const cell=row.cells[d];const di=[];
-                Array.from(cell.querySelectorAll('.placed-exo[data-card-type="muscu"]')).forEach(el=>{const em=exerciseLibrary.find(e=>e.id===el.dataset.id);const mt=em?materiels.find(m=>m.id===em.materielId):null;di.push({cardType:'muscu',id:el.dataset.id,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,materielId:em?em.materielId:null,step:mt?mt.step:1,trainingMode:el.dataset.trainingMode||'normal',pyramideConfig:el.dataset.pyramideConfig?JSON.parse(el.dataset.pyramideConfig):null,progressionConfig:pC[el.dataset.id]||{type:'none'},sets:JSON.parse(el.dataset.setsData)});});
-                Array.from(cell.querySelectorAll('.placed-run')).forEach(el=>{const rm=runLibrary.find(r=>r.id===el.dataset.runId);di.push({cardType:'run',runId:el.dataset.runId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:rm?rm.type:'course',zones:rm?rm.zones:[],runData:JSON.parse(el.dataset.runData)});});
-                Array.from(cell.querySelectorAll('.placed-hyrox')).forEach(el=>{const hm=hyroxLibrary.find(h=>h.id===el.dataset.hyroxId);di.push({cardType:'hyrox',hyroxId:el.dataset.hyroxId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:hm?hm.type:null,hyroxData:JSON.parse(el.dataset.hyroxData)});});
-                Array.from(cell.querySelectorAll('.placed-cardio')).forEach(el=>{const cm=cardioLibrary.find(c=>c.id===el.dataset.cardioId);di.push({cardType:'cardio',cardioId:el.dataset.cardioId,name:el.dataset.name,emoji:el.dataset.emoji,color:el.dataset.color,type:cm?cm.type:null,cardioData:JSON.parse(el.dataset.cardioData)});});
+                Array.from(cell.children).forEach(ch=>{
+                    if(ch.classList.contains('placed-exo')){const it=exportEl(ch);if(it)di.push(it);}
+                    else if(ch.classList.contains('circuit-box'))di.push({cardType:'box',name:ch.dataset.boxName||'Circuit',rounds:parseInt(ch.dataset.rounds)||1,restSec:parseInt(ch.dataset.restSec)||0,items:Array.from(ch.querySelectorAll('.box-drop > .placed-exo')).map(exportEl).filter(Boolean)});
+                });
                 if(di.length)days[DAYS[d-1]]=di;
             }
             const wd={week:idx+1,deload:isDl,days};if(wsd)wd.startDate=wsd.toISOString().split('T')[0];return wd;
@@ -131,6 +138,16 @@ function loadProgramIntoTable(program){
     if(program.progressionConfig){Object.assign(progressionConfig,program.progressionConfig);saveProgressionToStorage();}
     if(program.startDate){const d=new Date(program.startDate);document.getElementById('start-date').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
     const iPC=program.progressionConfig||{};
+    // Convertit un item exporté (sets en tableau…) vers la forme attendue par
+    // restoreItemsInCell (données JSON en chaîne). Récursif pour les circuits (box).
+    const toRestore = item => {
+        if (item.cardType==='box') return {...item, items:(item.items||[]).map(toRestore)};
+        if (item.cardType==='muscu'||(!item.cardType&&item.id)) return {...item, cardType:'muscu', setsData:JSON.stringify(item.sets||[]), progressionConfig:JSON.stringify(item.progressionConfig||iPC[item.id]||{type:'none'}), pyramideConfig:item.pyramideConfig?JSON.stringify(item.pyramideConfig):null};
+        if (item.cardType==='run') return {...item, runData:JSON.stringify(item.runData)};
+        if (item.cardType==='hyrox') return {...item, hyroxData:JSON.stringify(item.hyroxData)};
+        if (item.cardType==='cardio') return {...item, cardioData:JSON.stringify(item.cardioData)};
+        return item;
+    };
     program.weeks.forEach((wd,idx)=>{
         addRow();
         const row=tbody.rows[idx];const wc=row.cells[0];
@@ -138,13 +155,7 @@ function loadProgramIntoTable(program){
         updateWeekDisplay(wc,wd.week,wd.deload);
         DAYS.forEach((dayName,dIdx)=>{
             const cell=row.cells[dIdx+1];const items=wd.days[dayName]||[];
-            restoreItemsInCell(cell, items.map(item=>{
-                if (item.cardType==='muscu'||(!item.cardType&&item.id)) return {...item, cardType:'muscu', setsData:JSON.stringify(item.sets||[]), progressionConfig:JSON.stringify(item.progressionConfig||iPC[item.id]||{type:'none'}), pyramideConfig:item.pyramideConfig?JSON.stringify(item.pyramideConfig):null};
-                if (item.cardType==='run') return {...item, runData:JSON.stringify(item.runData)};
-                if (item.cardType==='hyrox') return {...item, hyroxData:JSON.stringify(item.hyroxData)};
-                if (item.cardType==='cardio') return {...item, cardioData:JSON.stringify(item.cardioData)};
-                return item;
-            }));
+            restoreItemsInCell(cell, items.map(toRestore));
         });
     });
     updateTableAndDeload();

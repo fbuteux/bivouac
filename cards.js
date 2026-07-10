@@ -9,10 +9,9 @@ function createBox(parent, cfg) {
     box.dataset.rounds = cfg.rounds || 3;
     box.dataset.restSec = (cfg.restSec != null ? cfg.restSec : 60);
     box.innerHTML = `<div class="box-head">
-        <span class="box-badge">🔁</span>
         <input class="box-name" placeholder="Circuit" maxlength="40">
-        <label class="box-param" title="Nombre de tours">×<input type="number" class="box-rounds" min="1" max="30"></label>
-        <label class="box-param" title="Repos entre les tours (secondes)"><input type="number" class="box-rest" min="0" step="5">s</label>
+        <label class="box-param" title="Nombre de tours">×<input type="text" class="box-rounds" min="1" max="30"></label>
+        <label class="box-param" title="Repos entre les tours (secondes)"><input type="text" class="box-rest" min="0" step="5">s</label>
         <button class="box-del" title="Supprimer le circuit">×</button>
       </div><div class="box-drop"></div>`;
     box.querySelector('.box-name').value = box.dataset.boxName;
@@ -30,6 +29,29 @@ function attachBoxHandlers(box) {
     box.querySelector('.box-del').addEventListener('click', e => { e.stopPropagation(); box.remove(); syncClientProgram(); });
     // Empêche le clic sur l'entête d'ouvrir la recherche flottante de la cellule.
     box.querySelector('.box-head').addEventListener('click', e => e.stopPropagation());
+
+    // Poignée de déplacement = le badge 🔁 : déplace TOUT le circuit (avec ses exos).
+    const head = box.querySelector('.box-head');
+    let handle = box.querySelector('.box-grip');
+    if (!handle) {
+        handle = document.createElement('span');
+        handle.className = 'box-grip';
+        handle.textContent = '⠿';
+        handle.title = 'Déplacer le circuit';
+        head.insertBefore(handle, head.firstChild);
+    }
+    handle.draggable = true;
+    handle.addEventListener('dragstart', e => {
+        e.stopPropagation();
+        e.dataTransfer.setData('text/plain', 'box:');
+        e.dataTransfer.effectAllowed = 'move';
+        draggedExo = box; // draggedExo peut être un exercice OU un circuit
+        setTimeout(() => box.classList.add('dragging'), 0);
+    });
+    handle.addEventListener('dragend', () => { box.classList.remove('dragging'); draggedExo = null; syncClientProgram(); });
+
+    // Clic droit sur le circuit → menu copier / coller / dupliquer / supprimer.
+    box.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); showBoxContextMenu(e, box); });
 }
 
 // ======================== CARTES ========================
@@ -38,6 +60,7 @@ function createPlacedExercise(parent, exoId) {
     const el=document.createElement('div'); el.className='placed-exo';
     el.dataset.id=exoId; el.dataset.name=data.name; el.dataset.emoji=data.emoji; el.dataset.color=data.color;
     el.dataset.trainingMode='normal'; el.dataset.cardType='muscu';
+    if (data.unit) el.dataset.unit=data.unit; // ex. 'sec' pour gainage/planche
     el.style.backgroundColor=data.color+"22"; el.style.borderLeft=`3px solid ${data.color}`;
     el.dataset.setsData=JSON.stringify(Array.from({length:data.defaultSets},()=>({reps:data.defaultReps,weight:data.defaultWeight,tech:data.techniques[0]})));
     updateExoDisplay(el); attachMuscuHandlers(el); el.draggable=true;
@@ -55,9 +78,10 @@ function updateExoDisplay(el) {
     const badge=b?` <span style="font-size:8px;background:${b.bg};color:${b.color};padding:1px 4px;border-radius:4px;font-weight:700">${b.label}</span>`:'';
     let summary='';
     if (sets.length>0) {
+        const u=el.dataset.unit==='sec'?'s':'';
         const sr=sets.every(s=>s.reps===sets[0].reps), sk=sets.every(s=>s.weight===sets[0].weight);
-        if (sr&&sk&&sets[0].weight>0) summary=`${sets.length}×${sets[0].reps} · ${sets[0].weight}kg`;
-        else if (sr) summary=`${sets.length}×${sets[0].reps}`;
+        if (sr&&sk&&sets[0].weight>0) summary=`${sets.length}×${sets[0].reps}${u} · ${sets[0].weight}kg`;
+        else if (sr) summary=`${sets.length}×${sets[0].reps}${u}`;
         else summary=`${sets.length} série${sets.length>1?'s':''}`;
     }
     el.innerHTML=`<span>${el.dataset.emoji} ${el.dataset.name}${badge}</span><span class="card-summary">${summary}</span><span class="delete-btn">×</span>`;

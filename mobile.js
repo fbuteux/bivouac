@@ -986,6 +986,27 @@ function openClientView() {
     window.open('view.html', '_blank');
 }
 
+function _exportItemFromEl(el) {
+    const item = { cardType: el.dataset.cardType };
+    if (el.dataset.cardType === 'muscu') {
+        item.id = el.dataset.id; item.name = el.dataset.name; item.emoji = el.dataset.emoji; item.color = el.dataset.color;
+        item.materielId = el.dataset.materielId; item.trainingMode = el.dataset.trainingMode || 'normal';
+        if (el.dataset.unit) item.unit = el.dataset.unit;
+        item.pyramideConfig = el.dataset.pyramideConfig || null;
+        item.progressionConfig = el.dataset.progressionConfig ? (function(){try{return JSON.parse(el.dataset.progressionConfig);}catch(e){return null;}})() : null;
+        try { item.sets = JSON.parse(el.dataset.setsData); } catch(e) { item.sets = []; }
+    } else if (el.dataset.cardType === 'run') {
+        item.name = el.dataset.name; item.emoji = el.dataset.emoji; item.color = el.dataset.color; item.runId = el.dataset.runId;
+        try { item.runData = JSON.parse(el.dataset.runData); } catch(e) { item.runData = {}; }
+    } else if (el.dataset.cardType === 'hyrox') {
+        item.name = el.dataset.name; item.emoji = el.dataset.emoji; item.color = el.dataset.color; item.hyroxId = el.dataset.hyroxId;
+        try { item.hyroxData = JSON.parse(el.dataset.hyroxData); } catch(e) { item.hyroxData = {}; }
+    } else if (el.dataset.cardType === 'cardio') {
+        item.name = el.dataset.name; item.emoji = el.dataset.emoji; item.color = el.dataset.color; item.cardioId = el.dataset.cardioId;
+        try { item.cardioData = JSON.parse(el.dataset.cardioData); } catch(e) { item.cardioData = {}; }
+    } else { return null; }
+    return item;
+}
 function exportProgramData() {
     // Exporter toutes les semaines
     const weeks = [];
@@ -995,45 +1016,19 @@ function exportProgramData() {
         DAYS.forEach((dayName, idx) => {
             const cell = row.cells[idx + 1];
             const items = [];
-            cell.querySelectorAll('.placed-exo').forEach(el => {
-                const item = { cardType: el.dataset.cardType };
-                if (el.dataset.cardType === 'muscu') {
-                    item.id = el.dataset.id;
-                    item.name = el.dataset.name;
-                    item.emoji = el.dataset.emoji;
-                    item.color = el.dataset.color;
-                    item.materielId = el.dataset.materielId;
-                    item.trainingMode = el.dataset.trainingMode || 'normal';
-                    item.pyramideConfig = el.dataset.pyramideConfig || null;
-                    try {
-                        item.sets = JSON.parse(el.dataset.setsData);
-                    } catch(e) { item.sets = []; }
-                } else if (el.dataset.cardType === 'run') {
-                    item.name = el.dataset.name;
-                    item.emoji = el.dataset.emoji;
-                    item.color = el.dataset.color;
-                    item.runId = el.dataset.runId;
-                    try {
-                        item.runData = JSON.parse(el.dataset.runData);
-                    } catch(e) { item.runData = {}; }
-                } else if (el.dataset.cardType === 'hyrox') {
-                    item.name = el.dataset.name;
-                    item.emoji = el.dataset.emoji;
-                    item.color = el.dataset.color;
-                    item.hyroxId = el.dataset.hyroxId;
-                    try {
-                        item.hyroxData = JSON.parse(el.dataset.hyroxData);
-                    } catch(e) { item.hyroxData = {}; }
-                } else if (el.dataset.cardType === 'cardio') {
-                    item.name = el.dataset.name;
-                    item.emoji = el.dataset.emoji;
-                    item.color = el.dataset.color;
-                    item.cardioId = el.dataset.cardioId;
-                    try {
-                        item.cardioData = JSON.parse(el.dataset.cardioData);
-                    } catch(e) { item.cardioData = {}; }
+            // Items de 1er niveau, dans l'ordre : exercices ET circuits (box).
+            Array.from(cell.children).forEach(ch => {
+                if (ch.classList.contains('placed-exo')) {
+                    const it = _exportItemFromEl(ch); if (it) items.push(it);
+                } else if (ch.classList.contains('circuit-box')) {
+                    items.push({
+                        cardType: 'box',
+                        name: ch.dataset.boxName || 'Circuit',
+                        rounds: parseInt(ch.dataset.rounds) || 1,
+                        restSec: parseInt(ch.dataset.restSec) || 0,
+                        items: Array.from(ch.querySelectorAll('.box-drop > .placed-exo')).map(_exportItemFromEl).filter(Boolean)
+                    });
                 }
-                items.push(item);
             });
             days[dayName] = items;
         });

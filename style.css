@@ -131,6 +131,9 @@ nav {
     background:linear-gradient(135deg,#0a84ff,#bf5af2,#5e5ce6,#0a84ff); background-size:300% 300%;
     animation:boxGrad 6s ease infinite; }
 .circuit-box .box-head { display:flex; align-items:center; gap:4px; padding:3px 5px 4px; }
+.box-grip { flex-shrink:0; color:#fff; opacity:.75; font-size:13px; line-height:1; cursor:grab; padding:0 2px; -webkit-user-select:none; user-select:none; }
+.box-grip:active { cursor:grabbing; }
+.circuit-box.dragging { opacity:.4; pointer-events:none; }
 .box-badge { font-size:11px; flex-shrink:0; }
 .box-name { flex:1; min-width:0; background:rgba(0,0,0,0.30); border:none; color:#fff; font-weight:700;
     font-size:11px; padding:3px 6px; border-radius:6px; font-family:inherit; outline:none; }

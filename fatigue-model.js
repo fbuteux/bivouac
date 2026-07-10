@@ -195,11 +195,21 @@ function extractFatigueEvents(program, library) {
     const libById = {};
     (library.exercices || []).forEach(e => { libById[e.id] = e; });
 
+    // Aplatit les items d'un jour : les circuits (box) sont remplacés par leurs exercices.
+    const flatten = items => {
+        const out = [];
+        (items || []).forEach(it => {
+            if (it && it.cardType === 'box') out.push(...(it.items || []));
+            else if (it) out.push(it);
+        });
+        return out;
+    };
+
     // Pré-calcul : toutes les séries par exercice (pour estimer le 1RM global).
     const setsByExo = {};
     program.weeks.forEach(w => {
         Object.values(w.days || {}).forEach(items => {
-            (items || []).forEach(it => {
+            flatten(items).forEach(it => {
                 if (it.cardType === 'muscu' && it.sets) {
                     (setsByExo[it.id] = setsByExo[it.id] || []).push(...it.sets);
                 }
@@ -217,8 +227,9 @@ function extractFatigueEvents(program, library) {
     program.weeks.forEach((week, wi) => {
         const isDeload = !!week.deload;
         DAY_NAMES.forEach((dayName) => {
-            const items = (week.days || {})[dayName];
-            if (!items || !items.length) return;
+            const rawItems = (week.days || {})[dayName];
+            if (!rawItems || !rawItems.length) return;
+            const items = flatten(rawItems); // circuits aplatis → leurs exercices comptent
             // Position de la séance dans la semaine, à partir de la date de début.
             const offset = (DAYNAME_TO_JS[dayName] - startWeekday + 7) % 7;
             const date = _addDays(start, wi * 7 + offset);

@@ -1,61 +1,214 @@
 {
     "materiels": [
-        { "id": "barre", "name": "Barre", "step": 2.5 },
-        { "id": "haltere", "name": "Haltères", "step": 2 },
-        { "id": "leste", "name": "Lesté", "step": 1.25 },
-        { "id": "poulie", "name": "Poulie", "step": 2.5 },
-        { "id": "machine", "name": "Machine", "step": 2.5 },
-        { "id": "elastique", "name": "Élastique", "step": 1 },
-        { "id": "poulie_basse", "name": "Poulie basse", "step": 2.5 },
-        { "id": "swiss_ball", "name": "Swiss Ball", "step": 0 },
-        { "id": "run", "name": "Course", "step": 0 },
-        { "id": "pdc", "name": "Poids de corps", "step": 0 },
-        { "id": "pdc_leste", "name": "PDC Lesté", "step": 1.25 },
-        { "id": "kettlebell", "name": "Kettlebell", "step": 4 },
-        { "id": "sled", "name": "Traineau", "step": 10 },
-        { "id": "skierg", "name": "SkiErg", "step": 0 },
-        { "id": "rowing_machine", "name": "Rameur", "step": 0 },
-        { "id": "assault_bike", "name": "Assault Bike", "step": 0 },
-        { "id": "sandbag", "name": "Sandbag", "step": 5 },
-        { "id": "farmers_carry", "name": "Farmers Carry", "step": 2 }
+        {
+            "id": "barre",
+            "name": "Barre",
+            "step": 2.5
+        },
+        {
+            "id": "haltere",
+            "name": "Haltères",
+            "step": 2
+        },
+        {
+            "id": "leste",
+            "name": "Lesté",
+            "step": 1.25
+        },
+        {
+            "id": "poulie",
+            "name": "Poulie",
+            "step": 2.5
+        },
+        {
+            "id": "machine",
+            "name": "Machine",
+            "step": 2.5
+        },
+        {
+            "id": "elastique",
+            "name": "Élastique",
+            "step": 1
+        },
+        {
+            "id": "poulie_basse",
+            "name": "Poulie basse",
+            "step": 2.5
+        },
+        {
+            "id": "swiss_ball",
+            "name": "Swiss Ball",
+            "step": 0
+        },
+        {
+            "id": "run",
+            "name": "Course",
+            "step": 0
+        },
+        {
+            "id": "pdc",
+            "name": "Poids de corps",
+            "step": 0
+        },
+        {
+            "id": "pdc_leste",
+            "name": "PDC Lesté",
+            "step": 1.25
+        },
+        {
+            "id": "kettlebell",
+            "name": "Kettlebell",
+            "step": 4
+        },
+        {
+            "id": "sled",
+            "name": "Traineau",
+            "step": 10
+        },
+        {
+            "id": "skierg",
+            "name": "SkiErg",
+            "step": 0
+        },
+        {
+            "id": "rowing_machine",
+            "name": "Rameur",
+            "step": 0
+        },
+        {
+            "id": "assault_bike",
+            "name": "Assault Bike",
+            "step": 0
+        },
+        {
+            "id": "sandbag",
+            "name": "Sandbag",
+            "step": 5
+        },
+        {
+            "id": "farmers_carry",
+            "name": "Farmers Carry",
+            "step": 2
+        }
     ],
     "trainingMethods": {
         "ppl": {
-            "Push": ["Pecs", "Push", "Triceps", "Épaules"],
-            "Pull": ["Dos", "Pull", "Biceps", "Bras"],
-            "Legs": ["Jambes", "Legs", "Abdos", "Core"]
+            "Push": [
+                "Pecs",
+                "Push",
+                "Triceps",
+                "Épaules"
+            ],
+            "Pull": [
+                "Dos",
+                "Pull",
+                "Biceps",
+                "Bras"
+            ],
+            "Legs": [
+                "Jambes",
+                "Legs",
+                "Abdos",
+                "Core"
+            ]
         },
         "split": {
-            "Pecs": ["Pecs", "Push"],
-            "Dos": ["Dos", "Pull"],
-            "Jambes": ["Jambes", "Legs"],
-            "Épaules": ["Épaules"],
-            "Bras": ["Bras", "Biceps", "Triceps"],
-            "Abdos": ["Abdos", "Core"]
+            "Pecs": [
+                "Pecs",
+                "Push"
+            ],
+            "Dos": [
+                "Dos",
+                "Pull"
+            ],
+            "Jambes": [
+                "Jambes",
+                "Legs"
+            ],
+            "Épaules": [
+                "Épaules"
+            ],
+            "Bras": [
+                "Bras",
+                "Biceps",
+                "Triceps"
+            ],
+            "Abdos": [
+                "Abdos",
+                "Core"
+            ]
         },
         "upperlower": {
-            "Upper": ["Pecs", "Push", "Dos", "Pull", "Épaules", "Bras", "Biceps", "Triceps", "Abdos", "Core"],
-            "Lower": ["Jambes", "Legs"]
+            "Upper": [
+                "Pecs",
+                "Push",
+                "Dos",
+                "Pull",
+                "Épaules",
+                "Bras",
+                "Biceps",
+                "Triceps",
+                "Abdos",
+                "Core"
+            ],
+            "Lower": [
+                "Jambes",
+                "Legs"
+            ]
         },
         "run": {
-            "Sortie": ["Sortie", "Course"],
-            "Fractionné": ["Fractionné"],
-            "Renfo": ["Renfo Run", "Jambes", "Core", "Abdos"]
+            "Sortie": [
+                "Sortie",
+                "Course"
+            ],
+            "Fractionné": [
+                "Fractionné"
+            ],
+            "Renfo": [
+                "Renfo Run",
+                "Jambes",
+                "Core",
+                "Abdos"
+            ]
         },
         "pdc": {
-            "Poussée": ["PDC Push", "PDC"],
-            "Tirage": ["PDC Pull", "PDC"],
-            "Jambes & Core": ["PDC Legs", "PDC Core", "PDC"]
+            "Poussée": [
+                "PDC Push",
+                "PDC"
+            ],
+            "Tirage": [
+                "PDC Pull",
+                "PDC"
+            ],
+            "Jambes & Core": [
+                "PDC Legs",
+                "PDC Core",
+                "PDC"
+            ]
         },
         "hyrox": {
-            "Stations": ["Hyrox Station"],
-            "Course": ["Hyrox Course"],
-            "Renfo": ["Renfo Run", "Jambes", "Core"]
+            "Stations": [
+                "Hyrox Station"
+            ],
+            "Course": [
+                "Hyrox Course"
+            ],
+            "Renfo": [
+                "Renfo Run",
+                "Jambes",
+                "Core"
+            ]
         },
         "cardio": {
-            "Machines": ["Cardio Machine"],
-            "Fonctionnel": ["Cardio Fonctionnel"],
-            "Carries": ["Cardio Carry"]
+            "Machines": [
+                "Cardio Machine"
+            ],
+            "Fonctionnel": [
+                "Cardio Fonctionnel"
+            ],
+            "Carries": [
+                "Cardio Carry"
+            ]
         }
     },
     "runExercices": [
@@ -65,13 +218,21 @@
             "emoji": "🏃",
             "color": "#ffffff",
             "type": "course",
-            "categories": ["Sortie", "Course"],
+            "categories": [
+                "Sortie",
+                "Course"
+            ],
             "defaultDuration": 45,
             "defaultDistance": 8,
             "defaultPaceMin": 5,
             "defaultPaceSec": 30,
             "defaultRPE": 6,
-            "zones": ["Z2 Endurance", "Z1 Récup active", "Z3 Tempo"]
+            "zones": [
+                "Z2 Endurance",
+                "Z1 Récup active",
+                "Z3 Tempo"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_tempo",
@@ -79,13 +240,21 @@
             "emoji": "⚡",
             "color": "#ffffff",
             "type": "course",
-            "categories": ["Sortie", "Course"],
+            "categories": [
+                "Sortie",
+                "Course"
+            ],
             "defaultDuration": 40,
             "defaultDistance": 7,
             "defaultPaceMin": 4,
             "defaultPaceSec": 30,
             "defaultRPE": 7,
-            "zones": ["Z3 Tempo", "Z4 Seuil", "Z2 Endurance"]
+            "zones": [
+                "Z3 Tempo",
+                "Z4 Seuil",
+                "Z2 Endurance"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_long",
@@ -93,13 +262,20 @@
             "emoji": "🌄",
             "color": "#ffffff",
             "type": "course",
-            "categories": ["Sortie", "Course"],
+            "categories": [
+                "Sortie",
+                "Course"
+            ],
             "defaultDuration": 90,
             "defaultDistance": 16,
             "defaultPaceMin": 5,
             "defaultPaceSec": 45,
             "defaultRPE": 6,
-            "zones": ["Z2 Endurance", "Z1 Récup active"]
+            "zones": [
+                "Z2 Endurance",
+                "Z1 Récup active"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_frac_court",
@@ -107,7 +283,9 @@
             "emoji": "🔥",
             "color": "#ffffff",
             "type": "fractionne",
-            "categories": ["Fractionné"],
+            "categories": [
+                "Fractionné"
+            ],
             "defaultBlocs": 8,
             "defaultEffortSec": 30,
             "defaultEffortDist": 0,
@@ -119,7 +297,11 @@
             "defaultRecupPaceSec": 0,
             "defaultWarmupMin": 10,
             "defaultCooldownMin": 10,
-            "zones": ["Z5 VO2max", "Z4 Seuil"]
+            "zones": [
+                "Z5 VO2max",
+                "Z4 Seuil"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_frac_long",
@@ -127,7 +309,9 @@
             "emoji": "💨",
             "color": "#ffffff",
             "type": "fractionne",
-            "categories": ["Fractionné"],
+            "categories": [
+                "Fractionné"
+            ],
             "defaultBlocs": 5,
             "defaultEffortSec": 180,
             "defaultEffortDist": 0,
@@ -139,7 +323,11 @@
             "defaultRecupPaceSec": 30,
             "defaultWarmupMin": 10,
             "defaultCooldownMin": 10,
-            "zones": ["Z4 Seuil", "Z5 VO2max"]
+            "zones": [
+                "Z4 Seuil",
+                "Z5 VO2max"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_frac_dist",
@@ -147,7 +335,9 @@
             "emoji": "📏",
             "color": "#ffffff",
             "type": "fractionne",
-            "categories": ["Fractionné"],
+            "categories": [
+                "Fractionné"
+            ],
             "defaultBlocs": 6,
             "defaultEffortSec": 0,
             "defaultEffortDist": 400,
@@ -159,7 +349,11 @@
             "defaultRecupPaceSec": 0,
             "defaultWarmupMin": 10,
             "defaultCooldownMin": 10,
-            "zones": ["Z4 Seuil", "Z5 VO2max"]
+            "zones": [
+                "Z4 Seuil",
+                "Z5 VO2max"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "run_frac_cote",
@@ -167,7 +361,9 @@
             "emoji": "⛰️",
             "color": "#ffffff",
             "type": "fractionne",
-            "categories": ["Fractionné"],
+            "categories": [
+                "Fractionné"
+            ],
             "defaultBlocs": 6,
             "defaultEffortSec": 60,
             "defaultEffortDist": 0,
@@ -179,7 +375,11 @@
             "defaultRecupPaceSec": 0,
             "defaultWarmupMin": 15,
             "defaultCooldownMin": 10,
-            "zones": ["Z5 VO2max", "Z4 Seuil"]
+            "zones": [
+                "Z5 VO2max",
+                "Z4 Seuil"
+            ],
+            "video": "youtube.com"
         }
     ],
     "hyroxExercices": [
@@ -189,11 +389,14 @@
             "emoji": "🎿",
             "color": "#aeaeb2",
             "type": "machine",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 1000,
             "defaultTargetMin": 4,
             "defaultTargetSec": 0,
-            "hasResistance": false
+            "hasResistance": false,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_sled_push",
@@ -201,11 +404,14 @@
             "emoji": "🛷",
             "color": "#0a84ff",
             "type": "sled",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 50,
             "defaultWeight": 102,
             "defaultTargetMin": 2,
-            "defaultTargetSec": 0
+            "defaultTargetSec": 0,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_sled_pull",
@@ -213,11 +419,14 @@
             "emoji": "🪢",
             "color": "#30d158",
             "type": "sled",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 50,
             "defaultWeight": 78,
             "defaultTargetMin": 2,
-            "defaultTargetSec": 30
+            "defaultTargetSec": 30,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_burpee",
@@ -225,10 +434,13 @@
             "emoji": "🤸",
             "color": "#ff9f0a",
             "type": "reps",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 80,
             "defaultTargetMin": 4,
-            "defaultTargetSec": 0
+            "defaultTargetSec": 0,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_rowing",
@@ -236,12 +448,15 @@
             "emoji": "🚣",
             "color": "#aeaeb2",
             "type": "machine",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 1000,
             "defaultTargetMin": 4,
             "defaultTargetSec": 30,
             "hasResistance": true,
-            "defaultResistance": 5
+            "defaultResistance": 5,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_farmers",
@@ -249,11 +464,14 @@
             "emoji": "🧳",
             "color": "#ffd60a",
             "type": "carry",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 200,
             "defaultWeight": 32,
             "defaultTargetMin": 2,
-            "defaultTargetSec": 0
+            "defaultTargetSec": 0,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_sandbag",
@@ -261,11 +479,14 @@
             "emoji": "🎒",
             "color": "#0a84ff",
             "type": "carry",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultDistance": 100,
             "defaultWeight": 20,
             "defaultTargetMin": 3,
-            "defaultTargetSec": 0
+            "defaultTargetSec": 0,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_wallballs",
@@ -273,11 +494,14 @@
             "emoji": "⚾",
             "color": "#ff453a",
             "type": "reps",
-            "categories": ["Hyrox Station"],
+            "categories": [
+                "Hyrox Station"
+            ],
             "defaultReps": 100,
             "defaultWeight": 6,
             "defaultTargetMin": 5,
-            "defaultTargetSec": 0
+            "defaultTargetSec": 0,
+            "video": "youtube.com"
         },
         {
             "id": "hyrox_course",
@@ -285,10 +509,13 @@
             "emoji": "🏃",
             "color": "#ffffff",
             "type": "course_hyrox",
-            "categories": ["Hyrox Course"],
+            "categories": [
+                "Hyrox Course"
+            ],
             "defaultDistance": 1000,
             "defaultPaceMin": 5,
-            "defaultPaceSec": 0
+            "defaultPaceSec": 0,
+            "video": "youtube.com"
         }
     ],
     "cardioExercices": [
@@ -298,10 +525,13 @@
             "emoji": "🎿",
             "color": "#aeaeb2",
             "type": "machine",
-            "categories": ["Cardio Machine"],
+            "categories": [
+                "Cardio Machine"
+            ],
             "defaultDuration": 10,
             "defaultDistance": 2000,
-            "hasResistance": false
+            "hasResistance": false,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_rowing",
@@ -309,11 +539,14 @@
             "emoji": "🚣",
             "color": "#aeaeb2",
             "type": "machine",
-            "categories": ["Cardio Machine"],
+            "categories": [
+                "Cardio Machine"
+            ],
             "defaultDuration": 10,
             "defaultDistance": 2000,
             "hasResistance": true,
-            "defaultResistance": 5
+            "defaultResistance": 5,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_assault",
@@ -321,10 +554,13 @@
             "emoji": "🚴",
             "color": "#aeaeb2",
             "type": "machine",
-            "categories": ["Cardio Machine"],
+            "categories": [
+                "Cardio Machine"
+            ],
             "defaultDuration": 10,
             "defaultDistance": 0,
-            "hasResistance": false
+            "hasResistance": false,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_jump_rope",
@@ -332,9 +568,12 @@
             "emoji": "🪢",
             "color": "#aeaeb2",
             "type": "reps_time",
-            "categories": ["Cardio Fonctionnel"],
+            "categories": [
+                "Cardio Fonctionnel"
+            ],
             "defaultDuration": 5,
-            "defaultReps": 0
+            "defaultReps": 0,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_box_jump",
@@ -342,9 +581,12 @@
             "emoji": "📦",
             "color": "#aeaeb2",
             "type": "reps_time",
-            "categories": ["Cardio Fonctionnel"],
+            "categories": [
+                "Cardio Fonctionnel"
+            ],
             "defaultDuration": 0,
-            "defaultReps": 20
+            "defaultReps": 20,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_kb_swing",
@@ -352,10 +594,13 @@
             "emoji": "🔔",
             "color": "#aeaeb2",
             "type": "reps_time",
-            "categories": ["Cardio Fonctionnel"],
+            "categories": [
+                "Cardio Fonctionnel"
+            ],
             "defaultDuration": 0,
             "defaultReps": 20,
-            "defaultWeight": 24
+            "defaultWeight": 24,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_farmers",
@@ -363,9 +608,12 @@
             "emoji": "🧳",
             "color": "#ffd60a",
             "type": "carry",
-            "categories": ["Cardio Carry"],
+            "categories": [
+                "Cardio Carry"
+            ],
             "defaultDistance": 50,
-            "defaultWeight": 32
+            "defaultWeight": 32,
+            "video": "youtube.com"
         },
         {
             "id": "cardio_yoke",
@@ -373,9 +621,12 @@
             "emoji": "🏗️",
             "color": "#ffd60a",
             "type": "carry",
-            "categories": ["Cardio Carry"],
+            "categories": [
+                "Cardio Carry"
+            ],
             "defaultDistance": 20,
-            "defaultWeight": 100
+            "defaultWeight": 100,
+            "video": "youtube.com"
         }
     ],
     "exercices": [
@@ -385,39 +636,82 @@
             "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "barre",
-            "categories": ["Pecs", "Push"],
-            "defaultSets": 3, "defaultReps": 1, "defaultWeight": 0,
-            "techniques": ["Normal", "Pause", "Spoto"]
+            "categories": [
+                "Pecs",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 1,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Spoto"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "sq",
             "name": "Squat",
-            "emoji": "🍑",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 80,
-            "techniques": ["Normal", "Pause", "High Bar", "Low Bar"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 80,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "High Bar",
+                "Low Bar"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "deadlift",
             "name": "Deadlift",
-            "emoji": "⬆️",
+            "emoji": "🦵",
             "color": "#30d158",
             "materielId": "barre",
-            "categories": ["Dos", "Jambes", "Pull"],
-            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 100,
-            "techniques": ["Normal", "Sumo", "Roumain", "Pause"]
+            "categories": [
+                "Dos",
+                "Jambes",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 3,
+            "defaultWeight": 100,
+            "techniques": [
+                "Normal",
+                "Sumo",
+                "Roumain",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "rdl",
             "name": "Romanian Deadlift",
-            "emoji": "🔻",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 70,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 70,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "ohp",
@@ -425,39 +719,75 @@
             "emoji": "🔝",
             "color": "#ff9f0a",
             "materielId": "barre",
-            "categories": ["Épaules", "Push"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 40,
-            "techniques": ["Normal", "Push Press", "Pause"]
+            "categories": [
+                "Épaules",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal",
+                "Push Press",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "zercher",
             "name": "Zercher Squat",
-            "emoji": "🤲",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 60,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 60,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "goodmorning",
             "name": "Good Morning",
-            "emoji": "🌅",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Dos", "Jambes"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
-            "techniques": ["Normal"]
+            "categories": [
+                "Dos",
+                "Jambes"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "front_sq",
             "name": "Front Squat",
-            "emoji": "🏋️‍♀️",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 60,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 60,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "traction",
@@ -465,39 +795,75 @@
             "emoji": "🆙",
             "color": "#30d158",
             "materielId": "leste",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 10,
-            "techniques": ["Normal", "Lesté"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 10,
+            "techniques": [
+                "Normal",
+                "Lesté"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "dc_incline",
             "name": "DC Incliné",
-            "emoji": "🏔️",
+            "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "barre",
-            "categories": ["Pecs", "Push"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 50,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Pecs",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 50,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "dc_decline",
             "name": "DC Décliné",
-            "emoji": "📉",
+            "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "barre",
-            "categories": ["Pecs", "Push"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 55,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Pecs",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 55,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "ecartes_halteres",
             "name": "Écartés Haltères",
-            "emoji": "🤸",
+            "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "haltere",
-            "categories": ["Pecs", "Push"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 15,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Pecs",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 15,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "curl_biceps",
@@ -505,9 +871,20 @@
             "emoji": "💪",
             "color": "#ffd60a",
             "materielId": "haltere",
-            "categories": ["Bras", "Pull"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 12,
-            "techniques": ["Normal", "Série dégressive", "Pause", "Marteau"]
+            "categories": [
+                "Bras",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 12,
+            "techniques": [
+                "Normal",
+                "Série dégressive",
+                "Pause",
+                "Marteau"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "extension_triceps",
@@ -515,19 +892,38 @@
             "emoji": "💪",
             "color": "#ffd60a",
             "materielId": "haltere",
-            "categories": ["Bras", "Push"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 10,
-            "techniques": ["Normal", "Série dégressive"]
+            "categories": [
+                "Bras",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 10,
+            "techniques": [
+                "Normal",
+                "Série dégressive"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "tirage_vertical",
             "name": "Tirage Vertical",
-            "emoji": "🏋️‍♂️",
+            "emoji": "🚣",
             "color": "#30d158",
             "materielId": "poulie",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 50,
-            "techniques": ["Normal", "Pause", "Prise neutre"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 50,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Prise neutre"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "tirage_horizontal",
@@ -535,19 +931,38 @@
             "emoji": "🚣",
             "color": "#30d158",
             "materielId": "poulie",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 45,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 45,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "rowing_barre",
             "name": "Rowing Barre",
-            "emoji": "🏋️",
+            "emoji": "🚣",
             "color": "#30d158",
             "materielId": "barre",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
-            "techniques": ["Normal", "Pause", "Penché"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Penché"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "elevations_laterales",
@@ -555,9 +970,18 @@
             "emoji": "🦾",
             "color": "#ff9f0a",
             "materielId": "haltere",
-            "categories": ["Épaules", "Push"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 8,
-            "techniques": ["Normal", "Série dégressive"]
+            "categories": [
+                "Épaules",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 8,
+            "techniques": [
+                "Normal",
+                "Série dégressive"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "presse_cuisses",
@@ -565,9 +989,19 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 100,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 100,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "leg_extension",
@@ -575,9 +1009,18 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 40,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "leg_curl",
@@ -585,9 +1028,19 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 35,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 35,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "mollets",
@@ -595,9 +1048,20 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 4, "defaultReps": 15, "defaultWeight": 80,
-            "techniques": ["Normal", "Pause", "Contraction max"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 4,
+            "defaultReps": 15,
+            "defaultWeight": 80,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Contraction max"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "abdo_releves",
@@ -605,9 +1069,19 @@
             "emoji": "🧘",
             "color": "#bf5af2",
             "materielId": "leste",
-            "categories": ["Abdos", "Core", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Abdos",
+                "Core",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "crunch_swiss",
@@ -615,19 +1089,38 @@
             "emoji": "⚽",
             "color": "#bf5af2",
             "materielId": "swiss_ball",
-            "categories": ["Abdos", "Core", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Abdos",
+                "Core",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "tirage_menton",
             "name": "Tirage Menton",
-            "emoji": "🤨",
+            "emoji": "🦾",
             "color": "#ff9f0a",
             "materielId": "poulie_basse",
-            "categories": ["Épaules", "Pull"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 25,
-            "techniques": ["Normal", "Prise serrée"]
+            "categories": [
+                "Épaules",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 25,
+            "techniques": [
+                "Normal",
+                "Prise serrée"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "pompes",
@@ -635,9 +1128,24 @@
             "emoji": "🧘‍♂️",
             "color": "#ff453a",
             "materielId": "pdc_leste",
-            "categories": ["Pecs", "Push", "PDC Push", "PDC", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 0,
-            "techniques": ["Normal", "Pause", "Plaque", "Archer", "Diamant"]
+            "categories": [
+                "Pecs",
+                "Push",
+                "PDC Push",
+                "PDC",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Plaque",
+                "Archer",
+                "Diamant"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "dips",
@@ -645,19 +1153,44 @@
             "emoji": "🤸‍♂️",
             "color": "#ff453a",
             "materielId": "pdc_leste",
-            "categories": ["Pecs", "Triceps", "Push", "PDC Push", "PDC"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 0,
-            "techniques": ["Normal", "Lesté", "Anneau"]
+            "categories": [
+                "Pecs",
+                "Triceps",
+                "Push",
+                "PDC Push",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Anneau"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "muscle_up",
             "name": "Muscle-Up",
-            "emoji": "🌀",
+            "emoji": "🆙",
             "color": "#30d158",
             "materielId": "pdc_leste",
-            "categories": ["Dos", "Pecs", "PDC Pull", "PDC"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
-            "techniques": ["Barre fixe", "Anneau", "Kipping"]
+            "categories": [
+                "Dos",
+                "Pecs",
+                "PDC Pull",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 0,
+            "techniques": [
+                "Barre fixe",
+                "Anneau",
+                "Kipping"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "traction_pdc",
@@ -665,9 +1198,22 @@
             "emoji": "🆙",
             "color": "#30d158",
             "materielId": "pdc_leste",
-            "categories": ["Dos", "Pull", "PDC Pull", "PDC"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 0,
-            "techniques": ["Normal", "Lesté", "Australienne", "Archer"]
+            "categories": [
+                "Dos",
+                "Pull",
+                "PDC Pull",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Australienne",
+                "Archer"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "l_sit",
@@ -675,10 +1221,21 @@
             "emoji": "🪑",
             "color": "#bf5af2",
             "materielId": "pdc",
-            "categories": ["Core", "PDC Core", "PDC"],
-            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 0,
-            "techniques": ["Parallettes", "Sol", "Barre"],
-            "unit": "sec"
+            "categories": [
+                "Core",
+                "PDC Core",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 20,
+            "defaultWeight": 0,
+            "techniques": [
+                "Parallettes",
+                "Sol",
+                "Barre"
+            ],
+            "unit": "sec",
+            "video": "youtube.com"
         },
         {
             "id": "front_lever",
@@ -686,10 +1243,23 @@
             "emoji": "⚓",
             "color": "#30d158",
             "materielId": "pdc",
-            "categories": ["Dos", "Core", "PDC Pull", "PDC"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 0,
-            "techniques": ["Tuck", "One Leg", "Straddle", "Full"],
-            "unit": "sec"
+            "categories": [
+                "Dos",
+                "Core",
+                "PDC Pull",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 0,
+            "techniques": [
+                "Tuck",
+                "One Leg",
+                "Straddle",
+                "Full"
+            ],
+            "unit": "sec",
+            "video": "youtube.com"
         },
         {
             "id": "planche",
@@ -697,10 +1267,21 @@
             "emoji": "🤸",
             "color": "#ff453a",
             "materielId": "pdc",
-            "categories": ["Pecs", "PDC Push", "PDC"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
-            "techniques": ["Tuck", "Straddle", "Full"],
-            "unit": "sec"
+            "categories": [
+                "Pecs",
+                "PDC Push",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 0,
+            "techniques": [
+                "Tuck",
+                "Straddle",
+                "Full"
+            ],
+            "unit": "sec",
+            "video": "youtube.com"
         },
         {
             "id": "hspu",
@@ -708,19 +1289,42 @@
             "emoji": "🙃",
             "color": "#ff9f0a",
             "materielId": "pdc",
-            "categories": ["Épaules", "PDC Push", "PDC"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 0,
-            "techniques": ["Mur", "Strict", "Kipping", "Déficit"]
+            "categories": [
+                "Épaules",
+                "PDC Push",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 0,
+            "techniques": [
+                "Mur",
+                "Strict",
+                "Kipping",
+                "Déficit"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "pistol_squat",
             "name": "Pistol Squat",
-            "emoji": "🦿",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "pdc_leste",
-            "categories": ["Jambes", "PDC Legs", "PDC"],
-            "defaultSets": 3, "defaultReps": 6, "defaultWeight": 0,
-            "techniques": ["Normal", "Lesté", "Pause"]
+            "categories": [
+                "Jambes",
+                "PDC Legs",
+                "PDC"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 6,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "gainage",
@@ -728,40 +1332,84 @@
             "emoji": "🧱",
             "color": "#bf5af2",
             "materielId": "pdc",
-            "categories": ["Core", "Abdos", "PDC Core", "PDC", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 45, "defaultWeight": 0,
-            "techniques": ["Planche", "Latéral", "Dynamique"],
-            "unit": "sec"
+            "categories": [
+                "Core",
+                "Abdos",
+                "PDC Core",
+                "PDC",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 45,
+            "defaultWeight": 0,
+            "techniques": [
+                "Planche",
+                "Latéral",
+                "Dynamique"
+            ],
+            "unit": "sec",
+            "video": "youtube.com"
         },
         {
             "id": "fentes",
             "name": "Fentes",
-            "emoji": "🦿",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "haltere",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 10,
-            "techniques": ["Normal", "Marchées", "Latérales"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 10,
+            "techniques": [
+                "Normal",
+                "Marchées",
+                "Latérales"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "squat_bulgare",
             "name": "Squat Bulgare",
-            "emoji": "🏋️",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "haltere",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 12,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 12,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "step_up",
             "name": "Step Up",
-            "emoji": "📦",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "haltere",
-            "categories": ["Jambes", "Legs", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 8,
-            "techniques": ["Normal", "Lent"]
+            "categories": [
+                "Jambes",
+                "Legs",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 8,
+            "techniques": [
+                "Normal",
+                "Lent"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "nordic_curl",
@@ -769,29 +1417,66 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "pdc",
-            "categories": ["Jambes", "Renfo Run"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 0,
-            "techniques": ["Normal", "Excentrique"]
+            "categories": [
+                "Jambes",
+                "Renfo Run"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Excentrique"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "sl_weighted_pullup",
             "name": "Tractions Lestées",
-            "emoji": "🏅",
+            "emoji": "🆙",
             "color": "#30d158",
             "materielId": "pdc_leste",
-            "categories": ["Dos", "Pull", "PDC Pull", "PDC", "Streetlifting"],
-            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 20,
-            "techniques": ["Normal", "Pronation", "Supination", "Neutre"]
+            "categories": [
+                "Dos",
+                "Pull",
+                "PDC Pull",
+                "PDC",
+                "Streetlifting"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 3,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Pronation",
+                "Supination",
+                "Neutre"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "sl_weighted_dips",
             "name": "Dips Lestés",
-            "emoji": "🥇",
+            "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "pdc_leste",
-            "categories": ["Pecs", "Triceps", "Push", "PDC Push", "PDC", "Streetlifting"],
-            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 20,
-            "techniques": ["Normal", "Penchés avant", "Anneau"]
+            "categories": [
+                "Pecs",
+                "Triceps",
+                "Push",
+                "PDC Push",
+                "PDC",
+                "Streetlifting"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 3,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Penchés avant",
+                "Anneau"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "sl_weighted_pushup",
@@ -799,49 +1484,104 @@
             "emoji": "🏆",
             "color": "#ff453a",
             "materielId": "pdc_leste",
-            "categories": ["Pecs", "Push", "PDC Push", "PDC", "Streetlifting"],
-            "defaultSets": 3, "defaultReps": 5, "defaultWeight": 20,
-            "techniques": ["Normal", "Archer", "Diamant"]
+            "categories": [
+                "Pecs",
+                "Push",
+                "PDC Push",
+                "PDC",
+                "Streetlifting"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 5,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Archer",
+                "Diamant"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "sl_muscle_up",
             "name": "Muscle-Up Lesté",
-            "emoji": "🎖️",
+            "emoji": "🆙",
             "color": "#30d158",
             "materielId": "pdc_leste",
-            "categories": ["Dos", "Pecs", "PDC", "Streetlifting"],
-            "defaultSets": 3, "defaultReps": 3, "defaultWeight": 10,
-            "techniques": ["Strict", "Barre", "Anneau"]
+            "categories": [
+                "Dos",
+                "Pecs",
+                "PDC",
+                "Streetlifting"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 3,
+            "defaultWeight": 10,
+            "techniques": [
+                "Strict",
+                "Barre",
+                "Anneau"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "fente_bulgare_h",
             "name": "Fente Bulgare Haltères",
-            "emoji": "🦿",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "haltere",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 20,
-            "techniques": ["Normal", "Pause", "Sauté", "Déficit"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Sauté",
+                "Déficit"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "fente_bulgare_b",
             "name": "Fente Bulgare Barre",
-            "emoji": "🏋️",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 8, "defaultWeight": 40,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 8,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "hip_thrust",
             "name": "Hip Thrust",
-            "emoji": "🍑",
+            "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "barre",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 60,
-            "techniques": ["Normal", "Pause", "Unilatéral"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 60,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Unilatéral"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "hack_squat",
@@ -849,9 +1589,19 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 80,
-            "techniques": ["Normal", "Pause", "Pieds hauts"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 80,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Pieds hauts"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "mollets_assis",
@@ -859,9 +1609,19 @@
             "emoji": "🦵",
             "color": "#0a84ff",
             "materielId": "machine",
-            "categories": ["Jambes", "Legs"],
-            "defaultSets": 4, "defaultReps": 15, "defaultWeight": 40,
-            "techniques": ["Normal", "Pause", "Contraction max"]
+            "categories": [
+                "Jambes",
+                "Legs"
+            ],
+            "defaultSets": 4,
+            "defaultReps": 15,
+            "defaultWeight": 40,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Contraction max"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "crunch",
@@ -869,9 +1629,20 @@
             "emoji": "🔥",
             "color": "#bf5af2",
             "materielId": "pdc_leste",
-            "categories": ["Abdos", "Core"],
-            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 0,
-            "techniques": ["Normal", "Lesté", "Câble", "Déclin"]
+            "categories": [
+                "Abdos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 20,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Câble",
+                "Déclin"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "planche_abdos",
@@ -880,30 +1651,61 @@
             "color": "#bf5af2",
             "materielId": "pdc_leste",
             "unit": "sec",
-            "categories": ["Abdos", "Core"],
-            "defaultSets": 3, "defaultReps": 45, "defaultWeight": 0,
-            "techniques": ["Normal", "Avant-bras", "Lestée", "Dynamique"]
+            "categories": [
+                "Abdos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 45,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Avant-bras",
+                "Lestée",
+                "Dynamique"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "planche_oblique",
             "name": "Planche Obliques",
-            "emoji": "📐",
+            "emoji": "🧱",
             "color": "#bf5af2",
             "materielId": "pdc_leste",
             "unit": "sec",
-            "categories": ["Abdos", "Core"],
-            "defaultSets": 3, "defaultReps": 30, "defaultWeight": 0,
-            "techniques": ["Normal", "Lestée", "Avec rotation"]
+            "categories": [
+                "Abdos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 30,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lestée",
+                "Avec rotation"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "russian_twist",
             "name": "Russian Twist",
-            "emoji": "🔄",
+            "emoji": "🧱",
             "color": "#bf5af2",
             "materielId": "leste",
-            "categories": ["Abdos", "Core"],
-            "defaultSets": 3, "defaultReps": 20, "defaultWeight": 5,
-            "techniques": ["Normal", "Lesté", "Pieds décollés"]
+            "categories": [
+                "Abdos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 20,
+            "defaultWeight": 5,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Pieds décollés"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "dc_halteres",
@@ -911,49 +1713,98 @@
             "emoji": "🏋️",
             "color": "#ff453a",
             "materielId": "haltere",
-            "categories": ["Pecs", "Push"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 24,
-            "techniques": ["Normal", "Pause", "Incliné", "Décliné"]
+            "categories": [
+                "Pecs",
+                "Push"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 24,
+            "techniques": [
+                "Normal",
+                "Pause",
+                "Incliné",
+                "Décliné"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "pull_over",
             "name": "Pull-Over",
-            "emoji": "🏹",
+            "emoji": "🆙",
             "color": "#30d158",
             "materielId": "haltere",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 20,
-            "techniques": ["Normal", "Pause"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "shrug",
             "name": "Shrug (Trapèzes)",
-            "emoji": "🤷",
+            "emoji": "🆙",
             "color": "#30d158",
             "materielId": "barre",
-            "categories": ["Dos", "Pull"],
-            "defaultSets": 3, "defaultReps": 12, "defaultWeight": 80,
-            "techniques": ["Normal", "Haltères", "Pause"]
+            "categories": [
+                "Dos",
+                "Pull"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 80,
+            "techniques": [
+                "Normal",
+                "Haltères",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "face_pull",
             "name": "Face Pull",
-            "emoji": "🎯",
+            "emoji": "🆙",
             "color": "#ff9f0a",
             "materielId": "poulie",
-            "categories": ["Épaules", "Dos"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 20,
-            "techniques": ["Normal", "Corde", "Pause"]
+            "categories": [
+                "Épaules",
+                "Dos"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 20,
+            "techniques": [
+                "Normal",
+                "Corde",
+                "Pause"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "oiseau",
             "name": "Oiseau (Deltoïde post.)",
-            "emoji": "🦅",
+            "emoji": "🦾",
             "color": "#ff9f0a",
             "materielId": "haltere",
-            "categories": ["Épaules"],
-            "defaultSets": 3, "defaultReps": 15, "defaultWeight": 8,
-            "techniques": ["Normal", "Poulie", "Série dégressive"]
+            "categories": [
+                "Épaules"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 8,
+            "techniques": [
+                "Normal",
+                "Poulie",
+                "Série dégressive"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "curl_barre",
@@ -961,19 +1812,102 @@
             "emoji": "💪",
             "color": "#ffd60a",
             "materielId": "barre",
-            "categories": ["Bras", "Biceps"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 25,
-            "techniques": ["Normal", "Pupitre", "Pause", "EZ"]
+            "categories": [
+                "Bras",
+                "Biceps"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 25,
+            "techniques": [
+                "Normal",
+                "Pupitre",
+                "Pause",
+                "EZ"
+            ],
+            "video": "youtube.com"
         },
         {
             "id": "skullcrusher",
-            "name": "Barre au Front",
-            "emoji": "💀",
+            "name": "Skull Crusher",
+            "emoji": "💪",
             "color": "#ffd60a",
             "materielId": "barre",
-            "categories": ["Bras", "Triceps"],
-            "defaultSets": 3, "defaultReps": 10, "defaultWeight": 25,
-            "techniques": ["Normal", "EZ", "Derrière la tête"]
+            "categories": [
+                "Bras",
+                "Triceps"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 10,
+            "defaultWeight": 25,
+            "techniques": [
+                "Normal",
+                "EZ",
+                "Derrière la tête"
+            ],
+            "video": "youtube.com"
+        },
+        {
+            "id": "releve_jambes_suspendu",
+            "name": "Relevé de Jambes Suspendu",
+            "emoji": "🧱",
+            "color": "#bf5af2",
+            "materielId": "pdc_leste",
+            "categories": [
+                "Abdos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 0,
+            "techniques": [
+                "Genoux",
+                "Jambes tendues",
+                "Lesté",
+                "Toes to bar"
+            ],
+            "video": "youtube.com"
+        },
+        {
+            "id": "extension_lombaire",
+            "name": "Extension Lombaire",
+            "emoji": "🧱",
+            "color": "#30d158",
+            "materielId": "pdc_leste",
+            "categories": [
+                "Dos",
+                "Core"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 15,
+            "defaultWeight": 0,
+            "techniques": [
+                "Normal",
+                "Lesté",
+                "Banc",
+                "Machine"
+            ],
+            "video": "youtube.com"
+        },
+        {
+            "id": "spider_curl",
+            "name": "Spider Curl",
+            "emoji": "💪",
+            "color": "#ffd60a",
+            "materielId": "haltere",
+            "categories": [
+                "Bras",
+                "Biceps"
+            ],
+            "defaultSets": 3,
+            "defaultReps": 12,
+            "defaultWeight": 12,
+            "techniques": [
+                "Normal",
+                "Marteau",
+                "Série dégressive"
+            ],
+            "video": "youtube.com"
         }
     ]
 }
