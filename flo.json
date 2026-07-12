@@ -1,5 +1,5 @@
 {
-    "exportDate": "2026-07-10T14:50:47.469Z",
+    "exportDate": "2026-07-12T08:48:55.016Z",
     "programName": "flo",
     "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
     "startDate": "2026-06-07T22:00:00.000Z",
@@ -1058,11 +1058,53 @@
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🦵",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "asymptotic",
+                            "target": 120,
+                            "speed": 0.15
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
-                                "pct": 55,
-                                "weight": 27.5,
+                                "pct": 60,
+                                "weight": 75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -2176,11 +2218,53 @@
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🦵",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "asymptotic",
+                            "target": 120,
+                            "speed": 0.15
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
-                                "pct": 55,
-                                "weight": 27.5,
+                                "pct": 60,
+                                "weight": 75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -3294,11 +3378,53 @@
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🦵",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "asymptotic",
+                            "target": 120,
+                            "speed": 0.15
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
-                                "pct": 55,
-                                "weight": 27.5,
+                                "pct": 60,
+                                "weight": 75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -3420,7 +3546,7 @@
         },
         {
             "week": 4,
-            "deload": true,
+            "deload": false,
             "days": {
                 "Mardi": [
                     {
@@ -4412,11 +4538,53 @@
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🦵",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "asymptotic",
+                            "target": 120,
+                            "speed": 0.15
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
-                                "pct": 55,
-                                "weight": 27.5,
+                                "pct": 60,
+                                "weight": 75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
@@ -5561,11 +5729,53 @@
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
+                            }
+                        ]
+                    },
+                    {
+                        "cardType": "muscu",
+                        "id": "sq",
+                        "name": "Squat",
+                        "emoji": "🦵",
+                        "color": "#0a84ff",
+                        "materielId": "barre",
+                        "step": 2.5,
+                        "trainingMode": "force",
+                        "pyramideConfig": null,
+                        "progressionConfig": {
+                            "type": "asymptotic",
+                            "target": 120,
+                            "speed": 0.15
+                        },
+                        "sets": [
+                            {
+                                "reps": 5,
+                                "pct": 65,
+                                "weight": 80,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 70,
+                                "weight": 87.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
+                            },
+                            {
+                                "reps": 5,
+                                "pct": 75,
+                                "weight": 92.5,
+                                "tech": "Normal",
+                                "restMin": 0,
+                                "restSec": 0
                             },
                             {
                                 "reps": 7,
-                                "pct": 55,
-                                "weight": 27.5,
+                                "pct": 60,
+                                "weight": 75,
                                 "tech": "Normal",
                                 "restMin": 0,
                                 "restSec": 0
