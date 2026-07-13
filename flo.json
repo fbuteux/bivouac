@@ -1,5 +1,5 @@
 {
-    "exportDate": "2026-07-12T08:48:55.016Z",
+    "exportDate": "2026-07-13T12:14:03.685Z",
     "programName": "flo",
     "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
     "startDate": "2026-06-07T22:00:00.000Z",
@@ -957,7 +957,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 4,
+                        "rounds": 3,
                         "restSec": 60,
                         "items": [
                             {
@@ -1169,7 +1169,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 3,
+                        "rounds": 4,
                         "restSec": 60,
                         "items": [
                             {
@@ -2117,7 +2117,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 4,
+                        "rounds": 3,
                         "restSec": 60,
                         "items": [
                             {
@@ -3277,7 +3277,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 4,
+                        "rounds": 3,
                         "restSec": 60,
                         "items": [
                             {
@@ -4437,7 +4437,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 4,
+                        "rounds": 3,
                         "restSec": 60,
                         "items": [
                             {
@@ -5628,7 +5628,7 @@
                     {
                         "cardType": "box",
                         "name": "Circuit",
-                        "rounds": 4,
+                        "rounds": 3,
                         "restSec": 60,
                         "items": [
                             {
