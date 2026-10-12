@@ -4,10 +4,10 @@
     "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
     "startDate": "2026-10-12T22:00:00.000Z",
     "maxTargets": {
-        "sq": 120,
-        "ohp": 52.5,
-        "dc": 120,
-        "dc_incline": 100,
+        "sq": 115,
+        "ohp": 40,
+        "dc": 110,
+        "dc_incline": 90,
         "deadlift": 120,
         "fente_bulgare_b": 50
     },
