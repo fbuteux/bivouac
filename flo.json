@@ -1,8 +1,8 @@
 {
-    "exportDate": "2026-10-1211T12:14:03.685Z",
+    "exportDate": "2026-10-13T16:27:22.537Z",
     "programName": "flo",
     "programNotes": "Généré depuis index.html (cycle 1). Décalage 2 j : 1er jour = mardi.",
-    "startDate": "2026-10-12T22:00:00.000Z",
+    "startDate": "2026-09-06T22:00:00.000Z",
     "maxTargets": {
         "sq": 115,
         "ohp": 40,
@@ -1222,7 +1222,7 @@
                     }
                 ]
             },
-            "startDate": "2026-06-07"
+            "startDate": "2026-09-06"
         },
         {
             "week": 2,
@@ -2382,7 +2382,7 @@
                     }
                 ]
             },
-            "startDate": "2026-06-14"
+            "startDate": "2026-09-13"
         },
         {
             "week": 3,
@@ -3542,7 +3542,7 @@
                     }
                 ]
             },
-            "startDate": "2026-06-21"
+            "startDate": "2026-09-20"
         },
         {
             "week": 4,
@@ -4702,7 +4702,7 @@
                     }
                 ]
             },
-            "startDate": "2026-06-28"
+            "startDate": "2026-09-27"
         },
         {
             "week": 5,
@@ -5893,7 +5893,7 @@
                     }
                 ]
             },
-            "startDate": "2026-07-05"
+            "startDate": "2026-10-04"
         }
     ]
 }
